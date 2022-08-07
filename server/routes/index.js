@@ -22,4 +22,4 @@ RootRouter.use("/login", loginRoutes);
 RootRouter.use("/availableUsers", availableUsersRoutes);
 RootRouter.use("/auth", authRoutes);
 
-export default RootRouter;
+export default RootRouter

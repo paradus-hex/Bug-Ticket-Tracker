@@ -19,7 +19,7 @@ router.param('id', ticketController.checkID);
 // module.exports = router;
 
 
-// Matches route with "/api/tickets/"
+// Matches route with "/api/v1/tickets/"
 router.route("/").get(authorization, ticketController.getUserTickets);
 
 router

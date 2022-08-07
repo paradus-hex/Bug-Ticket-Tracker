@@ -19,10 +19,10 @@ const router = express.Router();
 
 
 
-// Matches route with "/api/users/"
+// Matches route with "/api/v1/users/"
 router.route("/").get(userController.getAll).post(userController.addUser);
 
-// Matches route with "/api/users/:id"
+// Matches route with "/api/v1/users/:id"
 router
   .route("/:id")
   .get(userController.getUser)

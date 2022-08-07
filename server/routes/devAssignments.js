@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const devAssignmentsController = require("../../controllers/devAssignmentsController");
 
-// Matches route with "/api/assigneddev/"
+// Matches route with "/api/v1/assigneddev/"
 router.route("/").delete(devAssignmentsController.removeDev);
 
-// Matches route with "/api/assigneddev/:ticketId"
+// Matches route with "/api/v1/assigneddev/:ticketId"
 router
   .route("/:ticketId")
   .post(devAssignmentsController.assignDev)

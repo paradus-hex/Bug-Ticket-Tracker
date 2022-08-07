@@ -1,24 +1,19 @@
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
+import * as dotenv from 'dotenv';
 import express from 'express';
-import { CLIENT_URL, SERVER_PORT } from './config';
-import { logger } from './middlewares';
-import RootRouter from './routes';
+// import RootRouter from "./routes/index.js";
 
+
+
+dotenv.config();
 const app = express();
 
-app.use(
-  cors({
-    origin: CLIENT_URL,
-    credentials: true
-  })
-);
+const SERVER_PORT=process.env.SERVER_PORT
+
 
 app.use(express.json());
-app.use(logger);
-app.use(cookieParser());
 
-app.use('/v1', RootRouter);
+
+// app.use('/v1', RootRouter);
 
 // for testing purposes
 app.get('/ping', (_, res) => {
