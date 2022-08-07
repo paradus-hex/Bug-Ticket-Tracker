@@ -1,6 +1,12 @@
-const router = require("express").Router();
-const userProjectController = require("../../controllers/userProjectController");
-const authorization = require("../../middleware/authorization");
+// const router = require("express").Router();
+// const userProjectController = require("../../controllers/userProjectController");
+// const authorization = require("../../middleware/authorization");
+
+import { Router } from "express";
+import { userProjectController } from "../../controllers/userProjectController";
+import { authorization } from "../../middleware/authorization";
+
+const router = Router();
 
 // Matches route with "/api/v1/userProjects/"
 router.route("/");

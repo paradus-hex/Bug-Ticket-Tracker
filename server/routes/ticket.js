@@ -1,5 +1,8 @@
-const express = require('express');
-const ticketController = require('./../controllers/ticketControllers');
+// const express = require('express');
+// const ticketController = require('./../controllers/ticketControllers');
+
+import express from 'express';
+import { ticketController } from './../controllers/ticketControllers';
 
 const router = express.Router();
 
