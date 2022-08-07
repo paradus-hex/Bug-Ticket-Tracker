@@ -17,13 +17,13 @@ router.route("/");
 // Matches route with "/api/v1/userProjects/:projectId"
 router
   .route("/:projectId")
-  .post(authorization, assignUser)
-  .get(authorization, getProjectUsers)
-  .delete(authorization, removeAllUsers);
+  .post(authorization, userProjectController.assignUser)
+  .get(authorization, userProjectController.getProjectUsers)
+  .delete(authorization, userProjectController.removeAllUsers);
 
 // Matches route with "/api/v1/userProjects/:projectId/:userId"
 router
   .route("/:projectId/:userId")
-  .delete(authorization, removeUser);
+  .delete(authorization, userProjectController.removeUser);
 
-export default router;
+module.exports = router;

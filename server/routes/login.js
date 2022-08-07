@@ -4,16 +4,15 @@
 // const jwtGenerator = require("../../utils/jwtGenerator");
 
 import { Router } from "express";
-import { connect } from "../../db";
-import { compare } from "bcryptjs";
-import jwtGenerator from "../../utils/jwtGenerator";
+import { pool } from "../../db";
+import bcrypt from "bcryptjs";
 
 const router = Router();
 
 
 //Matches route /login
 router.post("/", async (req, res) => {
-  const client = await connect();
+  const client = await pool.connect();
 
   try {
     //1. destructure req.body
@@ -28,7 +27,7 @@ router.post("/", async (req, res) => {
     }
 
     //3. check if incoming password is correct
-    const validPassword = await compare(
+    const validPassword = await bcrypt.compare(
       password,
       user.rows[0].password_hash
     );
@@ -50,4 +49,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
