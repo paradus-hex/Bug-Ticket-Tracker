@@ -1,33 +1,3 @@
-const tickets=[
-  {
-    "_id": "5c8a34ed14eb5c17645c9108",
-    "description": "Cras mollis nisi parturient mi nec aliquet suspendisse sagittis eros condimentum scelerisque taciti mattis praesent feugiat eu nascetur a tincidunt",
-    "rating": 5,
-    "user": "5c8a1dfa2f8fb814b56fa181",
-    "tags": "5c88fa8cf4afda39709c2955"
-  },
-  {
-    "_id": "5c8a355b14eb5c17645c9109",
-    "description": "Tempus curabitur faucibus auctor bibendum duis gravida tincidunt litora himenaeos facilisis vivamus vehicula potenti semper fusce suspendisse sagittis!",
-    "rating": 4,
-    "user": "5c8a1dfa2f8fb814b56fa181",
-    "tags": "5c88fa8cf4afda39709c295a"
-  },
-  {
-    "_id": "5c8a359914eb5c17645c910a",
-    "description": "Convallis turpis porttitor sapien ad urna efficitur dui vivamus in praesent nulla hac non potenti!",
-    "rating": 5,
-    "user": "5c8a1dfa2f8fb814b56fa181",
-    "tags": "5c88fa8cf4afda39709c295d"
-  },
-  {
-    "_id": "5c8a35b614eb5c17645c910b",
-    "description": "Habitasse scelerisque class quam primis convallis integer eros congue nulla proin nam faucibus parturient.",
-    "rating": 4,
-    "user": "5c8a1dfa2f8fb814b56fa181",
-    "tags": "5c88fa8cf4afda39709c296c"
-  },
-]
 
 exports.checkID = (req, res, next, val) => {
   console.log(`Ticket id is: ${val}`);
@@ -41,15 +11,6 @@ exports.checkID = (req, res, next, val) => {
   next();
 };
 
-exports.checkBody = (req, res, next) => {
-  if (!req.body.name || !req.body.price) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Missing name or price'
-    });
-  }
-  next();
-};
 
 exports.getAllTickets = (req, res) => {
   console.log(req.requestTime);
