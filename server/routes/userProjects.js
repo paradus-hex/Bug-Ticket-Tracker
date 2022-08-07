@@ -3,10 +3,13 @@
 // const authorization = require("../../middleware/authorization");
 
 import { Router } from "express";
-import { userProjectController } from "../../controllers/userProjectController";
-import { authorization } from "../../middleware/authorization";
+import * as userProjectController from "../../controllers/userProjectController";
+import authorization from "../../middleware/authorization";
+
 
 const router = Router();
+
+
 
 // Matches route with "/api/v1/userProjects/"
 router.route("/");
@@ -14,13 +17,13 @@ router.route("/");
 // Matches route with "/api/v1/userProjects/:projectId"
 router
   .route("/:projectId")
-  .post(authorization, userProjectController.assignUser)
-  .get(authorization, userProjectController.getProjectUsers)
-  .delete(authorization, userProjectController.removeAllUsers);
+  .post(authorization, assignUser)
+  .get(authorization, getProjectUsers)
+  .delete(authorization, removeAllUsers);
 
 // Matches route with "/api/v1/userProjects/:projectId/:userId"
 router
   .route("/:projectId/:userId")
-  .delete(authorization, userProjectController.removeUser);
+  .delete(authorization, removeUser);
 
-module.exports = router;
+export default router;
