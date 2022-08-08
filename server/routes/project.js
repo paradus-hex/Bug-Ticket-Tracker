@@ -1,10 +1,6 @@
-// const router = require("express").Router();
-// const projectController = require("../../controllers/projectController");
-// const authorization = require("../../middleware/authorization");
-
 import { Router } from "express";
-import * as projectController from "../../controllers/projectController";
-import authorization from "../../middleware/authorization";
+// import projectController from "../../controllers/projectController";
+// import authorization from "../../middleware/authorization";
 
 const router = Router();
 
