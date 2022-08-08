@@ -3,7 +3,7 @@ import { Router } from 'express';
 
 const router = Router()
 
-router.param('id', ticketController.checkID);
+// router.param('id', ticketController.checkID);
 
 // router
 //   .route('/')
@@ -20,17 +20,17 @@ router.param('id', ticketController.checkID);
 
 
 // Matches route with "/api/v1/tickets/"
-router.route("/").get(authorization, ticketController.getUserTickets);
+// router.route("/").get(authorization, ticketController.getUserTickets);
 
-router
-  .route("/:projectId")
-  .post(authorization, ticketController.createTicket)
-  .get(ticketController.getProjectTickets);
+// router
+//   .route("/:projectId")
+//   .post(authorization, ticketController.createTicket)
+//   .get(ticketController.getProjectTickets);
 
-router
-  .route("/:projectId/:ticketId")
-  .get(ticketController.getTicket)
-  .put(authorization, ticketController.updateTicket)
-  .delete(authorization, ticketController.deleteTicket);
+// router
+//   .route("/:projectId/:ticketId")
+//   .get(ticketController.getTicket)
+//   .put(authorization, ticketController.updateTicket)
+//   .delete(authorization, ticketController.deleteTicket);
 
-module.exports = router;
+export default router;

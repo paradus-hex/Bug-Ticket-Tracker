@@ -4,6 +4,6 @@ import { Router } from "express";
 const router = Router();
 
 // Matches route with "/api/v1/auth/user"
-router.route(`/user`).post(userController.lookupUserByEmail);
+// router.route(`/user`).post(userController.lookupUserByEmail);
 
-module.exports = router;
+export default router;

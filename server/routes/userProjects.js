@@ -10,18 +10,18 @@ const router = Router();
 
 
 // Matches route with "/api/v1/userProjects/"
-router.route("/");
+// router.route("/");
 
-// Matches route with "/api/v1/userProjects/:projectId"
-router
-  .route("/:projectId")
-  .post(authorization, userProjectController.assignUser)
-  .get(authorization, userProjectController.getProjectUsers)
-  .delete(authorization, userProjectController.removeAllUsers);
+// // Matches route with "/api/v1/userProjects/:projectId"
+// router
+//   .route("/:projectId")
+//   .post(authorization, userProjectController.assignUser)
+//   .get(authorization, userProjectController.getProjectUsers)
+//   .delete(authorization, userProjectController.removeAllUsers);
 
-// Matches route with "/api/v1/userProjects/:projectId/:userId"
-router
-  .route("/:projectId/:userId")
-  .delete(authorization, userProjectController.removeUser);
+// // Matches route with "/api/v1/userProjects/:projectId/:userId"
+// router
+//   .route("/:projectId/:userId")
+//   .delete(authorization, userProjectController.removeUser);
 
-module.exports = router;
+export default router;

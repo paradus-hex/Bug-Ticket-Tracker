@@ -1,12 +1,12 @@
-import {Router} from "express";
-import authRoutes from "./auth";
-import availableUsersRoutes from "./availableUsers";
-import devAssignmentsRoutes from "./devAssignments";
-import loginRoutes from "./login";
-import projectRoutes from "./project";
-import ticketRoutes from "./ticket";
-import userRoutes from "./user";
-import userProjectRoutes from "./userProjects";
+import { Router } from "express";
+import authRoutes from "./auth.js";
+import availableUsersRoutes from "./availableUsers.js";
+import devAssignmentsRoutes from "./devAssignments.js";
+import loginRoutes from "./login.js";
+import projectRoutes from "./project.js";
+import ticketRoutes from "./ticket.js";
+import userRoutes from "./user.js";
+import userProjectRoutes from "./userProjects.js";
 
 const RootRouter = Router();
 
