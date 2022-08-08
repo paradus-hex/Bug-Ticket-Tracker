@@ -1,7 +1,10 @@
-const router = require("express").Router();
-const pool = require("../../db");
-const bcrypt = require("bcryptjs");
-const jwtGenerator = require("../../utils/jwtGenerator");
+import { Router } from "express";
+// const jwtGenerator = require("../../utils/jwtGenerator");
+// import { pool } from "../../db";
+// import bcrypt from "bcryptjs";
+
+const router = Router();
+
 
 //Matches route /login
 router.post("/", async (req, res) => {

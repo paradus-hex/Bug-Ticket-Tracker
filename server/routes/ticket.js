@@ -1,7 +1,7 @@
-const express = require('express');
-const ticketController = require('./../controllers/ticketControllers');
+import { Router } from 'express';
+// import ticketController from './../controllers/ticketControllers';
 
-const router = express.Router();
+const router = Router()
 
 router.param('id', ticketController.checkID);
 
