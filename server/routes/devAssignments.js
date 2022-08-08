@@ -1,7 +1,5 @@
-// const router = require("express").Router();
-// const devAssignmentsController = require("../../controllers/devAssignmentsController");
 import { Router } from "express";
-import devAssignmentsController from "../../controllers/devAssignmentsController";
+// import devAssignmentsController from "../../controllers/devAssignmentsController";
 
 const router = Router();
 

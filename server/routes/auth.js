@@ -1,7 +1,5 @@
-// const router = require("express").Router();
-// const userController = require("../../controllers/userController");
 import { Router } from "express";
-import userController from "../../controllers/userController";
+// import userController from "../../controllers/userController";
 
 const router = Router();
 

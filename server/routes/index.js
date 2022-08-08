@@ -1,14 +1,4 @@
-// const projectRoutes = require("./project");
-// const userRoutes = require("./user");
-// const userProjectRoutes = require("./userProjects");
-// const ticketRoutes = require("./ticket");
-// const devAssignmentsRoutes = require("./devAssignments");
-// const loginRoutes = require("./login");
-// const availableUsersRoutes = require("./availableUsers");
-// const authRoutes = require("./auth");
-// const RootRouter = require("express").Router();
-
-import RootRouter from "express";
+import {Router} from "express";
 import authRoutes from "./auth";
 import availableUsersRoutes from "./availableUsers";
 import devAssignmentsRoutes from "./devAssignments";
@@ -18,7 +8,7 @@ import ticketRoutes from "./ticket";
 import userRoutes from "./user";
 import userProjectRoutes from "./userProjects";
 
-const router = RootRouter();
+const RootRouter = Router();
 
 // 3) ROUTES
 // router.use('/api/v1/tickets', ticketRouter);
