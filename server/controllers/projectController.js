@@ -20,6 +20,7 @@ const projectController = {
       const { id } = req.params;
       const [project, _] = await Project.findById(id);
 
+
       res.status(200).json({ project: project });
 
     } catch (err) {
@@ -30,14 +31,15 @@ const projectController = {
 
   createProject: async (req, res) => {
       
-      try {
-        const {project_id, name, description } = req.body;
+    try {
+      let { project_id, name, description } = req.body;
+      let project = new Project(project_id, name, description);
   
-        const project = await Project.createProject(project_id, name, description);
+      project = await project.createProject();
+      [project] =await Project.findById(project_id)
   
-        res.status(200).json({ project });
-  
-      } catch (err) {
+      res.status(201).json({ status:"Project Created!", project });
+    } catch (err) {
         console.log("createProject query error: ", err);
         res.status(500).json({ msg: "Unable to create project" });
       }
