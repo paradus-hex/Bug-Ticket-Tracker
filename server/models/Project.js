@@ -1,6 +1,6 @@
 import db from '../db.js';
 
-class User {
+class Project {
   constructor(project_id, name, description) {
     this.project_id = project_id;
     this.name = name;
@@ -27,4 +27,4 @@ class User {
   }
 }
 
-export default User;
+export default Project;
