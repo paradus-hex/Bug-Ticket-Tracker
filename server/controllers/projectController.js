@@ -28,6 +28,21 @@ const projectController = {
     }
   },
 
+  createProject: async (req, res) => {
+      
+      try {
+        const {project_id, name, description } = req.body;
+  
+        const project = await Project.createProject(project_id, name, description);
+  
+        res.status(200).json({ project });
+  
+      } catch (err) {
+        console.log("createProject query error: ", err);
+        res.status(500).json({ msg: "Unable to create project" });
+      }
+    },
+
 }
 
 export default projectController;

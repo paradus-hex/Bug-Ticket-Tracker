@@ -12,14 +12,15 @@ router
     // authorization,
     projectController.getAll
   )
+  .post(projectController.createProject);
   // .post(authorization, projectController.createProject);
 
 router
   .route("/:id")
-      .get(projectController.findById)
-  // .get(authorization, projectController.getProject)
-//   .put(authorization, projectController.updateProject)
-//   .delete(authorization, projectController.deleteProject);
+    .get(projectController.findById)
+    // .get(authorization, projectController.getProject);
+// .put(authorization, projectController.updateProject);
+// .delete(authorization, projectController.deleteProject);
 
 export default router;
 
