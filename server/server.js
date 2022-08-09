@@ -1,6 +1,6 @@
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
 import express from 'express';
-// import RootRouter from "./routes/index.js";
+import RootRouter from "./routes/index.js";
 
 
 
@@ -13,7 +13,7 @@ const SERVER_PORT=process.env.SERVER_PORT
 app.use(express.json());
 
 
-// app.use('/v1', RootRouter);
+app.use('/v1', RootRouter);
 
 // for testing purposes
 app.get('/ping', (_, res) => {

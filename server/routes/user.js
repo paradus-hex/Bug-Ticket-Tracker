@@ -20,13 +20,13 @@ const router = Router();
 
 
 // Matches route with "/api/v1/users/"
-router.route("/").get(userController.getAll).post(userController.addUser);
+// router.route("/").get(userController.getAll).post(userController.addUser);
 
-// Matches route with "/api/v1/users/:id"
-router
-  .route("/:id")
-  .get(userController.getUser)
-  .put(authorization, userController.updateUser)
-  .delete(authorization, userController.deleteUser);
+// // Matches route with "/api/v1/users/:id"
+// router
+//   .route("/:id")
+//   .get(userController.getUser)
+//   .put(authorization, userController.updateUser)
+//   .delete(authorization, userController.deleteUser);
 
-module.exports = router;
+export default router;

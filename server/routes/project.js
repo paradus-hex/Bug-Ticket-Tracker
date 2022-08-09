@@ -6,18 +6,19 @@ const router = Router();
 
 
 // Matches route with "/api/v1/projects/"
-router
-  .route("/")
-  .get(
-    // authorization,
-    projectController.getAll
-  )
-  .post(authorization, projectController.createProject);
+// router
+//   .route("/")
+//   .get(
+//     // authorization,
+//     projectController.getAll
+//   )
+//   .post(authorization, projectController.createProject);
 
-router
-  .route("/:id")
-  .get(authorization, projectController.getProject)
-  .put(authorization, projectController.updateProject)
-  .delete(authorization, projectController.deleteProject);
+// router
+//   .route("/:id")
+//   .get(authorization, projectController.getProject)
+//   .put(authorization, projectController.updateProject)
+//   .delete(authorization, projectController.deleteProject);
 
-module.exports = router;
+export default router;
+
