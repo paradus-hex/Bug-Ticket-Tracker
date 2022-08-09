@@ -1,5 +1,5 @@
 import { Router } from 'express';
-// import userController from '../../controllers/userControllers';
+import userController from '../controllers/userController.js';
 
 const router = Router();
 
@@ -20,7 +20,7 @@ const router = Router();
 
 
 // Matches route with "/api/v1/users/"
-// router.route("/").get(userController.getAll).post(userController.addUser);
+router.route("/").get(userController.getAll)
 
 // // Matches route with "/api/v1/users/:id"
 // router

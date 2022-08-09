@@ -13,7 +13,7 @@ const SERVER_PORT=process.env.SERVER_PORT
 app.use(express.json());
 
 
-app.use('/v1', RootRouter);
+app.use('/api/v1', RootRouter);
 
 // for testing purposes
 app.get('/ping', (_, res) => {
