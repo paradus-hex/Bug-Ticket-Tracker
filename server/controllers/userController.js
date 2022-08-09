@@ -1,5 +1,5 @@
+import bcrypt from 'bcrypt';
 import User from "../models/User.js";
-// const bcrypt = require("bcryptjs");
 // const jwtGenerator = require("../utils/jwtGenerator");
 
 const userController =  {
@@ -13,46 +13,42 @@ const userController =  {
       res.status(500).json({ msg: "Unable to get projects from database" });
     }
   },
-  // addUser: async (req, res) => {
-  //   const { firstName, lastName, phone, email, password, userAuth } = req.body;
+  addUser: async (req, res) => {
+    const { user_id, name, email, password, user_authority} = req.body;
 
-  //   const client = await pool.connect();
+    try {
+      //Look if user already exists
+      const user = await client.query("SELECT id FROM users WHERE email = $1", [
+        email,
+      ]);
 
-  //   try {
-  //     //Look if user already exists
-  //     const user = await client.query("SELECT id FROM users WHERE email = $1", [
-  //       email,
-  //     ]);
+      if (user.rows.length !== 0) {
+        return res.status(401).send("User already exists");
+      }
 
-  //     if (user.rows.length !== 0) {
-  //       return res.status(401).send("User already exists");
-  //     }
+      //password encryption before adding to DB
+      const salt = await bcrypt.genSalt(10);
+      // Hashed password
+      const hash = await bcrypt.hash(password, salt);
 
-  //     //password encryption before adding to DB
-  //     const salt = await bcrypt.genSaltSync(10);
-  //     const hash = await bcrypt.hashSync(password, salt);
+      //Add new user to DB
+      const newUser = await client.query(
+        "INSERT INTO users (first_name, last_name, phone, email, password_hash, user_authority) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+        [firstName, lastName, phone, email, hash, userAuth]
+      );
 
-  //     //Add new user to DB
-  //     const newUser = await client.query(
-  //       "INSERT INTO users (first_name, last_name, phone, email, password_hash, user_authority) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-  //       [firstName, lastName, phone, email, hash, userAuth]
-  //     );
-
-  //     //Generate Token
-  //     const token = jwtGenerator(newUser.rows[0].id);
-
-  //     res.json({ token });
-  //   } catch (err) {
-  //     console.log(
-  //       `Failed to add ${firstName} ${lastName} to the database: `,
-  //       "\n",
-  //       err
-  //     );
-  //     res.status(400).json({ msg: "Please review user add query" });
-  //   } finally {
-  //     await client.release();
-  //   }
-  // },
+      //Generate Token
+      // const token = jwtGenerator(newUser.rows[0].id);
+      // res.json({ token });
+    } catch (err) {
+      console.log(
+        `Failed to add ${firstName} ${lastName} to the database: `,
+        "\n",
+        err
+      );
+      res.status(400).json({ msg: "Please review user add query" });
+    }
+  },
   // getUser: async (req, res) => {
   //   const { id } = req.params;
   //   const client = await pool.connect();
