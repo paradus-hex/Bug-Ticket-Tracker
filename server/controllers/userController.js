@@ -1,19 +1,16 @@
-import db from '../db.js';
+import User from "../models/User.js";
 // const bcrypt = require("bcryptjs");
 // const jwtGenerator = require("../utils/jwtGenerator");
 
 const userController =  {
   getAll: async (req, res) => {
     try {
-
-      let sql = "SELECT * from users";
-
-      [users,_]=await db.execute(sql);
+      const [users, _] = await User.getAll();
+  
       res.status(200).json({ count: users.length, users });
     } catch (err) {
-
-      console.log("Error getting users from database: ", err);
-      res.status(500).json({ msg: "Unable to get users from database" });
+      console.log("getProject query error: ", err);
+      res.status(500).json({ msg: "Unable to get projects from database" });
     }
   },
   // addUser: async (req, res) => {
