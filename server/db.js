@@ -10,14 +10,6 @@ const pool=mysql.createPool({
   password:process.env.DB_PASSWORD
 })
 
-let sql=' SELECT * from users';
-
-pool.execute(sql,(err,result)=>{
-  if (err) throw err;
-
-  console.log(result);
-})
-
 
 
 export default pool.promise();
