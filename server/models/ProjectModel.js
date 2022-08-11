@@ -7,7 +7,7 @@ class Project {
     this.description = description;
   }
 
-  createProject() {
+  saveProjectToDB() {
     let sql = `
     INSERT INTO projects(
       project_id,

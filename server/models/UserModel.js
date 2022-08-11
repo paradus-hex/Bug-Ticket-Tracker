@@ -8,7 +8,7 @@ class User {
     this.email = email;
     this.role = role;
   }
-  createUser() {
+  saveUserToDB() {
     let sql = `
     INSERT INTO users(
       user_id,

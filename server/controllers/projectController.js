@@ -32,9 +32,9 @@ const projectController = {
       let { name, description } = req.body;
 
       let project = new Project(project_id, name, description);
-      project = await project.createProject();
+      project = await project.saveProjectToDB();
 
-      res.status(201).json({ status: 'Project Created!', project });
+      res.status(201).json({ status: 'Project Created!' });
     } catch (err) {
       console.log('createProject query error: ', err);
       res.status(500).json({ msg: 'Unable to create project' });

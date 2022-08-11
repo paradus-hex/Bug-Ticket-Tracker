@@ -41,7 +41,7 @@ const userController = {
         hashedPassword,
         user_authority
       );
-      newUser = await newUser.createUser();
+      newUser = await newUser.saveUserToDB();
 
       res.status(201).json({ status: 'User Created!' });
 
