@@ -54,26 +54,19 @@ const userController = {
       );
       res.status(400).json({ msg: 'Please review user and query' });
     }
+  },
+
+  getUser: async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+      const [user, _] = await UserModel.findById(userId);
+      res.status(200).json({ user });
+    } catch (err) {
+      console.log(`Failed to get user ${user_id}: `, '\n', err);
+      res.status(400).json({ msg: 'Please review user request query' });
+    }
   }
-
-  // getUser: async (req, res) => {
-  //   const { id } = req.params;
-  //   const client = await pool.connect();
-
-  //   try {
-  //     const { rows } = await client.query(
-  //       "SELECT id, first_name, last_name, phone, email, user_authority, password_hash FROM users WHERE id = $1",
-  //       [id]
-  //     );
-
-  //     res.json(rows[0]);
-  //   } catch (err) {
-  //     console.log(`Failed to get user ${id}: `, "\n", err);
-  //     res.status(400).json({ msg: "Please review user request query" });
-  //   } finally {
-  //     await client.release();
-  //   }
-  // },
   // lookupUserByEmail: async (req, res) => {
   //   const { email } = req.body;
   //   console.log(`Looking for existing email: ${email}`);
