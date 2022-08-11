@@ -5,17 +5,25 @@ class Project {
     this.project_id = project_id;
     this.name = name;
     this.description = description;
-
   }
 
   createProject() {
-    let sql = `INSERT INTO projects (project_id, name, description) VALUES ('${this.project_id}', '${this.name}', '${this.description}');`;
+    let sql = `
+    INSERT INTO projects(
+      project_id,
+      name,
+      description
+      )
+    VALUES(
+      '${this.project_id}',
+      '${this.name}',
+      '${this.description}');`;
 
     return db.execute(sql);
   }
-  
+
   static getAll() {
-    let sql = "SELECT * FROM projects;";
+    let sql = 'SELECT * FROM projects;';
 
     return db.execute(sql);
   }
@@ -25,9 +33,6 @@ class Project {
 
     return db.execute(sql);
   }
-
 }
 
 export default Project;
-
-    

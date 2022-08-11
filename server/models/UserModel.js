@@ -1,15 +1,16 @@
 import db from '../db.js';
 
 class User {
-  constructor(id,name,email,password,role) {
+  constructor(id, name, email, password, role) {
     this.id = id;
-    this.password= password;
+    this.hashedPassword = password;
     this.name = name;
     this.email = email;
+    this.role = role;
   }
-  static addUser(){
+  createUser() {
     let sql = `
-    INSERT INTO posts(
+    INSERT INTO users(
       user_id,
       name,
       email,
@@ -20,7 +21,7 @@ class User {
       '${this.id}',
       '${this.name}',
       '${this.email}',
-      '${this.password}',
+      '${this.hashedPassword}',
       '${this.role}'
     )
     `;
@@ -28,13 +29,19 @@ class User {
   }
 
   static getAll() {
-    let sql = "SELECT * FROM users;";
+    let sql = 'SELECT * FROM users;';
 
     return db.execute(sql);
   }
 
   static findById(id) {
-    let sql = `SELECT * FROM posts WHERE id = ${id};`;
+    let sql = `SELECT * FROM users WHERE user_id = ${id};`;
+
+    return db.execute(sql);
+  }
+
+  static findByEmail(email) {
+    let sql = `SELECT user_id FROM users WHERE email = '${email}';`;
 
     return db.execute(sql);
   }
