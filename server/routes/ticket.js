@@ -10,7 +10,8 @@ router
 
 router
     .route("/:projectId/:ticketId")
-    .get(ticketController.getTicket);
+    .get(ticketController.getTicket)
+    .put(ticketController.updateTicket);
 
 
 router

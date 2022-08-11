@@ -45,6 +45,13 @@ class Ticket {
         return db.execute(sql);
     }
 
+    updateTicket() {
+
+        let sql = `UPDATE tickets SET title = '${this.title}', description = '${this.description}', status = '${this.status}', author_id = '${this.author_id}', created_at = '${this.created_at}', project_id = '${this.project_id}' WHERE ticket_id = '${this.ticket_id}'`;
+
+        return db.execute(sql);
+    }
+
 }
 
 export default Ticket;

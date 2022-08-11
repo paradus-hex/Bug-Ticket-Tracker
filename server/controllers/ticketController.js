@@ -57,8 +57,23 @@ const ticketController = {
       res.status(500).json({ msg: "Unable to create ticket" });
     }
   },
-  // is my account solved yet?
 
+
+  updateTicket: async (req, res) => {
+
+    try {
+      let { ticket_id, title, description, status, author_id, created_at, project_id } = req.body;
+      let ticket = new Ticket(ticket_id, title, description, status, author_id, created_at, project_id);
+
+      ticket = await ticket.updateTicket();
+      [ticket] = await Ticket.getTicket(ticket_id);
+
+      res.status(201).json({ status: "Ticket updated!", msg: `Ticket ${title} updated successfully` });
+    } catch (err) {
+      console.log("createTicket query error: ", err);
+      res.status(500).json({ msg: "Unable to create ticket" });
+    }
+  },
 
 
 }
