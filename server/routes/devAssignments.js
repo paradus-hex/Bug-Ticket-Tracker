@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 // import devAssignmentsController from "../../controllers/devAssignmentsController";
 
 const router = Router();
@@ -14,4 +14,3 @@ const router = Router();
 //   .delete(devAssignmentsController.removeAllDevs);
 
 export default router;
-

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 // import ticketController from './../controllers/ticketControllers';
 
-const router = Router()
+const router = Router();
 
 // router.param('id', ticketController.checkID);
 
@@ -17,7 +17,6 @@ const router = Router()
 //   .delete(ticketController.deleteTicket);
 
 // module.exports = router;
-
 
 // Matches route with "/api/v1/tickets/"
 // router.route("/").get(authorization, ticketController.getUserTickets);

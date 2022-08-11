@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 // import availableUsersController from "../../controllers/availableUsersController";
 
 const router = Router();
@@ -9,4 +9,3 @@ const router = Router();
 //   .get(availableUsersController.getAvailableUsers);
 
 export default router;
-
