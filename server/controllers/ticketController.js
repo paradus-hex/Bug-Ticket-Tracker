@@ -40,7 +40,7 @@ const ticketController = {
     }
   },
 
-  // TODO : NEW
+
 
   createTicket: async (req, res) => {
 
@@ -58,7 +58,7 @@ const ticketController = {
     }
   },
 
-  // TODO : NEW
+
 
 }
 
