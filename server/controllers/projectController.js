@@ -56,6 +56,7 @@ const projectController = {
       res.status(500).json({ msg: 'Unable to update project' });
     }
   }
+  
 };
 
 export default projectController;
