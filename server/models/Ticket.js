@@ -25,8 +25,14 @@ class Ticket {
         return db.execute(sql);
     }
 
-    static findById(id) {
-        let sql = `SELECT * FROM tickets WHERE ticket_id = ${id};`;
+    // ! my code
+    // static findById(id) {
+    //     let sql = `SELECT * FROM tickets WHERE ticket_id = ${id};`;
+    //     return db.execute(sql);
+    // }
+
+    static getProjectTickets(projectId) {
+        let sql = `SELECT * FROM tickets WHERE project_id = ${projectId};`
         return db.execute(sql);
     }
 }

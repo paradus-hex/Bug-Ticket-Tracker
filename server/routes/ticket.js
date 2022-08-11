@@ -10,16 +10,18 @@ router
     .get(ticketController.getAll);
 // .post(ticketController.checkBody, ticketController.createTicket);
 
-
-router
-    .route('/:id')
-    .get(ticketController.findById);
+// ! my code
+// router
+//     .route('/:id')
+//     .get(ticketController.findById);
 
 //   .patch(ticketController.updateTicket)
 //   .delete(ticketController.deleteTicket);
 
 // module.exports = router;
-
+router
+    .route('/:projectId')
+    .get(ticketController.getProjectTickets);
 
 // Matches route with "/api/v1/tickets/"
 // router.route("/").get(authorization, ticketController.getUserTickets);
