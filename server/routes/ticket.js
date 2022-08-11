@@ -10,10 +10,9 @@ router
     .get(ticketController.getAll);
 // .post(ticketController.checkBody, ticketController.createTicket);
 
-// ! my code
-// router
-//     .route('/:id')
-//     .get(ticketController.findById);
+router
+    .route("/:projectId/:ticketId")
+    .get(ticketController.getTicket);
 
 //   .patch(ticketController.updateTicket)
 //   .delete(ticketController.deleteTicket);

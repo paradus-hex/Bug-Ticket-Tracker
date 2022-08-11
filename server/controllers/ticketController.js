@@ -13,19 +13,19 @@ const ticketController = {
       res.status(500).json({ msg: "Unable to get tickets from database" });
     }
   },
-  // ! my code
-  // findById: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const [ticket, _] = await Ticket.findById(id);
 
-  //     res.status(200).json({ ticket: ticket });
+  getTicket: async (req, res) => {
+    try {
+      const { ticketId } = req.params;
+      const [ticket, _] = await Ticket.getTicket(ticketId);
 
-  //   } catch (err) {
-  //     console.log("getTicketById query error: ", err);
-  //     res.status(500).json({ msg: "Unable to get ticket from database" });
-  //   }
-  // },
+      res.status(200).json(ticket);
+
+    } catch (err) {
+      console.log("getTicketById query error: ", err);
+      res.status(500).json({ msg: "Unable to get ticket from database" });
+    }
+  },
 
   getProjectTickets: async (req, res) => {
     try {
