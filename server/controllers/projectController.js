@@ -39,6 +39,22 @@ const projectController = {
       console.log('createProject query error: ', err);
       res.status(500).json({ msg: 'Unable to create project' });
     }
+  },
+
+  updateProject: async (req, res) => {
+    try {
+      let { id } = req.params;
+      let { name, description } = req.body;
+      // console.log(req.params);
+      // console.log(req.body);
+
+      let [project, _] = await Project.updateProject(id, name, description);
+
+      res.status(200).json({ status: `Project with ID: ${id} update!` });
+    } catch (err) {
+      console.log('updateProject query error: ', err);
+      res.status(500).json({ msg: 'Unable to update project' });
+    }
   }
 };
 
