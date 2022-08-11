@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import UserModel from '../models/UserModel.js';
-// const jwtGenerator = require("../utils/jwtGenerator");
+import jwtGenerator from '../utils/jwtGenerator.js';
 
 const userController = {
   getAll: async (req, res) => {
@@ -43,11 +43,9 @@ const userController = {
       );
       newUser = await newUser.saveUserToDB();
 
-      res.status(201).json({ status: 'User Created!' });
-
       //Generate Token
-      // const token = jwtGenerator(newUser.rows[0].id);
-      // res.json({ token });
+      const token = jwtGenerator(user_id);
+      res.status(201).json({ message: 'User Created!', token });
     } catch (err) {
       console.log(
         `Failed to add ${name} ${user_id} to the database: `,
