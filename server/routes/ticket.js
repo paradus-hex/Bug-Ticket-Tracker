@@ -1,18 +1,19 @@
 import { Router } from 'express';
-// import ticketController from './../controllers/ticketControllers';
+import ticketController from './../controllers/ticketController.js';
 
 const router = Router()
 
 // router.param('id', ticketController.checkID);
 
-// router
-//   .route('/')
-//   .get(ticketController.getAllTickets)
-//   .post(ticketController.checkBody, ticketController.createTicket);
+router
+    .route('/')
+    .get(ticketController.getAll);
+// .post(ticketController.checkBody, ticketController.createTicket);
+
 
 // router
-//   .route('/:id')
-//   .get(ticketController.getTicket)
+//     .route('/:id')
+//     .get(ticketController.getTicket)
 //   .patch(ticketController.updateTicket)
 //   .delete(ticketController.deleteTicket);
 
