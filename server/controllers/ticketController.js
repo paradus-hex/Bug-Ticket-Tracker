@@ -39,7 +39,29 @@ const ticketController = {
       res.status(500).json({ msg: "Unable to get ticket from database" });
     }
   },
+
+  // TODO : NEW
+
+  createTicket: async (req, res) => {
+
+    try {
+      let { ticket_id, title, description, status, author_id, created_at, project_id } = req.body;
+      let ticket = new Ticket(ticket_id, title, description, status, author_id, created_at, project_id);
+
+      ticket = await ticket.createTicket();
+      [ticket] = await Ticket.getProjectTickets(project_id)
+
+      res.status(201).json({ status: "Ticket Created!", ticket });
+    } catch (err) {
+      console.log("createTicket query error: ", err);
+      res.status(500).json({ msg: "Unable to create ticket" });
+    }
+  },
+
+  // TODO : NEW
+
 }
+
 
 
 

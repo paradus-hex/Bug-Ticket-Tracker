@@ -15,7 +15,8 @@ router
 
 router
     .route('/:projectId')
-    .get(ticketController.getProjectTickets);
+    .get(ticketController.getProjectTickets)
+    .post(ticketController.createTicket);
 
 
 

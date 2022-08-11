@@ -36,6 +36,15 @@ class Ticket {
         let sql = `SELECT * FROM tickets JOIN users ON tickets.author_id = users.user_id WHERE project_id = ${projectId}`
         return db.execute(sql);
     }
+
+    // TODO: NEW
+
+    createTicket() {
+        let sql = `INSERT INTO tickets (ticket_id, title, description, status, author_id, created_at, project_id) VALUES ('${this.ticket_id}', '${this.title}', '${this.description}', '${this.status}', '${this.author_id}', '${this.created_at}', '${this.project_id}')`;
+
+        return db.execute(sql);
+    }
+    // TODO: NEW
 }
 
 export default Ticket;
