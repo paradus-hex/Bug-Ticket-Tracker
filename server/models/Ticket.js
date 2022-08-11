@@ -24,6 +24,11 @@ class Ticket {
 
         return db.execute(sql);
     }
+
+    static findById(id) {
+        let sql = `SELECT * FROM tickets WHERE ticket_id = ${id};`;
+        return db.execute(sql);
+    }
 }
 
 export default Ticket;

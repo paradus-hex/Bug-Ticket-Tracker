@@ -12,7 +12,20 @@ const ticketController = {
       console.log("getTicket query error: ", err);
       res.status(500).json({ msg: "Unable to get tickets from database" });
     }
-  }
+  },
+
+  findById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const [ticket, _] = await Ticket.findById(id);
+
+      res.status(200).json({ ticket: ticket });
+
+    } catch (err) {
+      console.log("getTicketById query error: ", err);
+      res.status(500).json({ msg: "Unable to get ticket from database" });
+    }
+  },
 }
 
 // const ticketController = {

@@ -11,9 +11,10 @@ router
 // .post(ticketController.checkBody, ticketController.createTicket);
 
 
-// router
-//     .route('/:id')
-//     .get(ticketController.getTicket)
+router
+    .route('/:id')
+    .get(ticketController.findById);
+
 //   .patch(ticketController.updateTicket)
 //   .delete(ticketController.deleteTicket);
 
