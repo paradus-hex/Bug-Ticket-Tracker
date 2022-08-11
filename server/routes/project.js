@@ -1,26 +1,22 @@
-import { Router } from "express";
-import projectController from "../controllers/projectController.js";
+import { Router } from 'express';
+import projectController from '../controllers/projectController.js';
 // import authorization from "../../middleware/authorization";
 
 const router = Router();
 
-
 // Matches route with "/api/v1/projects/"
 router
-  .route("/")
+  .route('/')
   .get(
     // authorization,
     projectController.getAll
   )
   .post(projectController.createProject);
-  // .post(authorization, projectController.createProject);
+// .post(authorization, projectController.createProject);
 
-router
-  .route("/:id")
-    .get(projectController.findById)
-    // .get(authorization, projectController.getProject);
+// router.route('/:id').get(projectController.findById);
+// .get(authorization, projectController.getProject);
 // .put(authorization, projectController.updateProject);
 // .delete(authorization, projectController.deleteProject);
 
 export default router;
-

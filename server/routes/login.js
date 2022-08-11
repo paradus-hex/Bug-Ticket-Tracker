@@ -1,10 +1,9 @@
-import { Router } from "express";
+import { Router } from 'express';
 // const jwtGenerator = require("../../utils/jwtGenerator");
 // import { pool } from "../../db";
 // import bcrypt from "bcryptjs";
 
 const router = Router();
-
 
 // //Matches route /login
 // router.post("/", async (req, res) => {
@@ -46,4 +45,3 @@ const router = Router();
 // });
 
 export default router;
-

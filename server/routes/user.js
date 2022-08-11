@@ -16,11 +16,8 @@ const router = Router();
 
 // module.exports = router;
 
-
-
-
 // Matches route with "/api/v1/users/"
-router.route("/").get(userController.getAll)
+router.route('/').get(userController.getAll).post(userController.addUser);
 
 // // Matches route with "/api/v1/users/:id"
 // router
