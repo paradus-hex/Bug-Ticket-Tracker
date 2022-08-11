@@ -41,7 +41,7 @@ class User {
   }
 
   static findByEmail(email) {
-    let sql = `SELECT user_id FROM users WHERE email = '${email}';`;
+    let sql = `SELECT * FROM users WHERE email = '${email}';`;
 
     return db.execute(sql);
   }
