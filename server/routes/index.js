@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import authRoutes from './auth.js';
 import availableUsersRoutes from './availableUsers.js';
-import devAssignmentsRoutes from './devAssignments.js';
 import loginRoutes from './login.js';
 import projectRoutes from './project.js';
 import ticketRoutes from './ticket.js';
+import ticketAssignmentsRoutes from './ticketAssignments.js';
 import userRoutes from './user.js';
 import userProjectRoutes from './userProjects.js';
 
@@ -18,7 +18,7 @@ RootRouter.use('/projects', projectRoutes);
 RootRouter.use('/users', userRoutes);
 RootRouter.use('/userprojects', userProjectRoutes);
 RootRouter.use('/tickets', ticketRoutes);
-RootRouter.use('/devassignments', devAssignmentsRoutes);
+RootRouter.use('/ticketassignments', ticketAssignmentsRoutes);
 RootRouter.use('/login', loginRoutes);
 RootRouter.use('/availableUsers', availableUsersRoutes);
 RootRouter.use('/auth', authRoutes);
