@@ -7,7 +7,8 @@ const ticketController = {
     try {
       const [ticket, _] = await Ticket.getAll();
 
-      res.status(200).json({ count: ticket.length, ticket });
+      // res.status(200).json({ count: ticket.length, ticket });
+      res.status(200).json(ticket);
     } catch {
       console.log("getTicket query error: ", err);
       res.status(500).json({ msg: "Unable to get tickets from database" });
@@ -62,13 +63,19 @@ const ticketController = {
   updateTicket: async (req, res) => {
 
     try {
-      let { ticket_id, title, description, status, author_id, created_at, project_id } = req.body;
-      let ticket = new Ticket(ticket_id, title, description, status, author_id, created_at, project_id);
+      //* OLD
+      // let { ticket_id, title, description, status, author_id, created_at, project_id } = req.body;
+      // let ticket = new Ticket(ticket_id, title, description, status, author_id, created_at, project_id);
+      //* OLD
 
-      ticket = await ticket.updateTicket();
-      [ticket] = await Ticket.getTicket(ticket_id);
+      let { ticketId } = req.params;
+      let { title, description, status, author_id, created_at, project_id } = req.body;
+      let ticket = await Ticket.updateTicket(ticketId, title, description, status, author_id, created_at, project_id);
 
-      res.status(201).json({ status: "Ticket updated!", msg: `Ticket ${title} updated successfully` });
+      // ticket = await ticket.updateTicket();
+      // [ticket] = await Ticket.getTicket(ticketId);
+
+      res.status(201).json({ status: "Ticket updated!", msg: `Ticket named ${title} updated successfully` });
     } catch (err) {
       console.log("createTicket query error: ", err);
       res.status(500).json({ msg: "Unable to create ticket" });

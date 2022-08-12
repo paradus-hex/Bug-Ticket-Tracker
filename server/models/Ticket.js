@@ -45,9 +45,9 @@ class Ticket {
         return db.execute(sql);
     }
 
-    updateTicket() {
+    static updateTicket(ticketId, title, description, status, author_id, created_at, project_id) {
 
-        let sql = `UPDATE tickets SET title = '${this.title}', description = '${this.description}', status = '${this.status}', author_id = '${this.author_id}', created_at = '${this.created_at}', project_id = '${this.project_id}' WHERE ticket_id = '${this.ticket_id}'`;
+        let sql = `UPDATE tickets SET title = '${title}', description = '${description}', status = '${status}', author_id = '${author_id}', created_at = '${created_at}', project_id = '${project_id}' WHERE ticket_id = '${ticketId}'`;
 
         return db.execute(sql);
     }
