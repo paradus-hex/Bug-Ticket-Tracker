@@ -45,6 +45,17 @@ class User {
 
     return db.execute(sql);
   }
+
+  static updateUserInformation(id, name, email, user_authority) {
+    let sql = `UPDATE users SET name = '${name}', email = '${email}', user_authority = '${user_authority}' WHERE user_id = '${id}'`;
+
+    return db.execute(sql);
+  }
+
+  static deleteUser(id) {
+    let sql = `DELETE FROM users WHERE user_id = '${id}'`;
+    return db.execute(sql);
+  }
 }
 
 export default User;
