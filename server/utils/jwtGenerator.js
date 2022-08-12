@@ -1,9 +1,10 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+dotenv.config();
 
 function jwtGenerator(user_id) {
   const payload = {
-    user: user_id,
+    user: user_id
   };
 
   return jwt.sign(
@@ -13,4 +14,4 @@ function jwtGenerator(user_id) {
   );
 }
 
-module.exports = jwtGenerator;
+export default jwtGenerator;

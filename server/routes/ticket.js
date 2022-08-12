@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import ticketController from './../controllers/ticketController.js';
 
-const router = Router()
+const router = Router();
 
 
 router
