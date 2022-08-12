@@ -19,7 +19,7 @@ const userController = {
     let user_id = randomUUID().substring(0, 5);
 
     try {
-      // //Look if user already exists
+      //Look if user already exists
       const [user, _] = await UserModel.findByEmail(email);
 
       if (user.length !== 0) {
@@ -30,8 +30,6 @@ const userController = {
       const salt = await bcrypt.genSalt(1);
       // // Hashed password
       const hashedPassword = await bcrypt.hash(password, salt);
-
-      // res.status(401).send(hashedPassword);
 
       //Add new user to DB
       let newUser = new UserModel(
@@ -79,7 +77,7 @@ const userController = {
         email,
         user_authority
       );
-      res.json(`${name} profile: updated successfully`);
+      res.status(201).json({ message: 'User updated!' });
     } catch (err) {
       console.log(`Failed to update user ${userId}: `, '\n', err);
       res.status(400).json({ msg: 'Please review user update query' });
