@@ -61,6 +61,7 @@ const projectController = {
       }
 
       res.status(200).json({ status: `Project with ID: ${id} updated!` });
+>>>>>>> 77f26df9b4e4a438842589d5a1c47978c1d8d952
     } catch (err) {
       console.log('updateProject query error: ', err);
       res.status(500).json({ msg: 'Unable to update project' });
