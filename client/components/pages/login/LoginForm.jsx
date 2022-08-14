@@ -12,18 +12,21 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import * as React from 'react';
+import useLoginUser from '../../../api/loginUser';
 import { Copyright } from '../../common';
 
 const theme = createTheme();
 
 export default function LoginForm() {
+  const { mutate: loginUser } = useLoginUser();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const loginUserPayload = {
       email: data.get('email'),
       password: data.get('password')
-    });
+    };
+    loginUser(loginUserPayload);
   };
 
   return (
