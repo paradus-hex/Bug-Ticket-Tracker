@@ -12,35 +12,23 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        Ticket Tracker
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import useRegisterUser from '../../../api/registerUser';
+import { Copyright } from '../../common';
 
 const theme = createTheme();
 
 export default function RegisterForm() {
+  const { mutate: newUser } = useRegisterUser();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const registerPayload = {
+      name: data.get('name'),
       email: data.get('email'),
       password: data.get('password')
-    });
+    };
+    newUser({ ...registerPayload, user_authority: 'developer' });
   };
 
   return (
