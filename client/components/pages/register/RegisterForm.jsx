@@ -11,6 +11,8 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import * as React from 'react';
 
 function Copyright(props) {
@@ -37,12 +39,16 @@ export default function RegisterForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const registerPayload = {
+      name: data.get('name'),
       email: data.get('email'),
       password: data.get('password')
-    });
+    };
+    mutatation.mutate({ ...registerPayload, user_authority: 'developer' });
   };
-
+  const mutatation = useMutation((registerPayload) => {
+    return axios.post('http://localhost:8000/api/v1/users', registerPayload);
+  });
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
