@@ -11,31 +11,15 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import * as React from 'react';
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        Ticket Tracker
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import useRegisterUser from '../../../api/registerUser';
+import { Copyright } from '../../common';
 
 const theme = createTheme();
 
 export default function RegisterForm() {
+  const { mutate: newUser } = useRegisterUser();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,11 +28,9 @@ export default function RegisterForm() {
       email: data.get('email'),
       password: data.get('password')
     };
-    mutatation.mutate({ ...registerPayload, user_authority: 'developer' });
+    newUser({ ...registerPayload, user_authority: 'developer' });
   };
-  const mutatation = useMutation((registerPayload) => {
-    return axios.post('http://localhost:8000/api/v1/users', registerPayload);
-  });
+
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
