@@ -23,13 +23,19 @@ class Project {
   }
 
   static getAll() {
-    let sql = 'SELECT * FROM projects;';
+    let sql = 'SELECT * FROM projects';
 
     return db.execute(sql);
   }
 
   static findById(id) {
-    let sql = `SELECT * FROM projects WHERE project_id = ${id};`;
+    let sql = `SELECT * FROM projects WHERE project_id = '${id}'`;
+
+    return db.execute(sql);
+  }
+
+  static updateProject(id, name, description) {
+    let sql = `UPDATE projects SET name = '${name}', description = '${description}' WHERE project_id = '${id}'`;
 
     return db.execute(sql);
   }

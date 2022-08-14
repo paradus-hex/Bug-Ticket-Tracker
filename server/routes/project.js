@@ -14,7 +14,8 @@ router
   .post(projectController.createProject);
 // .post(authorization, projectController.createProject);
 
-// router.route('/:id').get(projectController.findById);
+router.route('/:id').get(projectController.findById);
+router.route('/:id').put(projectController.updateProject);
 // .get(authorization, projectController.getProject);
 // .put(authorization, projectController.updateProject);
 // .delete(authorization, projectController.deleteProject);
