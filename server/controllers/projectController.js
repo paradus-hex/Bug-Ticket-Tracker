@@ -51,16 +51,6 @@ const projectController = {
       let [project, _] = await Project.updateProject(id, name, description);
 
       res.status(200).json({ status: `Project with ID: ${id} update!` });
-
-      if (project.length === 0) {
-        return res
-          .status(404)
-          .json({ status: `Project with ID: ${id} does not exist!` });
-      } else {
-        let [project, _] = await Project.updateProject(id, name, description);
-      }
-
-      res.status(200).json({ status: `Project with ID: ${id} updated!` });
     } catch (err) {
       console.log('updateProject query error: ', err);
       res.status(500).json({ msg: 'Unable to update project' });
