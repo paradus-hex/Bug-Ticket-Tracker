@@ -12,11 +12,9 @@ class ProjectAssignments {
             project_id,
             user_id
             )
-
             VALUES(
                 '${this.project_id}',
-                '${this.user_id}',
-            )`;
+                '${this.user_id}');`;
 
         return db.execute(sql);
     }
@@ -24,7 +22,7 @@ class ProjectAssignments {
     static findById(project_id, user_id) {
         let sql = `SELECT * FROM project_assignments
         WHERE
-        project_id = '${project_id}' AND user_id = ${user_id}`;
+        project_id = '${project_id}' AND user_id = '${user_id}'`;
 
         return db.execute(sql);
     }
@@ -41,7 +39,7 @@ class ProjectAssignments {
     }
 
     static removeDev(project_id, user_id) {
-        let sql = `DELETE FRROM project_assignments 
+        let sql = `DELETE FROM project_assignments 
         WHERE
         project_id = '${project_id}' AND user_id = '${user_id}'`;
 

@@ -1,18 +1,18 @@
 import { Router } from 'express';
-// import userProjectController from "../../controllers/userProjectController";
+import projectAssignmentsController from '../controllers/projectAssignmentsController.js';
 // import authorization from "../../middleware/authorization";
 
 const router = Router();
 
-// Matches route with "/api/v1/userProjects/"
-// router.route("/");
 
-// // Matches route with "/api/v1/userProjects/:projectId"
-// router
-//   .route("/:projectId")
-//   .post(authorization, userProjectController.assignUser)
-//   .get(authorization, userProjectController.getProjectUsers)
-//   .delete(authorization, userProjectController.removeAllUsers);
+router.route("/:projectId/removeall").delete(projectAssignmentsController.removeAllDevs);
+
+
+router
+    .route("/:projectId")
+    .post(projectAssignmentsController.assignDev)
+    .get(projectAssignmentsController.getAssignedDevs)
+    .delete(projectAssignmentsController.removeDev);
 
 // // Matches route with "/api/v1/userProjects/:projectId/:userId"
 // router
