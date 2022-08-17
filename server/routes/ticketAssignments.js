@@ -4,14 +4,15 @@ import ticketAssignmentsController from '../controllers/ticketAssignmentsControl
 const router = Router();
 
 // // Matches route with "/api/v1/assigneddev/"
-router.route('/').delete(ticketAssignmentsController.removeDev);
+router
+  .route('/:ticketId/removeall')
+  .delete(ticketAssignmentsController.removeAllDevs);
 
 // // Matches route with "/api/v1/assigneddev/:ticketId"
 router
   .route('/:ticketId')
   .post(ticketAssignmentsController.assignDev)
   .get(ticketAssignmentsController.getAssignedDevs)
-  // .delete(ticketAssignmentsController.removeDev)
-  .delete(ticketAssignmentsController.removeAllDevs);
+  .delete(ticketAssignmentsController.removeDev);
 
 export default router;
