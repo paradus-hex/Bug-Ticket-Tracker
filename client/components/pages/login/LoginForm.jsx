@@ -11,13 +11,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import * as React from 'react';
-import useLoginUser from '../../../api/loginUser';
+import useLoginUser from '../../../api/useLoginUser';
 import { Copyright } from '../../common';
 
 const theme = createTheme();
 
 export default function LoginForm() {
+  const router = useRouter();
   const { mutate: loginUser } = useLoginUser();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,6 +29,7 @@ export default function LoginForm() {
       password: data.get('password')
     };
     loginUser(loginUserPayload);
+    router.push('/dashboard');
   };
 
   return (
