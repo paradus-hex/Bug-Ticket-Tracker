@@ -20,7 +20,13 @@ const theme = createTheme();
 
 export default function LoginForm() {
   const router = useRouter();
-  const { mutate: loginUser } = useLoginUser();
+  const onSuccess = (successData) => {
+    // console.log(successData.data);
+    localStorage.setItem('token', successData.data.token);
+    localStorage.setItem('auth', successData.data.auth);
+    router.push('/dashboard');
+  };
+  const { mutate: loginUser } = useLoginUser(onSuccess);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -29,7 +35,6 @@ export default function LoginForm() {
       password: data.get('password')
     };
     loginUser(loginUserPayload);
-    router.push('/dashboard');
   };
 
   return (
