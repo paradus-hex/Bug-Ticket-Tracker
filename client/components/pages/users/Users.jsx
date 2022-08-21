@@ -23,16 +23,28 @@ function Users() {
     { headerName: 'ID', field: 'user_id', flex: 1 },
     { headerName: 'Name', field: 'name', flex: 1 },
     { headerName: 'Email', field: 'email', flex: 1 },
-    { headerName: 'Role', field: 'user_authority', flex: 1 }
+    {
+      headerName: 'Role',
+      field: 'user_authority',
+      type: 'singleSelect',
+      valueOptions: ['admin', 'developer'],
+      editable: true,
+      flex: 1
+    }
   ];
 
   return (
-    <Box sx={{ height: 500, width: '100%' }}>
+    <Box sx={{ width: '100%' }}>
       <h1 align='center'>Users Information</h1>
       <DataGrid
+        autoHeight
         rows={users}
         columns={columns}
         getRowId={(row) => row.user_id}
+        getRowSpacing={(params) => ({
+          top: params.isFirstVisible ? 0 : 5,
+          bottom: params.isLastVisible ? 0 : 5
+        })}
       />
     </Box>
   );

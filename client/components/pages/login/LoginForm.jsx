@@ -34,7 +34,6 @@ export default function LoginForm() {
       email: data.get('email'),
       password: data.get('password')
     };
-    loginUser(loginUserPayload;
     loginUser(loginUserPayload);
   };
 
