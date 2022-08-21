@@ -34,6 +34,7 @@ export default function RegisterForm() {
       email: data.get('email'),
       password: data.get('password')
     };
+    newUser({ ...registerPayload, user_authority: 'developer' };
     newUser({ ...registerPayload, user_authority: 'developer' });
   };
 
