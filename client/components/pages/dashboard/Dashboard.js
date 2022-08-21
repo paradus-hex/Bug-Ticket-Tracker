@@ -18,6 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
@@ -149,13 +150,14 @@ export default function Dashboard() {
               </ListItemIcon>
               <ListItemText primary='Dashboard' />
             </ListItemButton>
-
-            <ListItemButton>
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary='Users' />
-            </ListItemButton>
+            <Link href='/users'>
+              <ListItemButton>
+                <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary='Users' />
+              </ListItemButton>
+            </Link>
 
             <ListItemButton>
               <ListItemIcon>
