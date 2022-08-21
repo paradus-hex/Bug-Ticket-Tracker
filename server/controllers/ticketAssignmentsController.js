@@ -47,7 +47,7 @@ const TicketAssignmentsController = {
       let { ticketId } = req.params;
       let { user_id } = req.body;
 
-      let checkDev = await TicketAssignments.findById(ticketId, user_id);
+      let checkDev = await TicketAssignments.findById(ticket_id, user_id);
 
       if (checkDev.length === 0) {
         return res.status(400).json({
@@ -55,7 +55,7 @@ const TicketAssignmentsController = {
         });
       }
 
-      const deleteDev = await TicketAssignments.removeDev(ticketId, user_id);
+      const deleteDev = await TicketAssignments.removeDev(ticket_id, user_id);
 
       res.status(200).json({
         status: `Dev with ID: ${user_id} removed from ticket ${ticketId}`
@@ -73,7 +73,9 @@ const TicketAssignmentsController = {
       const deleteAllDev = await TicketAssignments.removeAllDevs(ticketId);
 
       res
+
         .status(200)
+
         .json({ status: `All devs removed from ticket ${ticketId}` });
     } catch (err) {
       console.log('removeAllDevs query error: ', err);
