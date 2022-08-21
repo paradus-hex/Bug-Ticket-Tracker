@@ -11,7 +11,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import MuiDrawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -20,23 +19,7 @@ import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-function Copyright(props) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { useEffect, useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -87,10 +70,25 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 export default function Dashboard() {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
+  if (typeof window !== 'undefined') {
+    let token = localStorage.getItem('token');
+    useEffect(() => {
+      if (token == null) {
+        setIsAuthenticated(false);
+      }
+    }, [token]);
+  }
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  if (!isAuthenticated) {
+    return <h1>Login First</h1>;
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
