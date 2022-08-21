@@ -6,7 +6,7 @@ import projectRoutes from './project.js';
 import ticketRoutes from './ticket.js';
 import ticketAssignmentsRoutes from './ticketAssignments.js';
 import userRoutes from './user.js';
-import userProjectRoutes from './userProjects.js';
+import projectAssignmentsRoutes from './projectAssignments.js';
 
 const RootRouter = Router();
 
@@ -16,7 +16,7 @@ const RootRouter = Router();
 
 RootRouter.use('/projects', projectRoutes);
 RootRouter.use('/users', userRoutes);
-RootRouter.use('/userprojects', userProjectRoutes);
+RootRouter.use('/projectassignments', projectAssignmentsRoutes);
 RootRouter.use('/tickets', ticketRoutes);
 RootRouter.use('/ticketassignments', ticketAssignmentsRoutes);
 RootRouter.use('/login', loginRoutes);
