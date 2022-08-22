@@ -69,8 +69,8 @@ function Users() {
 
   const columns = [
     { headerName: 'ID', field: 'user_id', flex: 1 },
-    { headerName: 'Name', field: 'name', flex: 1 },
-    { headerName: 'Email', field: 'email', flex: 1 },
+    { headerName: 'Name', field: 'name', flex: 1, editable: true },
+    { headerName: 'Email', field: 'email', flex: 1, editable: true },
     {
       headerName: 'Role',
       field: 'user_authority',
@@ -141,6 +141,7 @@ function Users() {
         onRowEditStart={handleRowEditStart}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
+        experimentalFeatures={{ newEditingApi: true }}
       />
     </Box>
   );
