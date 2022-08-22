@@ -35,7 +35,6 @@ function Users() {
 
   const handleEditClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-    console.log(rowModesModel);
   };
 
   const handleSaveClick = (id) => () => {
@@ -43,7 +42,6 @@ function Users() {
       ...rowModesModel,
       [id]: { mode: GridRowModes.View, ignoreModifications: true }
     });
-    console.log(rowModesModel);
   };
 
   const handleDeleteClick = (id) => () => {
@@ -128,10 +126,19 @@ function Users() {
   ];
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <h1 align='center'>Users Information</h1>
+    <Box
+      sx={{
+        height: 500,
+        width: '100%',
+        '& .actions': {
+          color: 'text.secondary'
+        },
+        '& .textPrimary': {
+          color: 'text.primary'
+        }
+      }}
+    >
       <DataGrid
-        autoHeight
         rows={users}
         columns={columns}
         getRowId={(row) => row.user_id}
