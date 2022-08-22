@@ -29,7 +29,7 @@ class User {
   }
 
   static getAll() {
-    let sql = 'SELECT * FROM users;';
+    let sql = 'SELECT user_id, name, email, user_authority FROM users;';
 
     return db.execute(sql);
   }
