@@ -159,13 +159,14 @@ export default function Dashboard() {
                 <ListItemText primary='Users' />
               </ListItemButton>
             </Link>
-
-            <ListItemButton>
-              <ListItemIcon>
-                <LayersIcon />
-              </ListItemIcon>
-              <ListItemText primary='Projects' />
-            </ListItemButton>
+            <Link href='/projects'>
+              <ListItemButton>
+                <ListItemIcon>
+                  <LayersIcon />
+                </ListItemIcon>
+                <ListItemText primary='Projects' />
+              </ListItemButton>
+            </Link>
           </List>
         </Drawer>
         <Box

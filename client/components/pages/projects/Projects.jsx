@@ -84,7 +84,7 @@ EditToolbar.propTypes = {
   setRows: PropTypes.func.isRequired
 };
 
-export default function Users() {
+export default function Projects() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
 

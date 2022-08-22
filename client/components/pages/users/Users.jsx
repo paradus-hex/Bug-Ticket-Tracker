@@ -39,7 +39,10 @@ function Users() {
   };
 
   const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true }
+    });
     console.log(rowModesModel);
   };
 
