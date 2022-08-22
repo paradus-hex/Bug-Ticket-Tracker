@@ -43,8 +43,9 @@ const TicketAssignmentsController = {
 
   removeDev: async (req, res) => {
     try {
-      let { user_id, ticket_id } = req.body;
-      // let { ticketId } = req.params;
+      // let { user_id, ticketId } = req.body;
+      let { ticketId } = req.params;
+      let { user_id } = req.body;
 
       let checkDev = await TicketAssignments.findById(ticket_id, user_id);
 
@@ -57,7 +58,7 @@ const TicketAssignmentsController = {
       const deleteDev = await TicketAssignments.removeDev(ticket_id, user_id);
 
       res.status(200).json({
-        status: `Dev with ID: ${user_id} removed from ticket ${ticket_id}`
+        status: `Dev with ID: ${user_id} removed from ticket ${ticketId}`
       });
     } catch (err) {
       console.log('removeDev query error: ', err);
@@ -72,7 +73,9 @@ const TicketAssignmentsController = {
       const deleteAllDev = await TicketAssignments.removeAllDevs(ticketId);
 
       res
+
         .status(200)
+
         .json({ status: `All devs removed from ticket ${ticketId}` });
     } catch (err) {
       console.log('removeAllDevs query error: ', err);
