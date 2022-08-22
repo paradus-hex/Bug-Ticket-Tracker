@@ -11,14 +11,22 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import * as React from 'react';
-import useLoginUser from '../../../api/loginUser';
+import useLoginUser from '../../../api/useLoginUser';
 import { Copyright } from '../../common';
 
 const theme = createTheme();
 
 export default function LoginForm() {
-  const { mutate: loginUser } = useLoginUser();
+  const router = useRouter();
+  const onSuccess = (successData) => {
+    // console.log(successData.data);
+    localStorage.setItem('token', successData.data.token);
+    localStorage.setItem('auth', successData.data.auth);
+    router.push('/dashboard');
+  };
+  const { mutate: loginUser } = useLoginUser(onSuccess);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

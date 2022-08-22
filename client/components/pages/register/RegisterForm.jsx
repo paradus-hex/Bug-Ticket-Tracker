@@ -11,14 +11,20 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useRouter } from 'next/router';
 import * as React from 'react';
-import useRegisterUser from '../../../api/registerUser';
+import useRegisterUser from '../../../api/useRegisterUser';
 import { Copyright } from '../../common';
 
 const theme = createTheme();
 
 export default function RegisterForm() {
-  const { mutate: newUser } = useRegisterUser();
+  const router = useRouter();
+  const onSuccess = (successData) => {
+    console.log(successData.data);
+    router.push('/login');
+  };
+  const { mutate: newUser } = useRegisterUser(onSuccess);
 
   const handleSubmit = (event) => {
     event.preventDefault();
