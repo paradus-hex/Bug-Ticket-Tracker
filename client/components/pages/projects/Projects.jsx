@@ -11,52 +11,11 @@ import {
   GridRowModes,
   GridToolbarContainer
 } from '@mui/x-data-grid';
-import {
-  randomCreatedDate,
-  randomId,
-  randomTraderName,
-  randomUpdatedDate
-} from '@mui/x-data-grid-generator';
+import { randomId } from '@mui/x-data-grid-generator';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-
-const initialRows = [
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 25,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 36,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 19,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 28,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 23,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  }
-];
+import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
+import useUpdateProject from '../../../api/Projects/useUpdateProject';
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -84,9 +43,24 @@ EditToolbar.propTypes = {
   setRows: PropTypes.func.isRequired
 };
 
-export default function Users() {
-  const [rows, setRows] = React.useState(initialRows);
+function Projects() {
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const { mutate: updateProject } = useUpdateProject();
+
+  const onSuccess = (data) => {
+    console.log(data);
+  };
+  const { isLoading, data, isError, error } = useGetAllProjects(onSuccess);
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (isError) {
+    return <h2>{error.message}</h2>;
+  }
+
+  const { project } = data?.data;
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -113,34 +87,26 @@ export default function Users() {
       ...rowModesModel,
       [id]: { mode: GridRowModes.View, ignoreModifications: true }
     });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
   };
 
+  // const processRowUpdate = (newRow) => {
+  //   // const updatedRow = { ...newRow, isNew: false };
+  //   // setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+  //   // return updatedRow;
+  // };
+
   const processRowUpdate = (newRow) => {
-    // const updatedRow = { ...newRow, isNew: false };
-    // setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    // return updatedRow;
+    updateProject(newRow);
+    return newRow;
   };
 
   const columns = [
-    { field: 'name', headerName: 'Name', width: 180, editable: true },
-    { field: 'age', headerName: 'Age', type: 'number', editable: true },
+    { headerName: 'ID', field: 'project_id', flex: 1 },
+    { headerName: 'Name', field: 'name', flex: 1, editable: true },
     {
-      field: 'dateCreated',
-      headerName: 'Date Created',
-      type: 'date',
-      width: 180,
-      editable: true
-    },
-    {
-      field: 'lastLogin',
-      headerName: 'Last Login',
-      type: 'dateTime',
-      width: 220,
+      headerName: 'Description',
+      field: 'description',
+      flex: 1,
       editable: true
     },
     {
@@ -202,8 +168,9 @@ export default function Users() {
       }}
     >
       <DataGrid
-        rows={rows}
+        rows={project}
         columns={columns}
+        getRowId={(row) => row.project_id}
         editMode='row'
         rowModesModel={rowModesModel}
         onRowEditStart={handleRowEditStart}
@@ -213,10 +180,12 @@ export default function Users() {
           Toolbar: EditToolbar
         }}
         componentsProps={{
-          toolbar: { setRows, setRowModesModel }
+          toolbar: { setRowModesModel }
         }}
         experimentalFeatures={{ newEditingApi: true }}
       />
     </Box>
   );
 }
+
+export default Projects;
