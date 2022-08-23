@@ -121,9 +121,9 @@ export default function Users() {
   };
 
   const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
+    // const updatedRow = { ...newRow, isNew: false };
+    // setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    // return updatedRow;
   };
 
   const columns = [
