@@ -61,6 +61,27 @@ const projectController = {
       console.log('updateProject query error: ', err);
       res.status(500).json({ msg: 'Unable to update project' });
     }
+  },
+
+  deleteProject: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const deleteProject = await Project.deleteProject(id);
+
+      // const [project, _] = await Project.findById(id);
+
+      // if (project.length === 0) {
+      //   return res
+      //     .status(404)
+      //     .json({ status: `Project with ID: ${id} does not exist!` });
+      // } else {
+      //   let [project, _] = await Project.deleteProject(id);
+      // }
+    } catch (err) {
+      console.log(`Failed to delete user ${userId}: `, '\n', err);
+      res.status(500).json({ msg: `Project deletion of ${userId} failed` });
+    }
   }
 };
 
