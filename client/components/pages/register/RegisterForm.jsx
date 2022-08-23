@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import useRegisterUser from '../../../api/useRegisterUser';
+import useRegisterUser from '../../../api/users/useRegisterUser';
 import { Copyright } from '../../common';
 
 const theme = createTheme();

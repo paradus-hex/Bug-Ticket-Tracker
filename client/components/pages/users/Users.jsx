@@ -5,15 +5,17 @@ import SaveIcon from '@mui/icons-material/Save';
 import Box from '@mui/material/Box';
 import { DataGrid, GridActionsCellItem, GridRowModes } from '@mui/x-data-grid';
 import React from 'react';
-import { useGetAllUsers } from '../../../api/useGetAllUsers';
-
+import useDeleteUser from '../../../api/users/useDeleteUser';
+import { useGetAllUsers } from '../../../api/users/useGetAllUsers';
 function Users() {
   const [rowModesModel, setRowModesModel] = React.useState({});
 
-  const onSuccess = (data) => {
-    console.log(data);
+  const onSuccess = (Successdata) => {
+    console.log(Successdata);
   };
-  const { isLoading, data, isError, error } = useGetAllUsers(onSuccess);
+  const { isLoading, data, isError, error, refetch } =
+    useGetAllUsers(onSuccess);
+  const { mutate: deleteUser } = useDeleteUser();
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -40,13 +42,12 @@ function Users() {
   const handleSaveClick = (id) => () => {
     setRowModesModel({
       ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true }
+      [id]: { mode: GridRowModes.View }
     });
   };
 
   const handleDeleteClick = (id) => () => {
-    // setRows(rows.filter((row) => row.id !== id));
-    console.log('deleted');
+    deleteUser(id);
   };
 
   const handleCancelClick = (id) => () => {
@@ -139,6 +140,7 @@ function Users() {
       }}
     >
       <DataGrid
+        autoHeight
         rows={users}
         columns={columns}
         getRowId={(row) => row.user_id}

@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import useLoginUser from '../../../api/useLoginUser';
+import useLoginUser from '../../../api/users/useLoginUser';
 import { Copyright } from '../../common';
 
 const theme = createTheme();
