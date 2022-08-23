@@ -2,18 +2,21 @@ import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGrid, GridActionsCellItem, GridRowModes } from '@mui/x-data-grid';
 import React from 'react';
-import { useGetAllUsers } from '../../../api/useGetAllUsers';
-
+import useDeleteUser from '../../../api/users/useDeleteUser';
+import { useGetAllUsers } from '../../../api/users/useGetAllUsers';
+import useUpdateUser from '../../../api/users/useUpdateUser';
 function Users() {
   const [rowModesModel, setRowModesModel] = React.useState({});
-
+  const { mutate: updateUser } = useUpdateUser();
   const onSuccess = (data) => {
     console.log(data);
   };
   const { isLoading, data, isError, error } = useGetAllUsers(onSuccess);
+  const { mutate: deleteUser } = useDeleteUser();
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -40,13 +43,12 @@ function Users() {
   const handleSaveClick = (id) => () => {
     setRowModesModel({
       ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true }
+      [id]: { mode: GridRowModes.View }
     });
   };
 
   const handleDeleteClick = (id) => () => {
-    // setRows(rows.filter((row) => row.id !== id));
-    console.log('deleted');
+    deleteUser(id);
   };
 
   const handleCancelClick = (id) => () => {
@@ -62,10 +64,8 @@ function Users() {
   };
 
   const processRowUpdate = (newRow) => {
-    // const updatedRow = { ...newRow, isNew: false };
-    // setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    // return updatedRow;
-    console.log('updated');
+    updateUser(newRow);
+    return newRow;
   };
 
   const columns = [
@@ -129,16 +129,23 @@ function Users() {
     <Box
       sx={{
         height: 500,
-        width: '100%',
+        width: '90%',
         '& .actions': {
           color: 'text.secondary'
         },
         '& .textPrimary': {
           color: 'text.primary'
-        }
+        },
+        display: 'flex',
+        flexDirection: 'column',
+        mx: 'auto'
       }}
     >
+      <Typography variant='h5' gutterBottom alignSelf='center'>
+        User Information
+      </Typography>
       <DataGrid
+        autoHeight
         rows={users}
         columns={columns}
         getRowId={(row) => row.user_id}

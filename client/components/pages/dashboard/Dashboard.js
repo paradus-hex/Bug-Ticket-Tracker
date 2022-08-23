@@ -72,15 +72,24 @@ const mdTheme = createTheme();
 
 export default function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   if (typeof window !== 'undefined') {
     let token = localStorage.getItem('token');
-    console.log(token, 'here');
     useEffect(() => {
       if (token == null) {
         setIsAuthenticated(false);
       }
     }, [token]);
+  }
+
+  if (typeof window !== 'undefined') {
+    let auth = localStorage.getItem('auth');
+    useEffect(() => {
+      if (auth === 'admin') {
+        setIsAdmin(true);
+      }
+    }, [auth]);
   }
 
   const [open, setOpen] = React.useState(true);
@@ -151,14 +160,17 @@ export default function Dashboard() {
               </ListItemIcon>
               <ListItemText primary='Dashboard' />
             </ListItemButton>
-            <Link href='/users'>
-              <ListItemButton>
-                <ListItemIcon>
-                  <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary='Users' />
-              </ListItemButton>
-            </Link>
+            {isAdmin && (
+              <Link href='/users'>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PeopleIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Users' />
+                </ListItemButton>
+              </Link>
+            )}
+
             <Link href='/projects'>
               <ListItemButton>
                 <ListItemIcon>
@@ -169,7 +181,7 @@ export default function Dashboard() {
             </Link>
           </List>
         </Drawer>
-        <Box
+        {/* <Box
           component='main'
           sx={{
             backgroundColor: (theme) =>
@@ -182,7 +194,7 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-        </Box>
+        </Box> */}
       </Box>
     </ThemeProvider>
   );
