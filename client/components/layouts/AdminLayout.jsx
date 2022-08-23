@@ -1,11 +1,30 @@
+import { Box } from '@mui/system';
 import React from 'react';
 import { Dashboard } from '../pages';
+
 const Layout = ({ children }) => {
   return (
-    <div className='h-screen flex flex-row justify-start'>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start'
+      }}
+    >
       <Dashboard />
-      <div className='bg-primary flex-1 p-4 text-white'>{children}</div>
-    </div>
+      <Box
+        component='main'
+        sx={{
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+          mt: 10,
+          mb: 4
+        }}
+      >
+        {children}
+      </Box>
+    </Box>
   );
 };
 

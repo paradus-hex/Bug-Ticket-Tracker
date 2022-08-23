@@ -1,4 +1,9 @@
 import { Users } from '../components';
+import Layout from '../components/layouts/AdminLayout';
 export default function UsersTable() {
-  return <Users />;
+  return (
+    <Layout>
+      <Users />
+    </Layout>
+  );
 }
