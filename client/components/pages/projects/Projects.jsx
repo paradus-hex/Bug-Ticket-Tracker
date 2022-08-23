@@ -16,7 +16,6 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
 import useUpdateProject from '../../../api/Projects/useUpdateProject';
-// import useUpdateProject from '../../../api/users/useUpdateProjects';
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -88,11 +87,6 @@ function Projects() {
       ...rowModesModel,
       [id]: { mode: GridRowModes.View, ignoreModifications: true }
     });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
   };
 
   // const processRowUpdate = (newRow) => {

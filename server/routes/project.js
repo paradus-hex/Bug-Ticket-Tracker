@@ -14,7 +14,6 @@ router
   .route('/:id')
   .get(projectController.findById)
   .put(authorization, projectController.updateProject);
-// .put(authorization, projectController.updateProject);
 // .delete(authorization, projectController.deleteProject);
 
 export default router;
