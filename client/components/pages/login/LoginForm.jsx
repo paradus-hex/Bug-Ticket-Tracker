@@ -26,7 +26,14 @@ export default function LoginForm() {
     localStorage.setItem('auth', successData.data.auth);
     router.push('/dashboard');
   };
-  const { mutate: loginUser } = useLoginUser(onSuccess);
+  const router = useRouter();
+  const onSuccess = (successData) => {
+    // console.log(successData.data);
+    localStorage.setItem('token', successData.data.token);
+    localStorage.setItem('auth', successData.data.auth);
+    router.push('/dashboard');
+  };
+  const { mutate: loginUser } = useLoginUser(onSuccessonSuccess);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
