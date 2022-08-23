@@ -15,44 +15,8 @@ import { randomId } from '@mui/x-data-grid-generator';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
-
-// const initialRows = [
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 25,
-//     dateCreated: randomCreatedDate(),
-//     lastLogin: randomUpdatedDate()
-//   },
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 36,
-//     dateCreated: randomCreatedDate(),
-//     lastLogin: randomUpdatedDate()
-//   },
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 19,
-//     dateCreated: randomCreatedDate(),
-//     lastLogin: randomUpdatedDate()
-//   },
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 28,
-//     dateCreated: randomCreatedDate(),
-//     lastLogin: randomUpdatedDate()
-//   },
-//   {
-//     id: randomId(),
-//     name: randomTraderName(),
-//     age: 23,
-//     dateCreated: randomCreatedDate(),
-//     lastLogin: randomUpdatedDate()
-//   }
-// ];
+import useUpdateProject from '../../../api/Projects/useUpdateProject';
+// import useUpdateProject from '../../../api/users/useUpdateProjects';
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -80,11 +44,9 @@ EditToolbar.propTypes = {
   setRows: PropTypes.func.isRequired
 };
 
-export default function Users() {
-  // const [rows, setRows] = React.useState(initialRows);
-
-  // const [rowModesModel, setRowModesModel] = React.useState({});
+function Projects() {
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const { mutate: updateProject } = useUpdateProject();
 
   const onSuccess = (data) => {
     console.log(data);
@@ -133,10 +95,15 @@ export default function Users() {
     }
   };
 
+  // const processRowUpdate = (newRow) => {
+  //   // const updatedRow = { ...newRow, isNew: false };
+  //   // setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+  //   // return updatedRow;
+  // };
+
   const processRowUpdate = (newRow) => {
-    // const updatedRow = { ...newRow, isNew: false };
-    // setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    // return updatedRow;
+    updateProject(newRow);
+    return newRow;
   };
 
   const columns = [
@@ -226,3 +193,5 @@ export default function Users() {
     </Box>
   );
 }
+
+export default Projects;
