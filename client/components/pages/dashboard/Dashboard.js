@@ -75,7 +75,6 @@ export default function Dashboard() {
 
   if (typeof window !== 'undefined') {
     let token = localStorage.getItem('token');
-    console.log(token, 'here');
     useEffect(() => {
       if (token == null) {
         setIsAuthenticated(false);
