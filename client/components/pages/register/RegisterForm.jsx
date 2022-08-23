@@ -12,7 +12,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
-import { useRouter } from 'next/router';
 import * as React from 'react';
 import useRegisterUser from '../../../api/users/useRegisterUser';
 import { Copyright } from '../../common';
@@ -25,12 +24,7 @@ export default function RegisterForm() {
     console.log(successData.data);
     router.push('/login');
   };
-  const router = useRouter();
-  const onSuccess = (successData) => {
-    console.log(successData.data);
-    router.push('/login');
-  };
-  const { mutate: newUser } = useRegisterUser(onSuccessonSuccess);
+  const { mutate: newUser } = useRegisterUser(onSuccess);
 
   const handleSubmit = (event) => {
     event.preventDefault();
