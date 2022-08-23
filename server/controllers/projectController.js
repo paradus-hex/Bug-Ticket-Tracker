@@ -45,15 +45,14 @@ const projectController = {
     try {
       let { id } = req.params;
       let { name, description } = req.body;
-      
+
       const [project, _] = await Project.findById(id);
 
       if (project.length === 0) {
-        return res.status(404).json({ status: `Project with ID: ${id} does not exist!` });
-        
-      }
-
-      else {
+        return res
+          .status(404)
+          .json({ status: `Project with ID: ${id} does not exist!` });
+      } else {
         let [project, _] = await Project.updateProject(id, name, description);
       }
 
@@ -63,7 +62,6 @@ const projectController = {
       res.status(500).json({ msg: 'Unable to update project' });
     }
   }
-  
 };
 
 export default projectController;

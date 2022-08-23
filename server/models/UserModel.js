@@ -29,20 +29,31 @@ class User {
   }
 
   static getAll() {
-    let sql = 'SELECT * FROM users;';
+    let sql = 'SELECT user_id, name, email, user_authority FROM users;';
 
     return db.execute(sql);
   }
 
   static findById(id) {
-    let sql = `SELECT * FROM users WHERE user_id = ${id};`;
+    let sql = `SELECT * FROM users WHERE user_id = '${id}';`;
 
     return db.execute(sql);
   }
 
   static findByEmail(email) {
-    let sql = `SELECT user_id FROM users WHERE email = '${email}';`;
+    let sql = `SELECT * FROM users WHERE email = '${email}';`;
 
+    return db.execute(sql);
+  }
+
+  static updateUserInformation(id, name, email, user_authority) {
+    let sql = `UPDATE users SET name = '${name}', email = '${email}', user_authority = '${user_authority}' WHERE user_id = '${id}'`;
+
+    return db.execute(sql);
+  }
+
+  static deleteUser(id) {
+    let sql = `DELETE FROM users WHERE user_id = '${id}'`;
     return db.execute(sql);
   }
 }
