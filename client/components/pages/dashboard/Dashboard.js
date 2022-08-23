@@ -181,7 +181,7 @@ export default function Dashboard() {
             </Link>
           </List>
         </Drawer>
-        <Box
+        {/* <Box
           component='main'
           sx={{
             backgroundColor: (theme) =>
@@ -194,7 +194,7 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-        </Box>
+        </Box> */}
       </Box>
     </ThemeProvider>
   );

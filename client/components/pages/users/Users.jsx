@@ -2,6 +2,7 @@ import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGrid, GridActionsCellItem, GridRowModes } from '@mui/x-data-grid';
 import React from 'react';
@@ -128,15 +129,21 @@ function Users() {
     <Box
       sx={{
         height: 500,
-        width: '100%',
+        width: '90%',
         '& .actions': {
           color: 'text.secondary'
         },
         '& .textPrimary': {
           color: 'text.primary'
-        }
+        },
+        display: 'flex',
+        flexDirection: 'column',
+        mx: 'auto'
       }}
     >
+      <Typography variant='h5' gutterBottom alignSelf='center'>
+        User Information
+      </Typography>
       <DataGrid
         autoHeight
         rows={users}
