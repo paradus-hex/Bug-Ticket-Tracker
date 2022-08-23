@@ -11,52 +11,48 @@ import {
   GridRowModes,
   GridToolbarContainer
 } from '@mui/x-data-grid';
-import {
-  randomCreatedDate,
-  randomId,
-  randomTraderName,
-  randomUpdatedDate
-} from '@mui/x-data-grid-generator';
+import { randomId } from '@mui/x-data-grid-generator';
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import { useGetAllProjects } from '../../../api/useGetAllProjects';
 
-const initialRows = [
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 25,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 36,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 19,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 28,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 23,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  }
-];
+// const initialRows = [
+//   {
+//     id: randomId(),
+//     name: randomTraderName(),
+//     age: 25,
+//     dateCreated: randomCreatedDate(),
+//     lastLogin: randomUpdatedDate()
+//   },
+//   {
+//     id: randomId(),
+//     name: randomTraderName(),
+//     age: 36,
+//     dateCreated: randomCreatedDate(),
+//     lastLogin: randomUpdatedDate()
+//   },
+//   {
+//     id: randomId(),
+//     name: randomTraderName(),
+//     age: 19,
+//     dateCreated: randomCreatedDate(),
+//     lastLogin: randomUpdatedDate()
+//   },
+//   {
+//     id: randomId(),
+//     name: randomTraderName(),
+//     age: 28,
+//     dateCreated: randomCreatedDate(),
+//     lastLogin: randomUpdatedDate()
+//   },
+//   {
+//     id: randomId(),
+//     name: randomTraderName(),
+//     age: 23,
+//     dateCreated: randomCreatedDate(),
+//     lastLogin: randomUpdatedDate()
+//   }
+// ];
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -85,8 +81,25 @@ EditToolbar.propTypes = {
 };
 
 export default function Users() {
-  const [rows, setRows] = React.useState(initialRows);
+  // const [rows, setRows] = React.useState(initialRows);
+
+  // const [rowModesModel, setRowModesModel] = React.useState({});
   const [rowModesModel, setRowModesModel] = React.useState({});
+
+  const onSuccess = (data) => {
+    console.log(data);
+  };
+  const { isLoading, data, isError, error } = useGetAllProjects(onSuccess);
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (isError) {
+    return <h2>{error.message}</h2>;
+  }
+
+  const { project } = data?.data;
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -127,20 +140,12 @@ export default function Users() {
   };
 
   const columns = [
-    { field: 'name', headerName: 'Name', width: 180, editable: true },
-    { field: 'age', headerName: 'Age', type: 'number', editable: true },
+    { headerName: 'ID', field: 'project_id', flex: 1 },
+    { headerName: 'Name', field: 'name', flex: 1, editable: true },
     {
-      field: 'dateCreated',
-      headerName: 'Date Created',
-      type: 'date',
-      width: 180,
-      editable: true
-    },
-    {
-      field: 'lastLogin',
-      headerName: 'Last Login',
-      type: 'dateTime',
-      width: 220,
+      headerName: 'Description',
+      field: 'description',
+      flex: 1,
       editable: true
     },
     {
@@ -202,8 +207,9 @@ export default function Users() {
       }}
     >
       <DataGrid
-        rows={rows}
+        rows={project}
         columns={columns}
+        getRowId={(row) => row.project_id}
         editMode='row'
         rowModesModel={rowModesModel}
         onRowEditStart={handleRowEditStart}
@@ -213,7 +219,7 @@ export default function Users() {
           Toolbar: EditToolbar
         }}
         componentsProps={{
-          toolbar: { setRows, setRowModesModel }
+          toolbar: { setRowModesModel }
         }}
         experimentalFeatures={{ newEditingApi: true }}
       />
