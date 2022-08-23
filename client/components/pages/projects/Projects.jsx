@@ -14,7 +14,7 @@ import {
 import { randomId } from '@mui/x-data-grid-generator';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useGetAllProjects } from '../../../api/useGetAllProjects';
+import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
 
 // const initialRows = [
 //   {
