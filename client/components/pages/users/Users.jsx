@@ -7,14 +7,14 @@ import { DataGrid, GridActionsCellItem, GridRowModes } from '@mui/x-data-grid';
 import React from 'react';
 import useDeleteUser from '../../../api/users/useDeleteUser';
 import { useGetAllUsers } from '../../../api/users/useGetAllUsers';
+import useUpdateUser from '../../../api/users/useUpdateUser';
 function Users() {
   const [rowModesModel, setRowModesModel] = React.useState({});
-
-  const onSuccess = (Successdata) => {
-    console.log(Successdata);
+  const { mutate: updateUser } = useUpdateUser();
+  const onSuccess = (data) => {
+    console.log(data);
   };
-  const { isLoading, data, isError, error, refetch } =
-    useGetAllUsers(onSuccess);
+  const { isLoading, data, isError, error } = useGetAllUsers(onSuccess);
   const { mutate: deleteUser } = useDeleteUser();
 
   if (isLoading) {
@@ -63,10 +63,8 @@ function Users() {
   };
 
   const processRowUpdate = (newRow) => {
-    // const updatedRow = { ...newRow, isNew: false };
-    // setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    // return updatedRow;
-    console.log('updated');
+    updateUser(newRow);
+    return newRow;
   };
 
   const columns = [

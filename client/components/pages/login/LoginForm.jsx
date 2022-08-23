@@ -35,6 +35,7 @@ export default function LoginForm() {
       password: data.get('password')
     };
     loginUser(loginUserPayload);
+    console.log(loginUserPayload);
   };
 
   return (
