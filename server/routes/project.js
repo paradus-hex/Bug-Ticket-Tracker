@@ -7,8 +7,7 @@ const router = Router();
 // Matches route with "/api/v1/projects/"
 router
   .route('/')
-  .get(authorization, projectController.getAll)
-
+  .get(projectController.getAll)
   .post(authorization, projectController.createProject);
 
 router
