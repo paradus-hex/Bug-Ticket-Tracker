@@ -54,6 +54,7 @@ export default function DialogSelect(props) {
   const handleClose = (event, reason) => {
     if (reason !== 'backdropClick') {
       setOpen(false);
+      console.log(personName);
     }
   };
 
@@ -81,13 +82,13 @@ export default function DialogSelect(props) {
               )}
               MenuProps={MenuProps}
             >
-              {props.names.map((name) => (
+              {props.users.map((user) => (
                 <MenuItem
-                  key={name}
-                  value={name}
+                  key={user.user_id}
+                  value={user.name}
                   style={getStyles(name, personName, theme)}
                 >
-                  {name}
+                  {user.name}
                 </MenuItem>
               ))}
             </Select>

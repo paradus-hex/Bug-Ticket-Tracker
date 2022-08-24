@@ -82,9 +82,7 @@ function Tickets() {
   console.log(data);
   const { ticket, project, availableUsers } = data?.data;
   const { name, description } = project[0];
-
-  const nestedAvailableUser = availableUsers.map((obj) => Object.values(obj));
-  const finalAvailableUsers = [].concat(...nestedAvailableUser);
+  console.log(availableUsers);
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -222,9 +220,7 @@ function Tickets() {
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button size='small'>
-              <DialogSelect names={finalAvailableUsers} />
-            </Button>
+            <DialogSelect users={availableUsers} />
           </CardActions>
         </Card>
       </Box>
