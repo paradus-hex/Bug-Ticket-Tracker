@@ -1,4 +1,3 @@
-import { randomUUID } from 'crypto';
 import Project from '../models/ProjectModel.js';
 
 const projectController = {
@@ -15,8 +14,8 @@ const projectController = {
 
   findById: async (req, res) => {
     try {
-      const { id } = req.params;
-      const [project, _] = await Project.findById(id);
+      const { projectId } = req.params;
+      const [project, _] = await Project.findById(projectId);
 
       res.status(200).json({ project: project });
     } catch (err) {
@@ -26,10 +25,10 @@ const projectController = {
   },
 
   createProject: async (req, res) => {
-    let project_id = randomUUID().substring(0, 3);
+    // let project_id = randomUUID().substring(0, 3);
 
     try {
-      let { name, description } = req.body;
+      let { project_id, name, description } = req.body;
 
       let project = new Project(project_id, name, description);
       project = await project.saveProjectToDB();
@@ -43,14 +42,18 @@ const projectController = {
 
   updateProject: async (req, res) => {
     try {
-      let { id } = req.params;
+      let { projectId } = req.params;
       let { name, description } = req.body;
       // console.log(req.params);
       // console.log(req.body);
 
-      let [project, _] = await Project.updateProject(id, name, description);
+      let [project, _] = await Project.updateProject(
+        projectId,
+        name,
+        description
+      );
 
-      res.status(200).json({ status: `Project with ID: ${id} update!` });
+      res.status(200).json({ status: `Project with ID: ${projectId} update!` });
     } catch (err) {
       console.log('updateProject query error: ', err);
       res.status(500).json({ msg: 'Unable to update project' });
