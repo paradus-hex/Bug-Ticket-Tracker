@@ -1,3 +1,4 @@
+import AvailableUsers from '../models/AvailableUsers.js';
 import Project from '../models/ProjectModel.js';
 import Ticket from '../models/Ticket.js';
 const projectController = {
@@ -29,8 +30,9 @@ const projectController = {
       const { projectId } = req.params;
       const [project, _] = await Project.findById(projectId);
       const [ticket] = await Ticket.getProjectTickets(projectId);
+      let [availableUsers] = await AvailableUsers.getAvailableUsers(projectId);
 
-      res.status(200).json({ project: project, ticket: ticket });
+      res.status(200).json({ project, ticket, availableUsers });
     } catch (err) {
       console.log('getProject query error: ', err);
       res.status(500).json({ msg: 'Unable to get projects from database' });

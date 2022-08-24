@@ -20,6 +20,7 @@ import * as React from 'react';
 // import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
 import { Card, CardActions, CardContent } from '@mui/material';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
+import DialogSelect from '../../common/DialogSelect';
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -79,8 +80,11 @@ function Tickets() {
     return <h2>{error.message}</h2>;
   }
   console.log(data);
-  const { ticket, project } = data?.data;
+  const { ticket, project, availableUsers } = data?.data;
   const { name, description } = project[0];
+
+  const nestedAvailableUser = availableUsers.map((obj) => Object.values(obj));
+  const finalAvailableUsers = [].concat(...nestedAvailableUser);
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -218,7 +222,9 @@ function Tickets() {
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button size='small'>Assign More</Button>
+            <Button size='small'>
+              <DialogSelect names={finalAvailableUsers} />
+            </Button>
           </CardActions>
         </Card>
       </Box>
