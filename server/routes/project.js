@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import projectController from '../controllers/projectController.js';
+import ticketController from '../controllers/ticketController.js';
 import authorization from '../middlewares/authorization.js';
 
 const router = Router();
@@ -10,10 +11,12 @@ router
   .get(projectController.getAll)
   .post(authorization, projectController.createProject);
 
+// http://localhost:8000/api/v1/projects/:projectId
 router
-  .route('/:id')
+  .route('/:projectId')
   .get(projectController.findById)
-  .put(authorization, projectController.updateProject);
+  .put(authorization, projectController.updateProject)
+  .post(ticketController.createTicket);
 // .delete(authorization, projectController.deleteProject);
 
 export default router;

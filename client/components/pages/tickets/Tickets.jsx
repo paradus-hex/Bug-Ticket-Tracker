@@ -3,7 +3,6 @@ import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
-import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {
@@ -12,21 +11,59 @@ import {
   GridRowModes,
   GridToolbarContainer
 } from '@mui/x-data-grid';
-import { randomId } from '@mui/x-data-grid-generator';
-import { useRouter } from 'next/router';
+import {
+  randomCreatedDate,
+  randomId,
+  randomTraderName,
+  randomUpdatedDate
+} from '@mui/x-data-grid-generator';
+import PropTypes from 'prop-types';
 import * as React from 'react';
-import useCreateProject from '../../../api/Projects/useCreateProject';
-import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
-import useUpdateProject from '../../../api/Projects/useUpdateProject';
+
+const initialRows = [
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 25,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate()
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 36,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate()
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 19,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate()
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 28,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate()
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 23,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate()
+  }
+];
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
-  const { mutate: createProject } = useCreateProject();
 
   const handleClick = () => {
-    const id = randomId().substring(0, 3);
+    const id = randomId();
     setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-    createProject(ol);
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' }
@@ -36,36 +73,20 @@ function EditToolbar(props) {
   return (
     <GridToolbarContainer>
       <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
-        Create Project
+        Add record
       </Button>
     </GridToolbarContainer>
   );
 }
 
-// EditToolbar.propTypes = {
-//   setRowModesModel: PropTypes.func.isRequired,
-//   setRows: PropTypes.func.isRequired
-// };
+EditToolbar.propTypes = {
+  setRowModesModel: PropTypes.func.isRequired,
+  setRows: PropTypes.func.isRequired
+};
 
-function Projects() {
-  const router = useRouter();
+export default function Tickets() {
+  const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
-  const { mutate: updateProject } = useUpdateProject();
-
-  const onSuccess = (data) => {
-    console.log(data);
-  };
-  const { isLoading, data, isError, error } = useGetAllProjects(onSuccess);
-
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-
-  if (isError) {
-    return <h2>{error.message}</h2>;
-  }
-
-  const { project } = data?.data;
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -92,24 +113,34 @@ function Projects() {
       ...rowModesModel,
       [id]: { mode: GridRowModes.View, ignoreModifications: true }
     });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
   };
 
   const processRowUpdate = (newRow) => {
-    updateProject(newRow);
-    return newRow;
-  };
-
-  const handleRowClick = (params) => {
-    router.push(`/projects/${params.id}`);
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
   };
 
   const columns = [
-    { headerName: 'ID', field: 'project_id', flex: 1 },
-    { headerName: 'Name', field: 'name', flex: 1, editable: true },
+    { field: 'name', headerName: 'Name', width: 180, editable: true },
+    { field: 'age', headerName: 'Age', type: 'number', editable: true },
     {
-      headerName: 'Description',
-      field: 'description',
-      flex: 1,
+      field: 'dateCreated',
+      headerName: 'Date Created',
+      type: 'date',
+      width: 180,
+      editable: true
+    },
+    {
+      field: 'lastLogin',
+      headerName: 'Last Login',
+      type: 'dateTime',
+      width: 220,
       editable: true
     },
     {
@@ -160,26 +191,19 @@ function Projects() {
   return (
     <Box
       sx={{
-        height: 750,
-        width: '90%',
+        height: 500,
+        width: '100%',
         '& .actions': {
           color: 'text.secondary'
         },
         '& .textPrimary': {
           color: 'text.primary'
-        },
-        display: 'flex',
-        flexDirection: 'column',
-        mx: 'auto'
+        }
       }}
     >
-      <Typography variant='h5' gutterBottom alignSelf='center'>
-        Project Information
-      </Typography>
       <DataGrid
-        rows={project}
+        rows={rows}
         columns={columns}
-        getRowId={(row) => row.project_id}
         editMode='row'
         rowModesModel={rowModesModel}
         onRowEditStart={handleRowEditStart}
@@ -189,13 +213,10 @@ function Projects() {
           Toolbar: EditToolbar
         }}
         componentsProps={{
-          toolbar: { setRowModesModel }
+          toolbar: { setRows, setRowModesModel }
         }}
         experimentalFeatures={{ newEditingApi: true }}
-        onRowClick={handleRowClick}
       />
     </Box>
   );
 }
-
-export default Projects;

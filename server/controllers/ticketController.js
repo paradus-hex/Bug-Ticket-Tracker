@@ -1,6 +1,4 @@
-import Ticket from "../models/Ticket.js";
-
-
+import Ticket from '../models/Ticket.js';
 
 const ticketController = {
   getAll: async (req, res) => {
@@ -10,8 +8,8 @@ const ticketController = {
       // res.status(200).json({ count: ticket.length, ticket });
       res.status(200).json(ticket);
     } catch {
-      console.log("getTicket query error: ", err);
-      res.status(500).json({ msg: "Unable to get tickets from database" });
+      console.log('getTicket query error: ', err);
+      res.status(500).json({ msg: 'Unable to get tickets from database' });
     }
   },
 
@@ -21,10 +19,9 @@ const ticketController = {
       const [ticket, _] = await Ticket.getTicket(ticketId);
 
       res.status(200).json(ticket);
-
     } catch (err) {
-      console.log("getTicketById query error: ", err);
-      res.status(500).json({ msg: "Unable to get ticket from database" });
+      console.log('getTicketById query error: ', err);
+      res.status(500).json({ msg: 'Unable to get ticket from database' });
     }
   },
 
@@ -34,34 +31,37 @@ const ticketController = {
       const [ticket, _] = await Ticket.getProjectTickets(projectId);
 
       res.status(200).json({ ticket: ticket });
-
     } catch (err) {
-      console.log("gerProjectId query error: ", err);
-      res.status(500).json({ msg: "Unable to get ticket from database" });
+      console.log('gerProjectId query error: ', err);
+      res.status(500).json({ msg: 'Unable to get ticket from database' });
     }
   },
-
-
 
   createTicket: async (req, res) => {
-
     try {
-      let { ticket_id, title, description, status, author_id, created_at, project_id } = req.body;
-      let ticket = new Ticket(ticket_id, title, description, status, author_id, created_at, project_id);
+      const { projectId } = req.params;
+      let { ticket_id, title, description, status, author_id, created_at } =
+        req.body;
+      let ticket = new Ticket(
+        ticket_id,
+        title,
+        description,
+        status,
+        author_id,
+        created_at,
+        projectId
+      );
 
       ticket = await ticket.createTicket();
-      [ticket] = await Ticket.getProjectTickets(project_id)
 
-      res.status(201).json({ status: "Ticket Created!", ticket });
+      res.status(201).json({ status: 'Ticket Created!' });
     } catch (err) {
-      console.log("createTicket query error: ", err);
-      res.status(500).json({ msg: "Unable to create ticket" });
+      console.log('createTicket query error: ', err);
+      res.status(500).json({ msg: 'Unable to create ticket' });
     }
   },
 
-
   updateTicket: async (req, res) => {
-
     try {
       //* OLD
       // let { ticket_id, title, description, status, author_id, created_at, project_id } = req.body;
@@ -69,23 +69,32 @@ const ticketController = {
       //* OLD
 
       let { ticketId } = req.params;
-      let { title, description, status, author_id, created_at, project_id } = req.body;
-      let ticket = await Ticket.updateTicket(ticketId, title, description, status, author_id, created_at, project_id);
+      let { title, description, status, author_id, created_at, project_id } =
+        req.body;
+      let ticket = await Ticket.updateTicket(
+        ticketId,
+        title,
+        description,
+        status,
+        author_id,
+        created_at,
+        project_id
+      );
 
       // ticket = await ticket.updateTicket();
       // [ticket] = await Ticket.getTicket(ticketId);
 
-      res.status(201).json({ status: "Ticket updated!", msg: `Ticket named ${title} updated successfully` });
+      res
+        .status(201)
+        .json({
+          status: 'Ticket updated!',
+          msg: `Ticket named ${title} updated successfully`
+        });
     } catch (err) {
-      console.log("createTicket query error: ", err);
-      res.status(500).json({ msg: "Unable to create ticket" });
+      console.log('createTicket query error: ', err);
+      res.status(500).json({ msg: 'Unable to create ticket' });
     }
-  },
-
-
-}
-
-
-
+  }
+};
 
 export default ticketController;

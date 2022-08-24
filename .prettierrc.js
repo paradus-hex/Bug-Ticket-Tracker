@@ -6,3 +6,4 @@ module.exports = {
 	useTabs: false,
 	jsxSingleQuote: true
 };
+
