@@ -14,7 +14,7 @@ router
 // http://localhost:8000/api/v1/projects/:projectId
 router
   .route('/:projectId')
-  .get(ticketController.getProjectTickets)
+  .get(projectController.projectById)
   .put(authorization, projectController.updateProject)
   .post(ticketController.createTicket);
 // .delete(authorization, projectController.deleteProject);

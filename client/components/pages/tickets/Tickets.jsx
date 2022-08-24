@@ -18,6 +18,7 @@ import * as React from 'react';
 // import useCreateticket from '../../../api/Tickets/useCreateticket';
 // import { useGetAllTickets } from '../../../api/Tickets/useGetAllTickets';
 // import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
+import { Card, CardActions, CardContent } from '@mui/material';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
 
 function EditToolbar(props) {
@@ -78,7 +79,8 @@ function Tickets() {
     return <h2>{error.message}</h2>;
   }
   console.log(data);
-  const { ticket } = data?.data;
+  const { ticket, project } = data?.data;
+  const { name, description } = project[0];
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -187,45 +189,79 @@ function Tickets() {
   ];
 
   return (
-    <Box
-      sx={{
-        height: 750,
-        width: '90%',
-        '& .actions': {
-          color: 'text.secondary'
-        },
-        '& .textPrimary': {
-          color: 'text.primary'
-        },
-        display: 'flex',
-        flexDirection: 'column',
-        mx: 'auto'
-      }}
-    >
-      <Typography variant='h5' gutterBottom alignSelf='center'>
-        Ticket Information
-      </Typography>
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Card sx={{ maxWidth: 500, mx: 10 }}>
+          <CardContent>
+            <Typography gutterBottom variant='h5' component='div'>
+              Project {name}
+            </Typography>
+            <Typography variant='body1' color='text.secondary'>
+              {description}
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ maxWidth: 500, mx: 10, my: 5 }}>
+          <CardContent>
+            <Typography gutterBottom variant='h5' component='div'>
+              Assigned Developers To {name}
+            </Typography>
+            <Typography variant='body1' color='text.secondary'>
+              {description}
+            </Typography>
+          </CardContent>
+          <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button size='small'>Assign More</Button>
+          </CardActions>
+        </Card>
+      </Box>
+      <Box
+        sx={{
+          height: 500,
+          width: '90%',
+          '& .actions': {
+            color: 'text.secondary'
+          },
+          '& .textPrimary': {
+            color: 'text.primary'
+          },
+          display: 'flex',
+          flexDirection: 'column',
+          mx: 'auto'
+        }}
+      >
+        <Typography variant='h5' gutterBottom alignSelf='center'>
+          Ticket's under {name}
+        </Typography>
 
-      <DataGrid
-        rows={ticket}
-        columns={columns}
-        getRowId={(row) => row.ticket_id}
-        editMode='row'
-        rowModesModel={rowModesModel}
-        onRowEditStart={handleRowEditStart}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        components={{
-          Toolbar: EditToolbar,
-          NoRowsOverlay: NoTickets
-        }}
-        componentsProps={{
-          toolbar: { setRowModesModel }
-        }}
-        experimentalFeatures={{ newEditingApi: true }}
-        onRowClick={handleRowClick}
-      />
-    </Box>
+        <DataGrid
+          rows={ticket}
+          columns={columns}
+          getRowId={(row) => row.ticket_id}
+          editMode='row'
+          rowModesModel={rowModesModel}
+          onRowEditStart={handleRowEditStart}
+          onRowEditStop={handleRowEditStop}
+          processRowUpdate={processRowUpdate}
+          components={{
+            Toolbar: EditToolbar,
+            NoRowsOverlay: NoTickets
+          }}
+          componentsProps={{
+            toolbar: { setRowModesModel }
+          }}
+          experimentalFeatures={{ newEditingApi: true }}
+          onRowClick={handleRowClick}
+        />
+      </Box>
+    </>
   );
 }
 
