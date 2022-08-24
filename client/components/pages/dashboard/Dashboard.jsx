@@ -9,6 +9,7 @@ import {
 import jwt from 'jsonwebtoken';
 import React, { useEffect, useState } from 'react';
 import { useGetUser } from '../../../api/users/useGetUser';
+import Copyright from '../../common/Copyright';
 
 const UserDashboard = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -33,25 +34,24 @@ const UserDashboard = () => {
 
   const { name, email, user_authority } = data?.data.user[0];
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Card sx={{ maxWidth: 1000 }}>
-        <CardContent>
-          <Typography gutterBottom variant='h5' component='div'>
-            Welcome {name}!
-          </Typography>
-          <Typography variant='body1' color='text.secondary'>
-            Email: {email}
-          </Typography>
-          <Typography variant='body1' color='text.secondary'>
-            Role: {user_authority}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size='small'>Share</Button>
-          <Button size='small'>Learn More</Button>
-        </CardActions>
-      </Card>
-    </Box>
+    <>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Card sx={{ maxWidth: 1000 }}>
+          <CardContent>
+            <Typography gutterBottom variant='h5' component='div'>
+              Welcome {name}!
+            </Typography>
+            <Typography variant='body1' color='text.secondary'>
+              Email: {email}
+            </Typography>
+            <Typography variant='body1' color='text.secondary'>
+              Role: {user_authority}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
+      <Copyright />
+    </>
   );
 };
 

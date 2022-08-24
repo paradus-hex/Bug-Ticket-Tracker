@@ -1,6 +1,6 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import LayersIcon from '@mui/icons-material/Layers';
+import FolderIcon from '@mui/icons-material/Folder';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import PeopleIcon from '@mui/icons-material/People';
@@ -21,7 +21,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -181,7 +180,7 @@ export default function Dashboard() {
             <Link href='/projects'>
               <ListItemButton>
                 <ListItemIcon>
-                  <LayersIcon />
+                  <FolderIcon />
                 </ListItemIcon>
                 <ListItemText primary='Projects' />
               </ListItemButton>

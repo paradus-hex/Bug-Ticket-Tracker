@@ -1,4 +1,7 @@
+import AvailableUsers from '../models/AvailableUsers.js';
+import ProjectAssignments from '../models/ProjectAssignmentsModel.js';
 import Project from '../models/ProjectModel.js';
+import Ticket from '../models/Ticket.js';
 
 const projectController = {
   getAll: async (req, res) => {
@@ -24,8 +27,27 @@ const projectController = {
     }
   },
 
+  projectById: async (req, res) => {
+    try {
+      const { projectId } = req.params;
+      const [project, _] = await Project.findById(projectId);
+      const [ticket] = await Ticket.getProjectTickets(projectId);
+      let [availableUsers] = await AvailableUsers.getAvailableUsers(projectId);
+      let [projectAssignments] = await ProjectAssignments.getAssignedDevs(
+        projectId
+      );
+
+      res
+        .status(200)
+        .json({ project, ticket, availableUsers, projectAssignments });
+    } catch (err) {
+      console.log('getProject query error: ', err);
+      res.status(500).json({ msg: 'Unable to get projects from database' });
+    }
+  },
+
   createProject: async (req, res) => {
-    // let project_id = randomUUID().substring(0, 3);
+    // // let project_id = randomUUID().substring(0, 3);
 
     try {
       let { project_id, name, description } = req.body;
