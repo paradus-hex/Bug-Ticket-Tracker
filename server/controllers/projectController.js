@@ -1,6 +1,8 @@
 import AvailableUsers from '../models/AvailableUsers.js';
+import ProjectAssignments from '../models/ProjectAssignmentsModel.js';
 import Project from '../models/ProjectModel.js';
 import Ticket from '../models/Ticket.js';
+
 const projectController = {
   getAll: async (req, res) => {
     try {
@@ -31,8 +33,13 @@ const projectController = {
       const [project, _] = await Project.findById(projectId);
       const [ticket] = await Ticket.getProjectTickets(projectId);
       let [availableUsers] = await AvailableUsers.getAvailableUsers(projectId);
+      let [projectAssignments] = await ProjectAssignments.getAssignedDevs(
+        projectId
+      );
 
-      res.status(200).json({ project, ticket, availableUsers });
+      res
+        .status(200)
+        .json({ project, ticket, availableUsers, projectAssignments });
     } catch (err) {
       console.log('getProject query error: ', err);
       res.status(500).json({ msg: 'Unable to get projects from database' });

@@ -1,3 +1,3 @@
-import Tickets from './Tickets';
-export * from './Tickets';
-export { Tickets };
+import ProjectTickets from './ProjectTickets';
+export * from './ProjectTickets';
+export { ProjectTickets };

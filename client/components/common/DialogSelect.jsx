@@ -86,7 +86,7 @@ export default function DialogSelect(props) {
                 <MenuItem
                   key={user.user_id}
                   value={user.name}
-                  style={getStyles(name, personName, theme)}
+                  style={getStyles(user.name, personName, theme)}
                 >
                   {user.name}
                 </MenuItem>

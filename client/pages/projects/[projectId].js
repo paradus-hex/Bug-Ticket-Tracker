@@ -1,9 +1,9 @@
 import Layout from '../../components/layouts/AdminLayout';
-import { Tickets } from '../../components/pages/tickets';
+import { ProjectTickets } from '../../components/pages';
 export default function TicketTable() {
   return (
     <Layout>
-      <Tickets />
+      <ProjectTickets />
     </Layout>
   );
 }

@@ -20,8 +20,8 @@ import * as React from 'react';
 // import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
 import { Card, CardActions, CardContent } from '@mui/material';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
+import ChipsArray from '../../common/Chip';
 import DialogSelect from '../../common/DialogSelect';
-
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
   // const { mutate: createticket } = useCreateticket();
@@ -64,7 +64,7 @@ function NoTickets() {
 //   setRows: PropTypes.func.isRequired
 // };
 
-function Tickets() {
+function ProjectTickets() {
   const router = useRouter();
   const { projectId } = router.query;
   const [rowModesModel, setRowModesModel] = React.useState({});
@@ -80,9 +80,9 @@ function Tickets() {
     return <h2>{error.message}</h2>;
   }
   console.log(data);
-  const { ticket, project, availableUsers } = data?.data;
+  const { ticket, project, availableUsers, projectAssignments } = data?.data;
   const { name, description } = project[0];
-  console.log(availableUsers);
+  console.log(projectAssignments);
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -195,12 +195,12 @@ function Tickets() {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          alignItems: 'center'
+          justifyContent: 'center'
+          // flexDirection: 'column',
+          // alignItems: 'center'
         }}
       >
-        <Card sx={{ maxWidth: 500, mx: 10 }}>
+        <Card sx={{ mx: 10, my: 10, flexGrow: 1 }}>
           <CardContent>
             <Typography gutterBottom variant='h5' component='div'>
               Project {name}
@@ -210,13 +210,18 @@ function Tickets() {
             </Typography>
           </CardContent>
         </Card>
-        <Card sx={{ maxWidth: 500, mx: 10, my: 5 }}>
+        <Card sx={{ mx: 10, my: 10, flexGrow: 1 }}>
           <CardContent>
-            <Typography gutterBottom variant='h5' component='div'>
+            <Typography
+              gutterBottom
+              variant='h5'
+              component='div'
+              sx={{ display: 'flex', justifyContent: 'center' }}
+            >
               Assigned Developers To {name}
             </Typography>
             <Typography variant='body1' color='text.secondary'>
-              {description}
+              <ChipsArray assignedDevs={projectAssignments} />
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -267,4 +272,4 @@ function Tickets() {
   );
 }
 
-export default Tickets;
+export default ProjectTickets;
