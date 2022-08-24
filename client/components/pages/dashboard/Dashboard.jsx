@@ -48,10 +48,6 @@ const UserDashboard = () => {
               Role: {user_authority}
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button size='small'>Share</Button>
-            <Button size='small'>Learn More</Button>
-          </CardActions>
         </Card>
       </Box>
       <Copyright />

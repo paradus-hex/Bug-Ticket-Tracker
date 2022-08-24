@@ -47,7 +47,7 @@ const projectController = {
   },
 
   createProject: async (req, res) => {
-    // let project_id = randomUUID().substring(0, 3);
+    // // let project_id = randomUUID().substring(0, 3);
 
     try {
       let { project_id, name, description } = req.body;
