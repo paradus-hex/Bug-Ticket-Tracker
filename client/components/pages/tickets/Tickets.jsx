@@ -3,6 +3,7 @@ import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {
@@ -11,59 +12,22 @@ import {
   GridRowModes,
   GridToolbarContainer
 } from '@mui/x-data-grid';
-import {
-  randomCreatedDate,
-  randomId,
-  randomTraderName,
-  randomUpdatedDate
-} from '@mui/x-data-grid-generator';
-import PropTypes from 'prop-types';
+import { randomId } from '@mui/x-data-grid-generator';
+import { useRouter } from 'next/router';
 import * as React from 'react';
-
-const initialRows = [
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 25,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 36,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 19,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 28,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 23,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate()
-  }
-];
+// import useCreateticket from '../../../api/Tickets/useCreateticket';
+// import { useGetAllTickets } from '../../../api/Tickets/useGetAllTickets';
+// import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
+import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
+  // const { mutate: createticket } = useCreateticket();
 
   const handleClick = () => {
-    const id = randomId();
+    const id = randomId().substring(0, 3);
     setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+    createticket(ol);
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' }
@@ -73,20 +37,37 @@ function EditToolbar(props) {
   return (
     <GridToolbarContainer>
       <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
+        Create ticket
       </Button>
     </GridToolbarContainer>
   );
 }
 
-EditToolbar.propTypes = {
-  setRowModesModel: PropTypes.func.isRequired,
-  setRows: PropTypes.func.isRequired
-};
+// EditToolbar.propTypes = {
+//   setRowModesModel: PropTypes.func.isRequired,
+//   setRows: PropTypes.func.isRequired
+// };
 
-export default function Tickets() {
-  const [rows, setRows] = React.useState(initialRows);
+function Tickets() {
+  const router = useRouter();
+  const { projectId } = router.query;
   const [rowModesModel, setRowModesModel] = React.useState({});
+  // const { mutate: updateTicket } = useUpdateTicket();
+
+  const onSuccess = (data) => {
+    console.log(data);
+  };
+  const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (isError) {
+    return <h2>{error.message}</h2>;
+  }
+  console.log(data);
+  const { ticket } = data?.data;
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -113,34 +94,40 @@ export default function Tickets() {
       ...rowModesModel,
       [id]: { mode: GridRowModes.View, ignoreModifications: true }
     });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
   };
 
   const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
+    updateTicket(newRow);
+    return newRow;
+  };
+
+  const handleRowClick = (params) => {
+    router.push(`/Tickets/${params.id}`);
   };
 
   const columns = [
-    { field: 'name', headerName: 'Name', width: 180, editable: true },
-    { field: 'age', headerName: 'Age', type: 'number', editable: true },
+    { headerName: 'Ticket ID', field: 'ticket_id', flex: 1 },
+    { headerName: 'Title', field: 'title', flex: 1, editable: true },
     {
-      field: 'dateCreated',
-      headerName: 'Date Created',
-      type: 'date',
-      width: 180,
+      headerName: 'Description',
+      field: 'description',
+      flex: 1,
       editable: true
     },
     {
-      field: 'lastLogin',
-      headerName: 'Last Login',
-      type: 'dateTime',
-      width: 220,
+      headerName: 'Status',
+      field: 'status',
+      type: 'singleSelect',
+      valueOptions: ['TODO', 'in-progress', 'resolved'],
+      editable: true,
+      flex: 1
+    },
+    { headerName: 'Submitted By', field: 'name', flex: 1, editable: true },
+    {
+      field: 'created_at',
+      headerName: 'Date Created',
+      type: 'date',
+      width: 180,
       editable: true
     },
     {
@@ -191,19 +178,26 @@ export default function Tickets() {
   return (
     <Box
       sx={{
-        height: 500,
-        width: '100%',
+        height: 750,
+        width: '90%',
         '& .actions': {
           color: 'text.secondary'
         },
         '& .textPrimary': {
           color: 'text.primary'
-        }
+        },
+        display: 'flex',
+        flexDirection: 'column',
+        mx: 'auto'
       }}
     >
+      <Typography variant='h5' gutterBottom alignSelf='center'>
+        Ticket Information
+      </Typography>
       <DataGrid
-        rows={rows}
+        rows={ticket}
         columns={columns}
+        getRowId={(row) => row.ticket_id}
         editMode='row'
         rowModesModel={rowModesModel}
         onRowEditStart={handleRowEditStart}
@@ -213,10 +207,13 @@ export default function Tickets() {
           Toolbar: EditToolbar
         }}
         componentsProps={{
-          toolbar: { setRows, setRowModesModel }
+          toolbar: { setRowModesModel }
         }}
         experimentalFeatures={{ newEditingApi: true }}
+        onRowClick={handleRowClick}
       />
     </Box>
   );
 }
+
+export default Tickets;
