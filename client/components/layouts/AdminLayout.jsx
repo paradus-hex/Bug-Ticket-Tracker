@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 import React from 'react';
-import { Dashboard } from '../pages';
+import { Sidebar } from '../pages';
 
 const Layout = ({ children }) => {
   return (
@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
         justifyContent: 'flex-start'
       }}
     >
-      <Dashboard />
+      <Sidebar />
       <Box
         component='main'
         sx={{

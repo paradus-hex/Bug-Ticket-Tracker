@@ -1,11 +1,10 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LayersIcon from '@mui/icons-material/Layers';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import PeopleIcon from '@mui/icons-material/People';
 import MuiAppBar from '@mui/material/AppBar';
-import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -19,6 +18,7 @@ import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
@@ -73,6 +73,7 @@ const mdTheme = createTheme();
 export default function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const router = useRouter();
 
   if (typeof window !== 'undefined') {
     let token = localStorage.getItem('token');
@@ -92,7 +93,7 @@ export default function Dashboard() {
     }, [auth]);
   }
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -132,10 +133,14 @@ export default function Dashboard() {
             >
               Dashboard
             </Typography>
-            <IconButton color='inherit'>
-              <Badge badgeContent={4} color='secondary'>
-                <NotificationsIcon />
-              </Badge>
+
+            <IconButton
+              color='inherit'
+              onClick={() => {
+                router.push('/login');
+              }}
+            >
+              <LogoutIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -154,12 +159,14 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component='nav'>
-            <ListItemButton>
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary='Dashboard' />
-            </ListItemButton>
+            <Link href='/dashboard'>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary='Dashboard' />
+              </ListItemButton>
+            </Link>
             {isAdmin && (
               <Link href='/users'>
                 <ListItemButton>
@@ -181,20 +188,6 @@ export default function Dashboard() {
             </Link>
           </List>
         </Drawer>
-        {/* <Box
-          component='main'
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto'
-          }}
-        >
-          <Toolbar />
-        </Box> */}
       </Box>
     </ThemeProvider>
   );

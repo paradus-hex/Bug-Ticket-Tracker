@@ -3,6 +3,7 @@ import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {
@@ -16,7 +17,6 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
 import useUpdateProject from '../../../api/Projects/useUpdateProject';
-
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
 
@@ -158,16 +158,23 @@ function Projects() {
     <Box
       sx={{
         height: 500,
-        width: '100%',
+        width: '90%',
         '& .actions': {
           color: 'text.secondary'
         },
         '& .textPrimary': {
           color: 'text.primary'
-        }
+        },
+        display: 'flex',
+        flexDirection: 'column',
+        mx: 'auto'
       }}
     >
+      <Typography variant='h5' gutterBottom alignSelf='center'>
+        Project Information
+      </Typography>
       <DataGrid
+        autoHeight
         rows={project}
         columns={columns}
         getRowId={(row) => row.project_id}
