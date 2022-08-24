@@ -42,7 +42,21 @@ function EditToolbar(props) {
     </GridToolbarContainer>
   );
 }
-
+function NoTickets() {
+  return (
+    <Typography
+      color='text.secondary'
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '50vh'
+      }}
+    >
+      No Tickets to display
+    </Typography>
+  );
+}
 // EditToolbar.propTypes = {
 //   setRowModesModel: PropTypes.func.isRequired,
 //   setRows: PropTypes.func.isRequired
@@ -54,9 +68,6 @@ function Tickets() {
   const [rowModesModel, setRowModesModel] = React.useState({});
   // const { mutate: updateTicket } = useUpdateTicket();
 
-  const onSuccess = (data) => {
-    console.log(data);
-  };
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
 
   if (isLoading) {
@@ -194,6 +205,7 @@ function Tickets() {
       <Typography variant='h5' gutterBottom alignSelf='center'>
         Ticket Information
       </Typography>
+
       <DataGrid
         rows={ticket}
         columns={columns}
@@ -204,7 +216,8 @@ function Tickets() {
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         components={{
-          Toolbar: EditToolbar
+          Toolbar: EditToolbar,
+          NoRowsOverlay: NoTickets
         }}
         componentsProps={{
           toolbar: { setRowModesModel }
