@@ -66,12 +66,16 @@ function NoTickets() {
 function ProjectTickets() {
   const router = useRouter();
   const { projectId } = router.query;
+
   const [rowModesModel, setRowModesModel] = React.useState({});
 
   // const { mutate: updateTicket } = useUpdateTicket();
-
+  // if (!projectId) {
+  //   return <h2>Loading...</h2>;
+  // }
+  console.log(router.query);
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
-  const { mutate: assignDevs } = useAssignDevs();
+  const { mutate: assignDevs } = useAssignDevs(projectId);
   const { mutate: removeDev } = useRemoveDev(projectId);
 
   if (isLoading) {

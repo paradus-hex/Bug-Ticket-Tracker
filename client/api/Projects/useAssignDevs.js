@@ -7,7 +7,7 @@ const assignDevs = ({ projectId, devs_to_assign }) => {
   );
 };
 
-const useAssignDevs = () => {
+const useAssignDevs = (projectID) => {
   const queryClient = useQueryClient();
   return useMutation(assignDevs, {
     onSuccess: () => {
