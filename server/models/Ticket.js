@@ -32,7 +32,7 @@ class Ticket {
 
   static getProjectTickets(projectId) {
     // let sql = `SELECT * FROM tickets WHERE project_id = ${projectId};`
-    let sql = `SELECT * FROM tickets JOIN users ON tickets.author_id = users.user_id WHERE project_id = ${projectId}`;
+    let sql = `SELECT * FROM tickets JOIN users ON tickets.author_id = users.user_id WHERE project_id = '${projectId}'`;
     return db.execute(sql);
   }
 
