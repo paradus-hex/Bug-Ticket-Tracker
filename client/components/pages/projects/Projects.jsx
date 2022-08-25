@@ -1,51 +1,34 @@
-import AddIcon from '@mui/icons-material/Add';
 import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import {
   DataGrid,
   GridActionsCellItem,
   GridRowModes,
   GridToolbarContainer
 } from '@mui/x-data-grid';
-import { randomId } from '@mui/x-data-grid-generator';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import useCreateProject from '../../../api/Projects/useCreateProject';
 import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
 import useUpdateProject from '../../../api/Projects/useUpdateProject';
+import CreateProjectForm from '../../common/createProjectForm';
+import DialogComponent from '../../common/DialogComponent';
 
-function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
+function EditToolbar() {
   const { mutate: createProject } = useCreateProject();
-
-  const handleClick = () => {
-    const id = randomId().substring(0, 3);
-    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-    createProject(ol);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' }
-    }));
-  };
 
   return (
     <GridToolbarContainer>
-      <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
-        Create Project
-      </Button>
+      <DialogComponent title='Provide project details'>
+        <CreateProjectForm handleCreateProject={createProject} />
+      </DialogComponent>
     </GridToolbarContainer>
   );
 }
-
-// EditToolbar.propTypes = {
-//   setRowModesModel: PropTypes.func.isRequired,
-//   setRows: PropTypes.func.isRequired
-// };
 
 function Projects() {
   const router = useRouter();
@@ -187,9 +170,6 @@ function Projects() {
         processRowUpdate={processRowUpdate}
         components={{
           Toolbar: EditToolbar
-        }}
-        componentsProps={{
-          toolbar: { setRowModesModel }
         }}
         experimentalFeatures={{ newEditingApi: true }}
         onRowClick={handleRowClick}
