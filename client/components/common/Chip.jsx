@@ -14,15 +14,17 @@ export default function ChipsArray({
   ...props
 }) {
   const [chipData, setChipData] = React.useState(assignedDevs);
+  React.useEffect(() => {
+    setChipData(assignedDevs);
+  }, [assignedDevs]);
+
   const router = useRouter();
   const { projectId } = router.query;
-  // const chipData = assignedDevs;
 
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) =>
       chips.filter((chip) => chip.user_id !== chipToDelete.user_id)
     );
-    // console.log(chipToDelete);
     handleRemoveDev({ projectId, user_id: chipToDelete.user_id });
   };
   return (
