@@ -7,9 +7,9 @@ const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5)
 }));
 
-export default function ChipsArray(props) {
-  const [chipData, setChipData] = React.useState(props.assignedDevs);
-  // const chipData = props.assignedDevs;
+export default function ChipsArray({ assignedDevs, ...props }) {
+  const [chipData, setChipData] = React.useState(assignedDevs);
+  // const chipData = assignedDevs;
 
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) =>
@@ -31,11 +31,9 @@ export default function ChipsArray(props) {
       component='ul'
     >
       {chipData.map((data) => {
-        let icon;
-
         return (
           <ListItem key={data.user_id}>
-            <Chip icon={icon} label={data.name} onDelete={handleDelete(data)} />
+            <Chip label={data.name} onDelete={handleDelete(data)} />
           </ListItem>
         );
       })}

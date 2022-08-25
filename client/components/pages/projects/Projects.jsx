@@ -53,7 +53,7 @@ function Projects() {
   const { mutate: updateProject } = useUpdateProject();
 
   const onSuccess = (data) => {
-    console.log(data);
+    // console.log(data);
   };
   const { isLoading, data, isError, error } = useGetAllProjects(onSuccess);
 

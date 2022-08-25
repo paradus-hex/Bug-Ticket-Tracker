@@ -15,16 +15,14 @@ import {
 import { randomId } from '@mui/x-data-grid-generator';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-// import useCreateticket from '../../../api/Tickets/useCreateticket';
-// import { useGetAllTickets } from '../../../api/Tickets/useGetAllTickets';
-// import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
+
 import { Card, CardActions, CardContent } from '@mui/material';
+import useAssignDevs from '../../../api/Projects/useAssignDevs';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
 import ChipsArray from '../../common/Chip';
 import DialogSelect from '../../common/DialogSelect';
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
-  // const { mutate: createticket } = useCreateticket();
 
   const handleClick = () => {
     const id = randomId().substring(0, 3);
@@ -71,6 +69,7 @@ function ProjectTickets() {
   // const { mutate: updateTicket } = useUpdateTicket();
 
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
+  const { mutate: assignDevs } = useAssignDevs();
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -79,10 +78,9 @@ function ProjectTickets() {
   if (isError) {
     return <h2>{error.message}</h2>;
   }
-  console.log(data);
   const { ticket, project, availableUsers, projectAssignments } = data?.data;
   const { name, description } = project[0];
-  console.log(projectAssignments);
+  // console.log(projectAssignments);
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -225,7 +223,10 @@ function ProjectTickets() {
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-            <DialogSelect users={availableUsers} />
+            <DialogSelect
+              users={availableUsers}
+              handleAssignDevs={assignDevs}
+            />
           </CardActions>
         </Card>
       </Box>

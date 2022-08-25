@@ -21,7 +21,7 @@ const theme = createTheme();
 export default function RegisterForm() {
   const router = useRouter();
   const onSuccess = (successData) => {
-    console.log(successData.data);
+    // console.log(successData.data);
     router.push('/login');
   };
   const { mutate: newUser } = useRegisterUser(onSuccess);
