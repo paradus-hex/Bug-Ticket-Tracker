@@ -9,9 +9,10 @@ router
     .get(ticketController.getAll);
 
 router
-    .route("/:projectId/:ticketId")
+    .route("/:projectId")
     .get(ticketController.getTicket)
-    .put(ticketController.updateTicket);
+    .put(ticketController.updateTicket)
+    .delete(ticketController.deleteTicket);
 
 
 router
