@@ -77,7 +77,7 @@ function ProjectTickets() {
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
   const { mutate: assignDevs } = useAssignDevs(projectId);
   const { mutate: removeDev } = useRemoveDev(projectId);
-
+  const { mutate: deleteTicket } = useDeleteTicket(projectId);
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
@@ -87,7 +87,7 @@ function ProjectTickets() {
   }
   const { ticket, project, availableUsers, projectAssignments } = data?.data;
   const { name, description } = project[0];
-  // console.log(projectAssignments);
+  // // console.log(projectAssignments);
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -105,8 +105,8 @@ function ProjectTickets() {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
 
-  const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
+  const handleDeleteClick = (ticket_id) => () => {
+    deleteTicket({ projectId, ticket_id });
   };
 
   const handleCancelClick = (id) => () => {
@@ -228,12 +228,14 @@ function ProjectTickets() {
               <ChipsArray
                 assignedDevs={projectAssignments}
                 handleRemoveDev={removeDev}
+                handleRemoveDev={removeDev}
               />
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
             <DialogSelect
               users={availableUsers}
+              handleAssignDevs={assignDevs}
               handleAssignDevs={assignDevs}
             />
           </CardActions>
