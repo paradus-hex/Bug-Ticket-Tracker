@@ -49,6 +49,7 @@ const ProjectAssignmentsController = {
       // let { user_id, project_id } = req.body;
       let { projectId } = req.params;
       let { user_id } = req.body;
+      console.log(req.body);
 
       let checkDev = await ProjectAssignments.findById(projectId, user_id);
 

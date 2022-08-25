@@ -19,6 +19,7 @@ import * as React from 'react';
 import { Card, CardActions, CardContent } from '@mui/material';
 import useAssignDevs from '../../../api/Projects/useAssignDevs';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
+import useRemoveDev from '../../../api/Projects/useRemoveDev';
 import ChipsArray from '../../common/Chip';
 import DialogSelect from '../../common/DialogSelect';
 function EditToolbar(props) {
@@ -66,10 +67,12 @@ function ProjectTickets() {
   const router = useRouter();
   const { projectId } = router.query;
   const [rowModesModel, setRowModesModel] = React.useState({});
+
   // const { mutate: updateTicket } = useUpdateTicket();
 
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
   const { mutate: assignDevs } = useAssignDevs();
+  const { mutate: removeDev } = useRemoveDev(projectId);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -200,7 +203,7 @@ function ProjectTickets() {
       >
         <Card sx={{ mx: 10, my: 10, flexGrow: 1 }}>
           <CardContent>
-            <Typography gutterBottom variant='h5' component='div'>
+            <Typography gutterBottom variant='h5'>
               Project {name}
             </Typography>
             <Typography variant='body1' color='text.secondary'>
@@ -213,13 +216,15 @@ function ProjectTickets() {
             <Typography
               gutterBottom
               variant='h5'
-              component='div'
               sx={{ display: 'flex', justifyContent: 'center' }}
             >
               Assigned Developers To {name}
             </Typography>
             <Typography variant='body1' color='text.secondary'>
-              <ChipsArray assignedDevs={projectAssignments} />
+              <ChipsArray
+                assignedDevs={projectAssignments}
+                handleRemoveDev={removeDev}
+              />
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
