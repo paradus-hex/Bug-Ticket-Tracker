@@ -6,7 +6,7 @@ const updateTicket = ({
   title,
   description,
   status,
-  date
+  created_at
 }) => {
   return axios.put(
     `http://localhost:8000/api/v1/tickets/${project_id}/${ticket_id}`,
@@ -14,7 +14,7 @@ const updateTicket = ({
       title,
       description,
       status,
-      date
+      created_at
     },
     {
       headers: {

@@ -118,7 +118,12 @@ function ProjectTickets() {
   };
 
   const processRowUpdate = (newRow) => {
-    updateTicket(newRow);
+    const parsedDatef = (date) => date.substring(0, 10);
+    const parsedDate = parsedDatef(newRow.created_at);
+
+    const updatedRow = { ...newRow, created_at: parsedDate };
+    console.log(updatedRow);
+    updateTicket(updatedRow);
     return newRow;
   };
 
