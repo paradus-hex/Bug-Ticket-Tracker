@@ -39,6 +39,12 @@ class Project {
 
     return db.execute(sql);
   }
+
+  static deleteProject(id) {
+    let sql = `DELETE FROM projects WHERE project_id = '${id}'`;
+
+    return db.execute(sql);
+  }
 }
 
 export default Project;

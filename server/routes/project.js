@@ -17,7 +17,7 @@ router
   .route('/:projectId')
   .get(projectController.projectById)
   .put(authorization, projectController.updateProject)
-  .post(ticketController.createTicket);
-// .delete(authorization, projectController.deleteProject);
+  .post(ticketController.createTicket)
+  .delete(authorization, projectController.deleteProject);
 
 export default router;
