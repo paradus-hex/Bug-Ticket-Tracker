@@ -3,7 +3,7 @@ import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
-import { Typography } from '@mui/material';
+import { Card, CardActions, CardContent, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {
@@ -15,11 +15,10 @@ import {
 import { randomId } from '@mui/x-data-grid-generator';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-
-import { Card, CardActions, CardContent } from '@mui/material';
 import useAssignDevs from '../../../api/Projects/useAssignDevs';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
 import useRemoveDev from '../../../api/Projects/useRemoveDev';
+import useDeleteTicket from '../../../api/Tickets/useDeleteTicket';
 import ChipsArray from '../../common/Chip';
 import DialogSelect from '../../common/DialogSelect';
 function EditToolbar(props) {
@@ -228,14 +227,12 @@ function ProjectTickets() {
               <ChipsArray
                 assignedDevs={projectAssignments}
                 handleRemoveDev={removeDev}
-                handleRemoveDev={removeDev}
               />
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
             <DialogSelect
               users={availableUsers}
-              handleAssignDevs={assignDevs}
               handleAssignDevs={assignDevs}
             />
           </CardActions>
