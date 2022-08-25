@@ -20,6 +20,7 @@ import { Card, CardActions, CardContent } from '@mui/material';
 import useAssignDevs from '../../../api/Projects/useAssignDevs';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
 import useRemoveDev from '../../../api/Projects/useRemoveDev';
+import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
 import ChipsArray from '../../common/Chip';
 import DialogSelect from '../../common/DialogSelect';
 function EditToolbar(props) {
@@ -69,10 +70,10 @@ function ProjectTickets() {
 
   const [rowModesModel, setRowModesModel] = React.useState({});
 
-  // const { mutate: updateTicket } = useUpdateTicket();
-  // if (!projectId) {
-  //   return <h2>Loading...</h2>;
-  // }
+  const { mutate: updateTicket } = useUpdateTicket();
+  if (!projectId) {
+    return <h2>Loading...</h2>;
+  }
   console.log(router.query);
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
   const { mutate: assignDevs } = useAssignDevs(projectId);
@@ -121,9 +122,9 @@ function ProjectTickets() {
     return newRow;
   };
 
-  const handleRowClick = (params) => {
-    router.push(`/Tickets/${params.id}`);
-  };
+  // const handleRowClick = (params) => {
+  //   router.push(`/Tickets/${params.id}`);
+  // };
 
   const columns = [
     { headerName: 'Ticket ID', field: 'ticket_id', flex: 1 },
@@ -142,7 +143,7 @@ function ProjectTickets() {
       editable: true,
       flex: 1
     },
-    { headerName: 'Submitted By', field: 'name', flex: 1, editable: true },
+    { headerName: 'Submitted By', field: 'name', flex: 1, editable: false },
     {
       field: 'created_at',
       headerName: 'Date Created',
@@ -275,7 +276,7 @@ function ProjectTickets() {
             toolbar: { setRowModesModel }
           }}
           experimentalFeatures={{ newEditingApi: true }}
-          onRowClick={handleRowClick}
+          // onRowClick={handleRowClick}
         />
       </Box>
     </>
