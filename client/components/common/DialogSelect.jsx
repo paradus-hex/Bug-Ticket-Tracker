@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import { useTheme } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 const ITEM_HEIGHT = 48;
@@ -37,6 +38,9 @@ export default function DialogSelect(props) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
+  const router = useRouter();
+  const { projectId } = router.query;
+
   const handleChange = (event) => {
     const {
       target: { value }
@@ -52,14 +56,23 @@ export default function DialogSelect(props) {
   };
 
   const handleClose = (event, reason) => {
+    setOpen(false);
+    console.log(personName);
+  };
+
+  const handleOk = (event, reason) => {
+    const {
+      target: { value }
+    } = event;
     if (reason !== 'backdropClick') {
       setOpen(false);
-      console.log(personName);
+      console.log({ projectId, devs_to_assign: personName });
+      props.handleAssignDevs({ projectId, devs_to_assign: personName });
     }
   };
 
   return (
-    <div>
+    <Box>
       <Button onClick={handleClickOpen}>Assign More Developers</Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Available Developers</DialogTitle>
@@ -85,7 +98,7 @@ export default function DialogSelect(props) {
               {props.users.map((user) => (
                 <MenuItem
                   key={user.user_id}
-                  value={user.name}
+                  value={user.user_id}
                   style={getStyles(user.name, personName, theme)}
                 >
                   {user.name}
@@ -96,9 +109,9 @@ export default function DialogSelect(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Ok</Button>
+          <Button onClick={handleOk}>Ok</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 }

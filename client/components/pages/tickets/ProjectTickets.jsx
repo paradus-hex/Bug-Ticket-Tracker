@@ -15,16 +15,15 @@ import {
 import { randomId } from '@mui/x-data-grid-generator';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-// import useCreateticket from '../../../api/Tickets/useCreateticket';
-// import { useGetAllTickets } from '../../../api/Tickets/useGetAllTickets';
-// import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
+
 import { Card, CardActions, CardContent } from '@mui/material';
+import useAssignDevs from '../../../api/Projects/useAssignDevs';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
+import useRemoveDev from '../../../api/Projects/useRemoveDev';
 import ChipsArray from '../../common/Chip';
 import DialogSelect from '../../common/DialogSelect';
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
-  // const { mutate: createticket } = useCreateticket();
 
   const handleClick = () => {
     const id = randomId().substring(0, 3);
@@ -67,10 +66,17 @@ function NoTickets() {
 function ProjectTickets() {
   const router = useRouter();
   const { projectId } = router.query;
-  const [rowModesModel, setRowModesModel] = React.useState({});
-  // const { mutate: updateTicket } = useUpdateTicket();
 
+  const [rowModesModel, setRowModesModel] = React.useState({});
+
+  // const { mutate: updateTicket } = useUpdateTicket();
+  // if (!projectId) {
+  //   return <h2>Loading...</h2>;
+  // }
+  console.log(router.query);
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
+  const { mutate: assignDevs } = useAssignDevs(projectId);
+  const { mutate: removeDev } = useRemoveDev(projectId);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -79,10 +85,9 @@ function ProjectTickets() {
   if (isError) {
     return <h2>{error.message}</h2>;
   }
-  console.log(data);
   const { ticket, project, availableUsers, projectAssignments } = data?.data;
   const { name, description } = project[0];
-  console.log(projectAssignments);
+  // console.log(projectAssignments);
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -202,7 +207,7 @@ function ProjectTickets() {
       >
         <Card sx={{ mx: 10, my: 10, flexGrow: 1 }}>
           <CardContent>
-            <Typography gutterBottom variant='h5' component='div'>
+            <Typography gutterBottom variant='h5'>
               Project {name}
             </Typography>
             <Typography variant='body1' color='text.secondary'>
@@ -215,17 +220,22 @@ function ProjectTickets() {
             <Typography
               gutterBottom
               variant='h5'
-              component='div'
               sx={{ display: 'flex', justifyContent: 'center' }}
             >
               Assigned Developers To {name}
             </Typography>
             <Typography variant='body1' color='text.secondary'>
-              <ChipsArray assignedDevs={projectAssignments} />
+              <ChipsArray
+                assignedDevs={projectAssignments}
+                handleRemoveDev={removeDev}
+              />
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-            <DialogSelect users={availableUsers} />
+            <DialogSelect
+              users={availableUsers}
+              handleAssignDevs={assignDevs}
+            />
           </CardActions>
         </Card>
       </Box>

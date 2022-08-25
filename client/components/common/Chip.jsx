@@ -1,22 +1,32 @@
 import Chip from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/system';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5)
 }));
 
-export default function ChipsArray(props) {
-  const [chipData, setChipData] = React.useState(props.assignedDevs);
-  // const chipData = props.assignedDevs;
+export default function ChipsArray({
+  assignedDevs,
+  handleRemoveDev,
+  ...props
+}) {
+  const [chipData, setChipData] = React.useState(assignedDevs);
+  React.useEffect(() => {
+    setChipData(assignedDevs);
+  }, [assignedDevs]);
+
+  const router = useRouter();
+  const { projectId } = router.query;
 
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) =>
       chips.filter((chip) => chip.user_id !== chipToDelete.user_id)
     );
+    handleRemoveDev({ projectId, user_id: chipToDelete.user_id });
   };
-
   return (
     <Box
       sx={{
@@ -28,14 +38,12 @@ export default function ChipsArray(props) {
         m: 0
         // flexDirection: 'column'
       }}
-      component='ul'
+      // component='ul'
     >
       {chipData.map((data) => {
-        let icon;
-
         return (
           <ListItem key={data.user_id}>
-            <Chip icon={icon} label={data.name} onDelete={handleDelete(data)} />
+            <Chip label={data.name} onDelete={handleDelete(data)} />
           </ListItem>
         );
       })}
