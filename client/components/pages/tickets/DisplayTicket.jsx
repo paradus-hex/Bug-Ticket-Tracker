@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useGetTicket } from '../../../api/Tickets/useGetTicket';
@@ -15,24 +15,46 @@ const DisplayTicket = () => {
     return <h2>{error.message}</h2>;
   }
 
-  const { ticket_id, title, user_authority } = data?.data[0];
+  const {
+    ticket_id,
+    title,
+    user_authority,
+    description,
+    email,
+    name,
+    status,
+    project_id,
+    created_at
+  } = data?.data[0];
   console.log(ticket_id, title, data);
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        {/* <Card sx={{ maxWidth: 1000 }}>
+        <Card sx={{ maxWidth: 1000 }}>
           <CardContent>
             <Typography gutterBottom variant='h5'>
-              Ticket Title: {name}!
+              Ticket Title: {title}
             </Typography>
             <Typography variant='body1' color='text.secondary'>
-              Email: {email}
+              Description: {description}
             </Typography>
             <Typography variant='body1' color='text.secondary'>
-              Role: {user_authority}
+              Submitted By: {name}
+            </Typography>
+            <Typography variant='body1' color='text.secondary'>
+              User Email: {email}
+            </Typography>
+            <Typography variant='body1' color='text.secondary'>
+              Created on: {created_at}
+            </Typography>
+            <Typography variant='body1' color='text.secondary'>
+              Status: {status}
+            </Typography>
+            <Typography variant='body1' color='text.secondary'>
+              User Authority: {user_authority}
             </Typography>
           </CardContent>
-        </Card> */}
+        </Card>
       </Box>
     </>
   );
