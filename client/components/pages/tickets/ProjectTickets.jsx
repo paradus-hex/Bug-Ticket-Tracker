@@ -25,7 +25,9 @@ import DialogComponent from '../../common/DialogComponent';
 import DialogSelect from '../../common/DialogSelect';
 
 function EditToolbar() {
-  const { mutate: createTicket } = useCreateTicket();
+  const router = useRouter();
+  const { projectId } = router.query;
+  const { mutate: createTicket } = useCreateTicket(projectId);
 
   return (
     <GridToolbarContainer>
@@ -128,9 +130,9 @@ function ProjectTickets() {
     return newRow;
   };
 
-  // const handleRowClick = (params) => {
-  //   router.push(`/Tickets/${params.id}`);
-  // };
+  const handleRowClick = (params) => {
+    router.push(`/tickets/${params.id}`);
+  };
 
   const columns = [
     { headerName: 'Ticket ID', field: 'ticket_id', flex: 1 },
@@ -169,12 +171,22 @@ function ProjectTickets() {
         if (isInEditMode) {
           return [
             <GridActionsCellItem
-              icon={<SaveIcon color='info' sx={{ "&:hover": { color: "#002db3" } }} />}
+              icon={
+                <SaveIcon
+                  color='info'
+                  sx={{ '&:hover': { color: '#002db3' } }}
+                />
+              }
               label='Save'
               onClick={handleSaveClick(id)}
             />,
             <GridActionsCellItem
-              icon={<CancelIcon color='warning' sx={{ "&:hover": { color: "red" } }} />}
+              icon={
+                <CancelIcon
+                  color='warning'
+                  sx={{ '&:hover': { color: 'red' } }}
+                />
+              }
               label='Cancel'
               className='textPrimary'
               onClick={handleCancelClick(id)}
@@ -185,14 +197,24 @@ function ProjectTickets() {
 
         return [
           <GridActionsCellItem
-            icon={<EditIcon color='disabled' sx={{ "&:hover": { color: "#FF8C00" } }} />}
+            icon={
+              <EditIcon
+                color='disabled'
+                sx={{ '&:hover': { color: '#FF8C00' } }}
+              />
+            }
             label='Edit'
             className='textPrimary'
             onClick={handleEditClick(id)}
             color='inherit'
           />,
           <GridActionsCellItem
-            icon={<DeleteIcon color='disabled' sx={{ "&:hover": { color: "red" } }} />}
+            icon={
+              <DeleteIcon
+                color='disabled'
+                sx={{ '&:hover': { color: 'red' } }}
+              />
+            }
             label='Delete'
             onClick={handleDeleteClick(id)}
             color='inherit'
@@ -212,16 +234,18 @@ function ProjectTickets() {
           // alignItems: 'center'
         }}
       >
-        <Card sx={{
-          mx: 10,
-          my: 10,
-          flexGrow: 1,
-          borderRadius: 7,
-          boxShadow: "0 8px 40px -12px rgba(0,0,0,0.5)",
-          "&:hover": {
-            boxShadow: "0 16px 40px -12.125px rgba(0, 138, 255, 0.72)"
-          }
-        }}>
+        <Card
+          sx={{
+            mx: 10,
+            my: 10,
+            flexGrow: 1,
+            borderRadius: 4,
+            boxShadow: '0 8px 40px -12px rgba(0,0,0,0.5)',
+            '&:hover': {
+              boxShadow: '0 16px 40px -12.125px rgba(0, 138, 255, 0.72)'
+            }
+          }}
+        >
           <CardContent>
             <Typography gutterBottom variant='h5'>
               Project {name}
@@ -231,16 +255,18 @@ function ProjectTickets() {
             </Typography>
           </CardContent>
         </Card>
-        <Card sx={{
-          mx: 10,
-          my: 10,
-          flexGrow: 1,
-          borderRadius: 7,
-          boxShadow: "0 8px 40px -12px rgba(0,0,0,0.5)",
-          "&:hover": {
-            boxShadow: "0 16px 40px -12.125px rgba(0, 138, 255, 0.72)"
-          }
-        }}>
+        <Card
+          sx={{
+            mx: 10,
+            my: 10,
+            flexGrow: 1,
+            borderRadius: 4,
+            boxShadow: '0 8px 40px -12px rgba(0,0,0,0.5)',
+            '&:hover': {
+              boxShadow: '0 16px 40px -12.125px rgba(0, 138, 255, 0.72)'
+            }
+          }}
+        >
           <CardContent>
             <Typography
               gutterBottom
@@ -307,7 +333,7 @@ function ProjectTickets() {
             toolbar: { setRowModesModel }
           }}
           experimentalFeatures={{ newEditingApi: true }}
-          // onRowClick={handleRowClick}
+          onRowClick={handleRowClick}
           onProcessRowUpdateError={(err) => {
             console.log(err);
           }}

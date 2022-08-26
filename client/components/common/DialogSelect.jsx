@@ -108,8 +108,12 @@ export default function DialogSelect(props) {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleOk}>Ok</Button>
+          <Button onClick={handleClose} color='error'>
+            Cancel
+          </Button>
+          <Button onClick={handleOk} color='info'>
+            Ok
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

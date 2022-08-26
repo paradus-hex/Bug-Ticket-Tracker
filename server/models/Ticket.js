@@ -26,7 +26,7 @@ class Ticket {
   }
 
   static getTicket(id) {
-    let sql = `SELECT * FROM tickets JOIN users ON tickets.author_id = users.user_id WHERE tickets.ticket_id = ${id}`;
+    let sql = `SELECT * FROM tickets JOIN users ON tickets.author_id = users.user_id WHERE tickets.ticket_id = '${id}'`;
     return db.execute(sql);
   }
 
@@ -56,9 +56,7 @@ class Ticket {
 
     return db.execute(sql);
   }
-  static deleteTicket(
-    ticketId,
-  ) {
+  static deleteTicket(ticketId) {
     let sql = `DELETE FROM tickets WHERE ticket_id = '${ticketId}'`;
 
     return db.execute(sql);
