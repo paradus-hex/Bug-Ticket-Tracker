@@ -15,6 +15,7 @@ import * as React from 'react';
 import useAssignDevs from '../../../api/Projects/useAssignDevs';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
 import useRemoveDev from '../../../api/Projects/useRemoveDev';
+import useCreateTicket from '../../../api/Tickets/useCreateTicket';
 import useDeleteTicket from '../../../api/Tickets/useDeleteTicket';
 import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
 import ChipsArray from '../../common/Chip';
@@ -22,8 +23,9 @@ import ConfirmDeleteDialog from '../../common/ConfirmDeleteDialog';
 import CreateTicketForm from '../../common/CreateTicketForm';
 import DialogComponent from '../../common/DialogComponent';
 import DialogSelect from '../../common/DialogSelect';
+
 function EditToolbar() {
-  // const { mutate: createProject } = useCreateTicktet();
+  const { mutate: createTicket } = useCreateTicket();
 
   return (
     <GridToolbarContainer>
@@ -31,7 +33,7 @@ function EditToolbar() {
         title='Provide project details'
         buttonTitle='Create Ticket'
       >
-        <CreateTicketForm />
+        <CreateTicketForm handleCreateTicket={createTicket} />
       </DialogComponent>
     </GridToolbarContainer>
   );
