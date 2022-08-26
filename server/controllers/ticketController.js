@@ -69,27 +69,25 @@ const ticketController = {
       //* OLD
 
       let { ticketId } = req.params;
-      let { title, description, status, author_id, created_at, project_id } =
-        req.body;
+      let { title, description, status, created_at } = req.body;
+      console.log(req.body);
       let ticket = await Ticket.updateTicket(
         ticketId,
         title,
         description,
         status,
-        author_id,
-        created_at,
-        project_id
+        // author_id,
+        created_at
+        // project_id
       );
 
       // ticket = await ticket.updateTicket();
       // [ticket] = await Ticket.getTicket(ticketId);
 
-      res
-        .status(201)
-        .json({
-          status: 'Ticket updated!',
-          msg: `Ticket named ${title} updated successfully`
-        });
+      res.status(201).json({
+        status: 'Ticket updated!',
+        msg: `Ticket named ${title} updated successfully`
+      });
     } catch (err) {
       console.log('createTicket query error: ', err);
       res.status(500).json({ msg: 'Unable to create ticket' });

@@ -32,7 +32,7 @@ class Ticket {
 
   static getProjectTickets(projectId) {
     // let sql = `SELECT * FROM tickets WHERE project_id = ${projectId};`
-    let sql = `SELECT * FROM tickets JOIN users ON tickets.author_id = users.user_id WHERE project_id = ${projectId}`;
+    let sql = `SELECT * FROM tickets JOIN users ON tickets.author_id = users.user_id WHERE project_id = '${projectId}'`;
     return db.execute(sql);
   }
 
@@ -47,11 +47,12 @@ class Ticket {
     title,
     description,
     status,
-    author_id,
-    created_at,
-    project_id
+    // author_id,
+    created_at
+    // project_id
   ) {
-    let sql = `UPDATE tickets SET title = '${title}', description = '${description}', status = '${status}', author_id = '${author_id}', created_at = '${created_at}', project_id = '${project_id}' WHERE ticket_id = '${ticketId}'`;
+    // let sql = `UPDATE tickets SET title = '${title}', description = '${description}', status = '${status}', author_id = '${author_id}', created_at = '${created_at}', project_id = '${project_id}' WHERE ticket_id = '${ticketId}'`;
+    let sql = `UPDATE tickets SET title = '${title}', description = '${description}', status = '${status}', created_at = '${created_at}' WHERE ticket_id = '${ticketId}'`;
 
     return db.execute(sql);
   }

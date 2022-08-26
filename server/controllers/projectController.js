@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import AvailableUsers from '../models/AvailableUsers.js';
 import ProjectAssignments from '../models/ProjectAssignmentsModel.js';
 import Project from '../models/ProjectModel.js';
@@ -47,10 +48,10 @@ const projectController = {
   },
 
   createProject: async (req, res) => {
-    // // let project_id = randomUUID().substring(0, 3);
+    let project_id = randomUUID().substring(0, 3);
 
     try {
-      let { project_id, name, description } = req.body;
+      let { name, description } = req.body;
 
       let project = new Project(project_id, name, description);
       project = await project.saveProjectToDB();
@@ -79,6 +80,20 @@ const projectController = {
     } catch (err) {
       console.log('updateProject query error: ', err);
       res.status(500).json({ msg: 'Unable to update project' });
+    }
+  },
+
+  deleteProject: async (req, res) => {
+    try {
+      let { projectId } = req.params;
+      let deleteProject = await Project.deleteProject(projectId);
+
+      res
+        .status(200)
+        .json({ status: `Project with ID: ${projectId} deleted!` });
+    } catch (err) {
+      console.log('deleteProject query error: ', err);
+      res.status(500).json({ msg: 'Unable to delete project' });
     }
   }
 };
