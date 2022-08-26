@@ -27,7 +27,7 @@ export default function ConfirmDeleteDialog({
         <DialogContent></DialogContent>
         <DialogActions>
           {/* <Button onClick={handleOk} variant="contained" color='error' >Delete</Button>
-          <Button onClick={dialogClose} variant="contained" color='infoo'>Cancel</Button> */}
+          <Button onClick={dialogClose} variant="contained" color='info'>Cancel</Button> */}
           <Button onClick={handleOk} color='error' >Delete</Button>
           <Button onClick={dialogClose} color='info'>Cancel</Button>
         </DialogActions>
