@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { randomId } from '@mui/x-data-grid-generator';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -18,8 +17,6 @@ import jwt from 'jsonwebtoken';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { DialogContext } from './DialogComponent';
-
-const theme = createTheme();
 
 export default function CreateTicketForm({ handleCreateTicket, ...props }) {
   const { handleClose } = React.useContext(DialogContext);
@@ -70,80 +67,78 @@ export default function CreateTicketForm({ handleCreateTicket, ...props }) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='xs'>
-        <CssBaseline />
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
-          <Box component='form' noValidate onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id='title'
-                  label='Title'
-                  name='title'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  multiline
-                  rows={6}
-                  name='description'
-                  label='Description'
-                  type='description'
-                  id='description'
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <FormControl fullWidth>
-                  <InputLabel id='demo-simple-select-helper-label'>
-                    status
-                  </InputLabel>
-                  <Select
-                    labelId='demo-simple-select-helper-label'
-                    id='demo-simple-select-helper'
-                    value={status}
-                    label='status'
-                    onChange={handleStatusChange}
-                  >
-                    <MenuItem value='Pending'>Pending</MenuItem>
-                    <MenuItem value='Inprogress'>Inprogress</MenuItem>
-                    <MenuItem value='Resolved'>Resolved</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DesktopDatePicker
-                    label='Date desktop'
-                    inputFormat='MM/DD/YYYY'
-                    value={value}
-                    onChange={handleDateChange}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </Grid>
+    <Container component='main' maxWidth='xs'>
+      <CssBaseline />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Box component='form' noValidate onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id='title'
+                label='Title'
+                name='title'
+              />
             </Grid>
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Submit Ticket
-            </Button>
-          </Box>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                multiline
+                rows={6}
+                name='description'
+                label='Description'
+                type='description'
+                id='description'
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl fullWidth>
+                <InputLabel id='demo-simple-select-helper-label'>
+                  status
+                </InputLabel>
+                <Select
+                  labelId='demo-simple-select-helper-label'
+                  id='demo-simple-select-helper'
+                  value={status}
+                  label='status'
+                  onChange={handleStatusChange}
+                >
+                  <MenuItem value='Pending'>Pending</MenuItem>
+                  <MenuItem value='Inprogress'>Inprogress</MenuItem>
+                  <MenuItem value='Resolved'>Resolved</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  label='Date desktop'
+                  inputFormat='MM/DD/YYYY'
+                  value={value}
+                  onChange={handleDateChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </Grid>
+          </Grid>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Submit Ticket
+          </Button>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 }

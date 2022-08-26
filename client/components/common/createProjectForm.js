@@ -3,13 +3,10 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { randomId } from '@mui/x-data-grid-generator';
 import * as React from 'react';
 import { DialogContext } from './DialogComponent';
-
-const theme = createTheme();
 
 export default function createProjectForm({ handleCreateProject, ...props }) {
   const { handleClose } = React.useContext(DialogContext);
@@ -32,51 +29,49 @@ export default function createProjectForm({ handleCreateProject, ...props }) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='xs'>
-        <CssBaseline />
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}
-        >
-          <Box component='form' noValidate onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id='name'
-                  label='Name'
-                  name='name'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  multiline
-                  rows={6}
-                  name='description'
-                  label='Description'
-                  type='description'
-                  id='description'
-                />
-              </Grid>
+    <Container component='main' maxWidth='xs'>
+      <CssBaseline />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Box component='form' noValidate onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id='name'
+                label='Name'
+                name='name'
+              />
             </Grid>
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Create
-            </Button>
-          </Box>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                multiline
+                rows={6}
+                name='description'
+                label='Description'
+                type='description'
+                id='description'
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Create
+          </Button>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 }

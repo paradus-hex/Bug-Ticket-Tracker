@@ -98,12 +98,22 @@ function Users() {
         if (isInEditMode) {
           return [
             <GridActionsCellItem
-              icon={<SaveIcon color='info' sx={{ "&:hover": { color: "#002db3" } }} />}
+              icon={
+                <SaveIcon
+                  color='info'
+                  sx={{ '&:hover': { color: '#002db3' } }}
+                />
+              }
               label='Save'
               onClick={handleSaveClick(id)}
             />,
             <GridActionsCellItem
-              icon={<CancelIcon color='warning' sx={{ "&:hover": { color: "red" } }} />}
+              icon={
+                <CancelIcon
+                  color='warning'
+                  sx={{ '&:hover': { color: 'red' } }}
+                />
+              }
               label='Cancel'
               className='textPrimary'
               onClick={handleCancelClick(id)}
@@ -114,14 +124,24 @@ function Users() {
 
         return [
           <GridActionsCellItem
-            icon={<EditIcon color='disabled' sx={{ "&:hover": { color: "#FF8C00" } }} />}
+            icon={
+              <EditIcon
+                color='disabled'
+                sx={{ '&:hover': { color: '#FF8C00' } }}
+              />
+            }
             label='Edit'
             className='textPrimary'
             onClick={handleEditClick(id)}
             color='inherit'
           />,
           <GridActionsCellItem
-            icon={<DeleteIcon color='disabled' sx={{ "&:hover": { color: "red" } }} />}
+            icon={
+              <DeleteIcon
+                color='disabled'
+                sx={{ '&:hover': { color: 'red' } }}
+              />
+            }
             label='Delete'
             onClick={handleDeleteClick(id)}
             color='inherit'
@@ -144,7 +164,8 @@ function Users() {
         },
         display: 'flex',
         flexDirection: 'column',
-        mx: 'auto'
+        mx: 'auto',
+        my: 10
       }}
     >
       <Typography variant='h5' gutterBottom alignSelf='center'>
@@ -164,10 +185,6 @@ function Users() {
         rows={users}
         columns={columns}
         getRowId={(row) => row.user_id}
-        // getRowSpacing={(params) => ({
-        //   top: params.isFirstVisible ? 0 : 5,
-        //   bottom: params.isLastVisible ? 0 : 5
-        // })}
         editMode='row'
         rowModesModel={rowModesModel}
         onRowEditStart={handleRowEditStart}

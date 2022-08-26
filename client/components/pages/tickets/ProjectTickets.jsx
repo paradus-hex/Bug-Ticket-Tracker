@@ -238,6 +238,7 @@ function ProjectTickets() {
           sx={{
             mx: 10,
             my: 10,
+            maxWidth: 700,
             flexGrow: 1,
             borderRadius: 4,
             boxShadow: '0 8px 40px -12px rgba(0,0,0,0.5)',
