@@ -15,6 +15,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import jwt from 'jsonwebtoken';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 const theme = createTheme();
@@ -23,6 +24,8 @@ export default function CreateTicketForm({ handleCreateTicket, ...props }) {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [status, setStatus] = React.useState('');
   const [value, setValue] = React.useState(dayjs());
+  const route = useRouter();
+  const { projectId } = route.query;
 
   if (typeof window !== 'undefined') {
     let token = localStorage.getItem('token');
@@ -55,7 +58,7 @@ export default function CreateTicketForm({ handleCreateTicket, ...props }) {
     const yyyy = value.get('year');
     const mm = value.get('month') + 1;
     const dd = value.get('date');
-    const formattedDate = `${mm}-${dd}-${yyyy}`;
+    const formattedDate = `${yyyy}-${mm}-${dd}`;
     const createTicketPayload = {
       ticket_id,
       title: data.get('title'),
@@ -65,7 +68,7 @@ export default function CreateTicketForm({ handleCreateTicket, ...props }) {
       created_at: formattedDate
     };
     console.log(createTicketPayload);
-    // handleCreateTicket(createTicketPayload);
+    handleCreateTicket({ projectId, createTicketPayload });
   };
 
   return (
