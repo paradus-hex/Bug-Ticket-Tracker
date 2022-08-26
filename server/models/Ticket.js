@@ -56,6 +56,13 @@ class Ticket {
 
     return db.execute(sql);
   }
+  static deleteTicket(
+    ticketId,
+  ) {
+    let sql = `DELETE FROM tickets WHERE ticket_id = '${ticketId}'`;
+
+    return db.execute(sql);
+  }
 }
 
 export default Ticket;

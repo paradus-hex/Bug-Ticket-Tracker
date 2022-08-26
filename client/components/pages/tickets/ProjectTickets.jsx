@@ -23,6 +23,7 @@ import useRemoveDev from '../../../api/Projects/useRemoveDev';
 import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
 import ChipsArray from '../../common/Chip';
 import DialogSelect from '../../common/DialogSelect';
+import useDeleteTicket from '../../../api/Tickets/useDeleteTicket';
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
 
@@ -74,6 +75,7 @@ function ProjectTickets() {
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
   const { mutate: assignDevs } = useAssignDevs(projectId);
   const { mutate: removeDev } = useRemoveDev(projectId);
+  const { mutate: deleteTicket } = useDeleteTicket(projectId);
 
   if (!projectId) {
     return <h2>Loading...</h2>;
@@ -106,8 +108,8 @@ function ProjectTickets() {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
 
-  const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
+  const handleDeleteClick = (ticket_id) => () => {
+    deleteTicket({ projectId, ticket_id });
   };
 
   const handleCancelClick = (id) => () => {
