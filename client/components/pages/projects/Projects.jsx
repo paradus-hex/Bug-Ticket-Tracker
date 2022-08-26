@@ -119,12 +119,12 @@ function Projects() {
         if (isInEditMode) {
           return [
             <GridActionsCellItem
-              icon={<SaveIcon />}
+              icon={<SaveIcon color='info' sx={{ "&:hover": { color: "#002db3" } }} />}
               label='Save'
               onClick={handleSaveClick(id)}
             />,
             <GridActionsCellItem
-              icon={<CancelIcon />}
+              icon={<CancelIcon color='warning' sx={{ "&:hover": { color: "red" } }} />}
               label='Cancel'
               className='textPrimary'
               onClick={handleCancelClick(id)}
@@ -135,14 +135,14 @@ function Projects() {
 
         return [
           <GridActionsCellItem
-            icon={<EditIcon />}
+            icon={<EditIcon color='disabled' sx={{ "&:hover": { color: "#FF8C00" } }} />}
             label='Edit'
             className='textPrimary'
             onClick={handleEditClick(id)}
             color='inherit'
           />,
           <GridActionsCellItem
-            icon={<DeleteIcon />}
+            icon={<DeleteIcon color='disabled' sx={{ "&:hover": { color: "red" } }} />}
             label='Delete'
             onClick={handleDeleteClick(id)}
             color='inherit'
