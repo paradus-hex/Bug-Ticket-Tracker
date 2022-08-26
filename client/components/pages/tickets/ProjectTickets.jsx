@@ -18,6 +18,7 @@ import * as React from 'react';
 import useAssignDevs from '../../../api/Projects/useAssignDevs';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
 import useRemoveDev from '../../../api/Projects/useRemoveDev';
+import useDeleteTicket from '../../../api/Tickets/useDeleteTicket';
 import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
 import ChipsArray from '../../common/Chip';
 import DialogSelect from '../../common/DialogSelect';
