@@ -1,4 +1,5 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,16 +12,28 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import useLoginUser from '../../../api/users/useLoginUser';
+import SuccessSnackbar from '../../common/successSnackbar';
 
 export default function LoginForm() {
   const router = useRouter();
+  const [isError, setIsError] = React.useState(false);
+  const [msgError, setMsgError] = React.useState(null);
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+
   const onSuccess = (successData) => {
     // console.log(successData.data);
+    setIsError(false);
+    setShowSnackbar(true);
     localStorage.setItem('token', successData.data.token);
     localStorage.setItem('auth', successData.data.auth);
     router.push('/dashboard');
   };
-  const { mutate: loginUser } = useLoginUser(onSuccess);
+  const onError = (error) => {
+    console.log(error.response.data);
+    setIsError(true);
+    setMsgError(error.response.data);
+  };
+  const { mutate: loginUser } = useLoginUser(onSuccess, onError);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -52,6 +65,7 @@ export default function LoginForm() {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
+                error={isError}
                 margin='normal'
                 required
                 fullWidth
@@ -64,6 +78,7 @@ export default function LoginForm() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                error={isError}
                 margin='normal'
                 required
                 fullWidth
@@ -76,6 +91,7 @@ export default function LoginForm() {
             </Grid>
           </Grid>
           <Button
+            disabled={isError}
             type='submit'
             fullWidth
             variant='contained'
@@ -101,6 +117,16 @@ export default function LoginForm() {
             </Grid>
           </Grid>
         </Box>
+        {isError && msgError && (
+          <Alert severity='error' sx={{ marginTop: 5 }} variant='filled'>
+            {msgError}
+          </Alert>
+        )}
+        {console.log(showSnackbar)}
+        <SuccessSnackbar
+          successMessage='User logged In!'
+          showSnackbar={showSnackbar}
+        />
       </Box>
     </Container>
   );
