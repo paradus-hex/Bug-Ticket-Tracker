@@ -175,7 +175,7 @@ function Projects() {
   return (
     <Box
       sx={{
-        height: 750,
+        maxHeight: 750,
         width: '90%',
         '& .actions': {
           color: 'text.secondary'
@@ -185,7 +185,8 @@ function Projects() {
         },
         display: 'flex',
         flexDirection: 'column',
-        mx: 'auto'
+        mx: 'auto',
+        my: 10
       }}
     >
       <Typography variant='h5' gutterBottom alignSelf='center'>
@@ -202,6 +203,7 @@ function Projects() {
       />
 
       <DataGrid
+        autoHeight
         rows={project}
         columns={columns}
         getRowId={(row) => row.project_id}
