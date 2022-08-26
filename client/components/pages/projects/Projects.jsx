@@ -16,6 +16,7 @@ import useCreateProject from '../../../api/Projects/useCreateProject';
 import useDeleteProject from '../../../api/Projects/useDeleteProject';
 import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
 import useUpdateProject from '../../../api/Projects/useUpdateProject';
+import ConfirmDeleteDialog from '../../common/ConfirmDeleteDialog';
 import CreateProjectForm from '../../common/createProjectForm';
 import DialogComponent from '../../common/DialogComponent';
 
@@ -37,6 +38,8 @@ function EditToolbar() {
 function Projects() {
   const router = useRouter();
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const [open, setOpen] = React.useState(false);
+  const [deleteID, setDeleteID] = React.useState();
   const { mutate: updateProject } = useUpdateProject();
 
   const onSuccess = (data) => {
@@ -71,8 +74,12 @@ function Projects() {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
 
+  // const handleDeleteClick = (id) => () => {
+  //   deleteProject(id);
+  // };
   const handleDeleteClick = (id) => () => {
-    deleteProject(id);
+    setOpen(true);
+    setDeleteID(id);
   };
 
   const handleCancelClick = (id) => () => {
@@ -112,12 +119,12 @@ function Projects() {
         if (isInEditMode) {
           return [
             <GridActionsCellItem
-              icon={<SaveIcon />}
+              icon={<SaveIcon color='info' sx={{ "&:hover": { color: "#002db3" } }} />}
               label='Save'
               onClick={handleSaveClick(id)}
             />,
             <GridActionsCellItem
-              icon={<CancelIcon />}
+              icon={<CancelIcon color='warning' sx={{ "&:hover": { color: "red" } }} />}
               label='Cancel'
               className='textPrimary'
               onClick={handleCancelClick(id)}
@@ -128,14 +135,14 @@ function Projects() {
 
         return [
           <GridActionsCellItem
-            icon={<EditIcon />}
+            icon={<EditIcon color='disabled' sx={{ "&:hover": { color: "#FF8C00" } }} />}
             label='Edit'
             className='textPrimary'
             onClick={handleEditClick(id)}
             color='inherit'
           />,
           <GridActionsCellItem
-            icon={<DeleteIcon />}
+            icon={<DeleteIcon color='disabled' sx={{ "&:hover": { color: "red" } }} />}
             label='Delete'
             onClick={handleDeleteClick(id)}
             color='inherit'
@@ -164,6 +171,19 @@ function Projects() {
       <Typography variant='h5' gutterBottom alignSelf='center'>
         Project Information
       </Typography>
+      <Typography variant='h5' gutterBottom alignSelf='center'>
+        User Information
+      </Typography>
+
+      <ConfirmDeleteDialog
+        dialogOpen={open}
+        dialogClose={() => {
+          setOpen(false);
+        }}
+        handleDeleteUser={() => deleteProject(deleteID)}
+        entity='Project'
+      />
+
       <DataGrid
         rows={project}
         columns={columns}

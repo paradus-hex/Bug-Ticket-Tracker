@@ -11,11 +11,7 @@ const useCreateTicket = (projectID) => {
   const queryClient = useQueryClient();
   return useMutation(createTicket, {
     onSuccess: () => {
-      console.log('here');
       queryClient.invalidateQueries(['get-projects-tickets', projectID]);
-      console.log(
-        queryClient.invalidateQueries(['get-projects-tickets', projectID])
-      );
     },
     onError: (err) => {
       console.log(err.response.data);
