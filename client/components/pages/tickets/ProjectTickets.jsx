@@ -118,11 +118,13 @@ function ProjectTickets() {
   };
 
   const processRowUpdate = (newRow) => {
-    const parsedDatef = (date) => date.substring(0, 10);
-    const parsedDate = parsedDatef(newRow.created_at);
-
-    const updatedRow = { ...newRow, created_at: parsedDate };
-    console.log(updatedRow);
+    const { created_at } = newRow;
+    const yyyy = created_at.getFullYear();
+    const mm = created_at.getMonth() + 1;
+    const dd = created_at.getDate();
+    const formattedDate = `${mm}-${dd}-${yyyy}`;
+    const updatedRow = { ...newRow, created_at: formattedDate };
+    console.log(newRow.created_at, formattedDate);
     updateTicket(updatedRow);
     return newRow;
   };
@@ -282,6 +284,9 @@ function ProjectTickets() {
           }}
           experimentalFeatures={{ newEditingApi: true }}
           // onRowClick={handleRowClick}
+          onProcessRowUpdateError={(err) => {
+            console.log(err);
+          }}
         />
       </Box>
     </>
