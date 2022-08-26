@@ -18,6 +18,7 @@ import useRemoveDev from '../../../api/Projects/useRemoveDev';
 import useDeleteTicket from '../../../api/Tickets/useDeleteTicket';
 import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
 import ChipsArray from '../../common/Chip';
+import ConfirmDeleteDialog from '../../common/ConfirmDeleteDialog';
 import CreateTicketForm from '../../common/CreateTicketForm';
 import DialogComponent from '../../common/DialogComponent';
 import DialogSelect from '../../common/DialogSelect';
@@ -258,7 +259,6 @@ function ProjectTickets() {
         <Typography variant='h5' gutterBottom alignSelf='center'>
           Ticket's under {name}
         </Typography>
-
         <DataGrid
           rows={ticket}
           columns={columns}
