@@ -17,10 +17,13 @@ import dayjs from 'dayjs';
 import jwt from 'jsonwebtoken';
 import { useRouter } from 'next/router';
 import * as React from 'react';
+import { DialogContext } from './DialogComponent';
 
 const theme = createTheme();
 
 export default function CreateTicketForm({ handleCreateTicket, ...props }) {
+  const { handleClose } = React.useContext(DialogContext);
+
   const [currentUser, setCurrentUser] = React.useState(null);
   const [status, setStatus] = React.useState('');
   const [value, setValue] = React.useState(dayjs());
@@ -50,10 +53,6 @@ export default function CreateTicketForm({ handleCreateTicket, ...props }) {
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('name'),
-    //   password: data.get('description')
-    // });
     const yyyy = value.get('year');
     const mm = value.get('month') + 1;
     const dd = value.get('date');
@@ -67,6 +66,7 @@ export default function CreateTicketForm({ handleCreateTicket, ...props }) {
       created_at: formattedDate
     };
     handleCreateTicket({ projectId, createTicketPayload });
+    handleClose();
   };
 
   return (
