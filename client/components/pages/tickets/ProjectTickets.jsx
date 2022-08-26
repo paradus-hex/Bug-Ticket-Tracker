@@ -25,7 +25,9 @@ import DialogComponent from '../../common/DialogComponent';
 import DialogSelect from '../../common/DialogSelect';
 
 function EditToolbar() {
-  const { mutate: createTicket } = useCreateTicket();
+  const router = useRouter();
+  const { projectId } = router.query;
+  const { mutate: createTicket } = useCreateTicket(projectId);
 
   return (
     <GridToolbarContainer>
