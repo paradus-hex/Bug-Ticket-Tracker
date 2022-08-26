@@ -112,12 +112,12 @@ function Projects() {
         if (isInEditMode) {
           return [
             <GridActionsCellItem
-              icon={<SaveIcon />}
+              icon={<SaveIcon color='info' sx={{ "&:hover": { color: "#002db3" } }} />}
               label='Save'
               onClick={handleSaveClick(id)}
             />,
             <GridActionsCellItem
-              icon={<CancelIcon />}
+              icon={<CancelIcon color='warning' sx={{ "&:hover": { color: "red" } }} />}
               label='Cancel'
               className='textPrimary'
               onClick={handleCancelClick(id)}
