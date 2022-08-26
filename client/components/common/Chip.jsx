@@ -43,7 +43,16 @@ export default function ChipsArray({
       {chipData.map((data) => {
         return (
           <ListItem key={data.user_id}>
-            <Chip label={data.name} onDelete={handleDelete(data)} />
+            <Chip
+              label={data.name}
+              onDelete={handleDelete(data)}
+              sx={{
+                boxShadow: '0 8px 40px -12px rgba(0,0,0,0.5)',
+                '&:hover': {
+                  boxShadow: '16px 0 20px -5px #CE93D8'
+                }
+              }}
+            />
           </ListItem>
         );
       })}
