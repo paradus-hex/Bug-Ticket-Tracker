@@ -67,7 +67,11 @@ const Drawer = styled(MuiDrawer, {
   }
 }));
 
-const mdTheme = createTheme();
+const theme = createTheme({
+  palette: {
+    mode: 'dark'
+  }
+});
 
 export default function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -102,7 +106,7 @@ export default function Dashboard() {
   }
 
   return (
-    <ThemeProvider theme={mdTheme}>
+    <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position='absolute' open={open}>
