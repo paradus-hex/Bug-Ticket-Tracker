@@ -32,7 +32,11 @@ const UserDashboard = () => {
         <Card sx={{
           // backgroundColor: "gray",
           // border: "1px solid",
-          maxWidth: 1000, paddingLeft: "45px", paddingRight: "45px", borderRadius: 7, boxShadow: "0 8px 40px -12px rgba(0,0,0,0.5)",
+          maxWidth: 1000,
+          paddingLeft: "45px",
+          paddingRight: "45px",
+          borderRadius: 7,
+          boxShadow: "0 8px 40px -12px rgba(0,0,0,0.5)",
           "&:hover": {
             boxShadow: "0 16px 40px -12.125px rgba(0, 138, 255, 0.72)"
           }
