@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import useCreateProject from '../../../api/Projects/useCreateProject';
+import useDeleteProject from '../../../api/Projects/useDeleteProject';
 import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
 import useUpdateProject from '../../../api/Projects/useUpdateProject';
 import CreateProjectForm from '../../common/createProjectForm';
@@ -39,6 +40,7 @@ function Projects() {
     // console.log(data);
   };
   const { isLoading, data, isError, error } = useGetAllProjects(onSuccess);
+  const { mutate: deleteProject } = useDeleteProject();
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -67,7 +69,7 @@ function Projects() {
   };
 
   const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
+    deleteProject(id);
   };
 
   const handleCancelClick = (id) => () => {
