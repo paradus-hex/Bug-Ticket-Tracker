@@ -109,6 +109,18 @@ const ticketController = {
       console.log('deleteTicket query error: ', err);
       res.status(500).json({ msg: 'Unable to delete ticket' });
     }
+  },
+
+  countStatus: async (req, res) => {
+    try {
+      // const { status } = req.params;
+      let [ticket, _] = await Ticket.countStatus();
+
+      res.status(200).json(ticket);
+    } catch (err) {
+      console.log('countStatus query error: ', err);
+      res.status(500).json({ msg: 'Unable to get ticket from database' });
+    }
   }
 };
 

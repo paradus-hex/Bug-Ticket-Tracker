@@ -4,6 +4,7 @@ import ticketController from './../controllers/ticketController.js';
 const router = Router();
 
 router.route('/').get(ticketController.getAll);
+router.route('/status').get(ticketController.countStatus);
 
 router
   .route('/:projectId')

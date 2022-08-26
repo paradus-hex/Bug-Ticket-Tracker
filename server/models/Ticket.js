@@ -56,10 +56,16 @@ class Ticket {
 
     return db.execute(sql);
   }
-  static deleteTicket(
-    ticketId,
-  ) {
+  static deleteTicket(ticketId) {
     let sql = `DELETE FROM tickets WHERE ticket_id = '${ticketId}'`;
+
+    return db.execute(sql);
+  }
+
+  // Ticket count by status
+
+  static countStatus() {
+    let sql = `SELECT status, COUNT(*) as Count FROM tickets GROUP BY status`;
 
     return db.execute(sql);
   }
