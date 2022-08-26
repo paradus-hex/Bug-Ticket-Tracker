@@ -24,7 +24,10 @@ function EditToolbar() {
 
   return (
     <GridToolbarContainer>
-      <DialogComponent title='Provide project details'>
+      <DialogComponent
+        title='Provide project details'
+        buttonTitle='Create Project'
+      >
         <CreateProjectForm handleCreateProject={createProject} />
       </DialogComponent>
     </GridToolbarContainer>

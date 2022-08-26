@@ -13,7 +13,12 @@ import * as React from 'react';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
-export default function DialogComponent({ title, children, ...props }) {
+export default function DialogComponent({
+  title,
+  buttonTitle,
+  children,
+  ...props
+}) {
   const [open, setOpen] = React.useState(false);
 
   const router = useRouter();
@@ -29,7 +34,7 @@ export default function DialogComponent({ title, children, ...props }) {
   return (
     <Box>
       <Button onClick={handleClickOpen} startIcon={<AddIcon />}>
-        Create Project
+        {buttonTitle}
       </Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <Box sx={{ display: 'flex', justifyContent: 'center', m: 1 }}>
