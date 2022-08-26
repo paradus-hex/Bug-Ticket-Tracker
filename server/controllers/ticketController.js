@@ -96,21 +96,15 @@ const ticketController = {
 
   deleteTicket: async (req, res) => {
     try {
-
       let { projectId } = req.params;
       let { ticket_id } = req.body;
 
+      let ticket = await Ticket.deleteTicket(ticket_id);
 
-      let ticket = await Ticket.deleteTicket(
-        ticket_id
-      );
-
-      res
-        .status(201)
-        .json({
-          status: 'Ticket deleted!',
-          msg: `Ticket named ${ticket_id} deleted successfully`
-        });
+      res.status(201).json({
+        status: 'Ticket deleted!',
+        msg: `Ticket named ${ticket_id} deleted successfully`
+      });
     } catch (err) {
       console.log('deleteTicket query error: ', err);
       res.status(500).json({ msg: 'Unable to delete ticket' });
