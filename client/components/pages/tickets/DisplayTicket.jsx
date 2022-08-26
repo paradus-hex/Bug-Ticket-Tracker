@@ -30,7 +30,16 @@ const DisplayTicket = () => {
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Card sx={{ maxWidth: 1000 }}>
+        <Card
+          sx={{
+            maxWidth: 1000,
+            borderRadius: 4,
+            boxShadow: '0 8px 40px -12px rgba(0,0,0,0.5)',
+            '&:hover': {
+              boxShadow: '0 16px 40px -12.125px rgba(0, 138, 255, 0.72)'
+            }
+          }}
+        >
           <CardContent>
             <Typography gutterBottom variant='h5'>
               Ticket Title: {title}

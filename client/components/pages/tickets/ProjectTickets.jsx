@@ -239,7 +239,7 @@ function ProjectTickets() {
             mx: 10,
             my: 10,
             flexGrow: 1,
-            borderRadius: 7,
+            borderRadius: 4,
             boxShadow: '0 8px 40px -12px rgba(0,0,0,0.5)',
             '&:hover': {
               boxShadow: '0 16px 40px -12.125px rgba(0, 138, 255, 0.72)'
@@ -260,7 +260,7 @@ function ProjectTickets() {
             mx: 10,
             my: 10,
             flexGrow: 1,
-            borderRadius: 7,
+            borderRadius: 4,
             boxShadow: '0 8px 40px -12px rgba(0,0,0,0.5)',
             '&:hover': {
               boxShadow: '0 16px 40px -12.125px rgba(0, 138, 255, 0.72)'
