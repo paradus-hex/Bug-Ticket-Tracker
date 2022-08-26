@@ -6,7 +6,7 @@ const router = Router();
 router.route('/').get(ticketController.getAll);
 
 router
-  .route('/:projectId')
+  .route('/:ticketId')
   .get(ticketController.getTicket)
 
   .delete(ticketController.deleteTicket);

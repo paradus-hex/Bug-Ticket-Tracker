@@ -130,9 +130,9 @@ function ProjectTickets() {
     return newRow;
   };
 
-  // const handleRowClick = (params) => {
-  //   router.push(`/Tickets/${params.id}`);
-  // };
+  const handleRowClick = (params) => {
+    router.push(`/tickets/${params.id}`);
+  };
 
   const columns = [
     { headerName: 'Ticket ID', field: 'ticket_id', flex: 1 },
@@ -291,7 +291,7 @@ function ProjectTickets() {
             toolbar: { setRowModesModel }
           }}
           experimentalFeatures={{ newEditingApi: true }}
-          // onRowClick={handleRowClick}
+          onRowClick={handleRowClick}
           onProcessRowUpdateError={(err) => {
             console.log(err);
           }}
