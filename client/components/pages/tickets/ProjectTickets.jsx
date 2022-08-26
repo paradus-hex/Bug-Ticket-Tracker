@@ -1,50 +1,41 @@
-import AddIcon from '@mui/icons-material/Add';
 import CancelIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
-import { Typography } from '@mui/material';
+import { Card, CardActions, CardContent, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import {
   DataGrid,
   GridActionsCellItem,
   GridRowModes,
   GridToolbarContainer
 } from '@mui/x-data-grid';
-import { randomId } from '@mui/x-data-grid-generator';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-
-import { Card, CardActions, CardContent } from '@mui/material';
 import useAssignDevs from '../../../api/Projects/useAssignDevs';
 import { useGetProjectTickets } from '../../../api/Projects/useGetProjectTickets';
 import useRemoveDev from '../../../api/Projects/useRemoveDev';
+import useDeleteTicket from '../../../api/Tickets/useDeleteTicket';
 import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
 import ChipsArray from '../../common/Chip';
+import CreateTicketForm from '../../common/CreateTicketForm';
+import DialogComponent from '../../common/DialogComponent';
 import DialogSelect from '../../common/DialogSelect';
-import useDeleteTicket from '../../../api/Tickets/useDeleteTicket';
-function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
-
-  const handleClick = () => {
-    const id = randomId().substring(0, 3);
-    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-    createticket(ol);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' }
-    }));
-  };
+function EditToolbar() {
+  // const { mutate: createProject } = useCreateTicktet();
 
   return (
     <GridToolbarContainer>
-      <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
-        Create ticket
-      </Button>
+      <DialogComponent
+        title='Provide project details'
+        buttonTitle='Create Ticket'
+      >
+        <CreateTicketForm />
+      </DialogComponent>
     </GridToolbarContainer>
   );
 }
+
 function NoTickets() {
   return (
     <Typography
@@ -90,7 +81,7 @@ function ProjectTickets() {
   }
   const { ticket, project, availableUsers, projectAssignments } = data?.data;
   const { name, description } = project[0];
-  // console.log(projectAssignments);
+  // // console.log(projectAssignments);
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -148,7 +139,7 @@ function ProjectTickets() {
       headerName: 'Status',
       field: 'status',
       type: 'singleSelect',
-      valueOptions: ['TODO', 'in-progress', 'resolved'],
+      valueOptions: ['Pending', 'Inprogress', 'Resolved'],
       editable: true,
       flex: 1
     },

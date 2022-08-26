@@ -16,13 +16,7 @@ const useCreateProject = () => {
   const queryClient = useQueryClient();
   return useMutation(createProject, {
     onSuccess: (data) => {
-      // queryClient.invalidateQueries(['create-project']);
-      queryClient.setQueryData(['get-projects'], (old) => {
-        return {
-          ...old,
-          data: [...old.data, data.data]
-        };
-      });
+      queryClient.invalidateQueries(['get-projects']);
     },
     onError: (err) => {
       console.log(err.response.data);

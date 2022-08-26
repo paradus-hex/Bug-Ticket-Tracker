@@ -3,23 +3,18 @@ import ticketController from './../controllers/ticketController.js';
 
 const router = Router();
 
+router.route('/').get(ticketController.getAll);
 
 router
-    .route('/')
-    .get(ticketController.getAll);
+  .route('/:projectId')
+  .get(ticketController.getTicket)
 
+  .delete(ticketController.deleteTicket);
+
+router.route('/:projectId/:ticketId').put(ticketController.updateTicket);
 router
-    .route("/:projectId")
-    .get(ticketController.getTicket)
-    .put(ticketController.updateTicket)
-    .delete(ticketController.deleteTicket);
-
-
-router
-    .route('/:projectId')
-    .get(ticketController.getProjectTickets)
-    .post(ticketController.createTicket);
-
-
+  .route('/:projectId')
+  .get(ticketController.getProjectTickets)
+  .post(ticketController.createTicket);
 
 export default router;
