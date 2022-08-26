@@ -28,22 +28,28 @@ const UserDashboard = () => {
   const { name, email, user_authority } = data?.data.user[0];
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Card sx={{ maxWidth: 1000 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', paddingBottom: "40px", paddingTop: "40px", }}>
+        <Card sx={{
+          // backgroundColor: "gray",
+          // border: "1px solid",
+          maxWidth: 1000, paddingLeft: "45px", paddingRight: "45px", borderRadius: 7, boxShadow: "0 8px 40px -12px rgba(0,0,0,0.5)",
+          "&:hover": {
+            boxShadow: "0 16px 40px -12.125px rgba(0, 138, 255, 0.72)"
+          }
+        }}>
           <CardContent>
-            <Typography gutterBottom variant='h5'>
+            <Typography gutterBottom variant='h4' fontFamily={'Monospace'} fontWeight='bold' >
               Welcome {name}!
             </Typography>
-            <Typography variant='body1' color='text.secondary'>
+            <Typography variant='body1' color='text.secondary' fontFamily={'Monospace'}>
               Email: {email}
             </Typography>
-            <Typography variant='body1' color='text.secondary'>
+            <Typography variant='body1' color='text.secondary' fontFamily={'Monospace'}>
               Role: {user_authority}
             </Typography>
           </CardContent>
         </Card>
       </Box>
-      <Copyright />
     </>
   );
 };
