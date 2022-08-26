@@ -16,6 +16,7 @@ import useCreateProject from '../../../api/Projects/useCreateProject';
 import useDeleteProject from '../../../api/Projects/useDeleteProject';
 import { useGetAllProjects } from '../../../api/Projects/useGetAllProjects';
 import useUpdateProject from '../../../api/Projects/useUpdateProject';
+import ConfirmDeleteDialog from '../../common/ConfirmDeleteDialog';
 import CreateProjectForm from '../../common/createProjectForm';
 import DialogComponent from '../../common/DialogComponent';
 
@@ -37,6 +38,8 @@ function EditToolbar() {
 function Projects() {
   const router = useRouter();
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const [open, setOpen] = React.useState(false);
+  const [deleteID, setDeleteID] = React.useState();
   const { mutate: updateProject } = useUpdateProject();
 
   const onSuccess = (data) => {
@@ -71,8 +74,12 @@ function Projects() {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
 
+  // const handleDeleteClick = (id) => () => {
+  //   deleteProject(id);
+  // };
   const handleDeleteClick = (id) => () => {
-    deleteProject(id);
+    setOpen(true);
+    setDeleteID(id);
   };
 
   const handleCancelClick = (id) => () => {
@@ -164,6 +171,19 @@ function Projects() {
       <Typography variant='h5' gutterBottom alignSelf='center'>
         Project Information
       </Typography>
+      <Typography variant='h5' gutterBottom alignSelf='center'>
+        User Information
+      </Typography>
+
+      <ConfirmDeleteDialog
+        dialogOpen={open}
+        dialogClose={() => {
+          setOpen(false);
+        }}
+        handleDeleteUser={() => deleteProject(deleteID)}
+        entity='Project'
+      />
+
       <DataGrid
         rows={project}
         columns={columns}
