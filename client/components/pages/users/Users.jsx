@@ -14,6 +14,7 @@ import ConfirmDeleteDialog from '../../common/ConfirmDeleteDialog';
 function Users() {
   const [rowModesModel, setRowModesModel] = React.useState({});
   const [open, setOpen] = React.useState(false);
+  const [deleteID, setDeleteID] = React.useState();
 
   const { mutate: updateUser } = useUpdateUser();
   const onSuccess = (data) => {
@@ -53,8 +54,7 @@ function Users() {
 
   const handleDeleteClick = (id) => () => {
     setOpen(true);
-    console.log('delete', open);
-    // deleteUser(id);
+    setDeleteID(id);
   };
 
   const handleCancelClick = (id) => () => {
@@ -155,6 +155,8 @@ function Users() {
         dialogClose={() => {
           setOpen(false);
         }}
+        handleDeleteUser={() => deleteUser(deleteID)}
+        entity='user'
       />
 
       <DataGrid

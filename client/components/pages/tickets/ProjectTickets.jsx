@@ -62,6 +62,8 @@ function ProjectTickets() {
   const { projectId } = router.query;
 
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const [open, setOpen] = React.useState(false);
+  const [deleteID, setDeleteID] = React.useState();
 
   const { mutate: updateTicket } = useUpdateTicket();
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
@@ -101,7 +103,8 @@ function ProjectTickets() {
   };
 
   const handleDeleteClick = (ticket_id) => () => {
-    deleteTicket({ projectId, ticket_id });
+    setOpen(true);
+    setDeleteID({ projectId, ticket_id });
   };
 
   const handleCancelClick = (id) => () => {
@@ -259,6 +262,14 @@ function ProjectTickets() {
         <Typography variant='h5' gutterBottom alignSelf='center'>
           Ticket's under {name}
         </Typography>
+        <ConfirmDeleteDialog
+          dialogOpen={open}
+          dialogClose={() => {
+            setOpen(false);
+          }}
+          handleDeleteUser={() => deleteTicket(deleteID)}
+          entity='ticket'
+        />
         <DataGrid
           rows={ticket}
           columns={columns}

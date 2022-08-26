@@ -12,6 +12,7 @@ export default function ConfirmDeleteDialog({
   dialogOpen,
   dialogClose,
   entity,
+  handleDeleteUser,
   ...props
 }) {
   const theme = useTheme();
@@ -26,24 +27,20 @@ export default function ConfirmDeleteDialog({
   };
 
   const handleOk = (event, reason) => {
-    const {
-      target: { value }
-    } = event;
-    if (reason !== 'backdropClick') {
-      setOpen(false);
-      console.log({ projectId, devs_to_assign: personName });
-      props.handleAssignDevs({ projectId, devs_to_assign: personName });
-    }
+    handleDeleteUser();
+    dialogClose();
   };
 
   return (
     <Box>
       <Dialog disableEscapeKeyDown open={dialogOpen} onClose={dialogClose}>
-        <DialogTitle>Are you sure you want to delete this {}</DialogTitle>
+        <DialogTitle>
+          Are you sure you want to delete all instances of this {entity} ?
+        </DialogTitle>
         <DialogContent></DialogContent>
         <DialogActions>
-          <Button onClick={dialogClose}>Cancel</Button>
           <Button onClick={handleOk}>Delete</Button>
+          <Button onClick={dialogClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </Box>
