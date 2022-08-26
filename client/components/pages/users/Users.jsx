@@ -9,8 +9,13 @@ import React from 'react';
 import useDeleteUser from '../../../api/users/useDeleteUser';
 import { useGetAllUsers } from '../../../api/users/useGetAllUsers';
 import useUpdateUser from '../../../api/users/useUpdateUser';
+import ConfirmDeleteDialog from '../../common/ConfirmDeleteDialog';
+
 function Users() {
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const [open, setOpen] = React.useState(false);
+  const [deleteID, setDeleteID] = React.useState();
+
   const { mutate: updateUser } = useUpdateUser();
   const onSuccess = (data) => {
     console.log(data);
@@ -48,7 +53,8 @@ function Users() {
   };
 
   const handleDeleteClick = (id) => () => {
-    deleteUser(id);
+    setOpen(true);
+    setDeleteID(id);
   };
 
   const handleCancelClick = (id) => () => {
@@ -144,6 +150,15 @@ function Users() {
       <Typography variant='h5' gutterBottom alignSelf='center'>
         User Information
       </Typography>
+      <ConfirmDeleteDialog
+        dialogOpen={open}
+        dialogClose={() => {
+          setOpen(false);
+        }}
+        handleDeleteUser={() => deleteUser(deleteID)}
+        entity='user'
+      />
+
       <DataGrid
         autoHeight
         rows={users}

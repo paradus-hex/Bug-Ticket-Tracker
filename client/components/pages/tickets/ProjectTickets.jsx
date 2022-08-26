@@ -18,6 +18,7 @@ import useRemoveDev from '../../../api/Projects/useRemoveDev';
 import useDeleteTicket from '../../../api/Tickets/useDeleteTicket';
 import useUpdateTicket from '../../../api/Tickets/useUpdateTicket';
 import ChipsArray from '../../common/Chip';
+import ConfirmDeleteDialog from '../../common/ConfirmDeleteDialog';
 import CreateTicketForm from '../../common/CreateTicketForm';
 import DialogComponent from '../../common/DialogComponent';
 import DialogSelect from '../../common/DialogSelect';
@@ -61,6 +62,8 @@ function ProjectTickets() {
   const { projectId } = router.query;
 
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const [open, setOpen] = React.useState(false);
+  const [deleteID, setDeleteID] = React.useState();
 
   const { mutate: updateTicket } = useUpdateTicket();
   const { isLoading, data, isError, error } = useGetProjectTickets(projectId);
@@ -100,7 +103,8 @@ function ProjectTickets() {
   };
 
   const handleDeleteClick = (ticket_id) => () => {
-    deleteTicket({ projectId, ticket_id });
+    setOpen(true);
+    setDeleteID({ projectId, ticket_id });
   };
 
   const handleCancelClick = (id) => () => {
@@ -258,7 +262,14 @@ function ProjectTickets() {
         <Typography variant='h5' gutterBottom alignSelf='center'>
           Ticket's under {name}
         </Typography>
-
+        <ConfirmDeleteDialog
+          dialogOpen={open}
+          dialogClose={() => {
+            setOpen(false);
+          }}
+          handleDeleteUser={() => deleteTicket(deleteID)}
+          entity='ticket'
+        />
         <DataGrid
           rows={ticket}
           columns={columns}
