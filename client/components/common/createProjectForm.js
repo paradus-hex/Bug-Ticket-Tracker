@@ -7,10 +7,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { randomId } from '@mui/x-data-grid-generator';
 import * as React from 'react';
+import { DialogContext } from './DialogComponent';
 
 const theme = createTheme();
 
 export default function createProjectForm({ handleCreateProject, ...props }) {
+  const { handleClose } = React.useContext(DialogContext);
   const handleSubmit = (event) => {
     const project_id = randomId().substring(0, 3);
 
@@ -26,6 +28,7 @@ export default function createProjectForm({ handleCreateProject, ...props }) {
       description: data.get('description')
     };
     handleCreateProject(createProjectPayload);
+    handleClose();
   };
 
   return (

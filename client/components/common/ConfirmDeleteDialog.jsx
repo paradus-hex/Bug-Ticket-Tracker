@@ -4,8 +4,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useTheme } from '@mui/material/styles';
-import { useRouter } from 'next/router';
 import * as React from 'react';
 
 export default function ConfirmDeleteDialog({
@@ -15,17 +13,6 @@ export default function ConfirmDeleteDialog({
   handleDeleteUser,
   ...props
 }) {
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
-
-  const router = useRouter();
-  const { projectId } = router.query;
-
-  const handleClose = (event, reason) => {
-    setOpen(false);
-    console.log(personName);
-  };
-
   const handleOk = (event, reason) => {
     handleDeleteUser();
     dialogClose();
