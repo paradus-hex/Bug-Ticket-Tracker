@@ -12,7 +12,7 @@ const useDeleteProject = () => {
   const queryClient = useQueryClient();
   return useMutation(deleteProject, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['get-Projects']);
+      queryClient.invalidateQueries(['get-projects']);
     },
     onError: (err) => {
       console.log(err.response.data);
