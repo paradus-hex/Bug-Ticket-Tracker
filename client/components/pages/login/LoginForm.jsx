@@ -122,7 +122,6 @@ export default function LoginForm() {
             {msgError}
           </Alert>
         )}
-        {console.log(showSnackbar)}
         <SuccessSnackbar
           successMessage='User logged In!'
           showSnackbar={showSnackbar}
