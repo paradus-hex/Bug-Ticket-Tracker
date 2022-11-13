@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 const deleteTicket = ({ projectId, ticket_id }) => {
-  return axios.delete(`http://localhost:8000/api/v1/tickets/${projectId}`, {
-    data: { ticket_id }
-  });
+  return axios.delete(
+    `https://api.bugtracker.click/api/v1/tickets/${projectId}`,
+    {
+      data: { ticket_id }
+    }
+  );
 };
 
 const useDeleteTicket = (projectID) => {

@@ -11,8 +11,8 @@ router
   .get(projectController.getAll)
   .post(authorization, projectController.createProject);
 
-// http://localhost:8000/api/v1/projects/:projectId
-// http://localhost:8000/api/v1/projects/:projectId
+// https://api.bugtracker.click/api/v1/projects/:projectId
+// https://api.bugtracker.click/api/v1/projects/:projectId
 router
   .route('/:projectId')
   .get(projectController.projectById)

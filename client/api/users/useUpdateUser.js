@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 const updateUser = ({ user_id, name, email, user_authority }) => {
   return axios.put(
-    `http://localhost:8000/api/v1/users/${user_id}`,
+    `https://api.bugtracker.click/api/v1/users/${user_id}`,
     {
       name,
       email,
