@@ -9,7 +9,7 @@ const updateTicket = ({
   created_at
 }) => {
   return axios.put(
-    `http://localhost:8000/api/v1/tickets/${project_id}/${ticket_id}`,
+    `https://api.bugtracker.click/api/v1/tickets/${project_id}/${ticket_id}`,
     {
       title,
       description,

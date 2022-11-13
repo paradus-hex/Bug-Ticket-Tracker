@@ -3,7 +3,7 @@ import axios from 'axios';
 const removeDev = ({ projectId, user_id }) => {
   console.log({ user_id });
   return axios.delete(
-    `http://localhost:8000/api/v1/projectassignments/${projectId}`,
+    `https://api.bugtracker.click/api/v1/projectassignments/${projectId}`,
     { data: { user_id } }
   );
 };

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 const updateProject = ({ project_id, name, description }) => {
   return axios.put(
-    `http://localhost:8000/api/v1/projects/${project_id}`,
+    `https://api.bugtracker.click/api/v1/projects/${project_id}`,
     {
       name,
       description

@@ -12,13 +12,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import useLoginUser from '../../../api/users/useLoginUser';
-import SuccessSnackbar from '../../common/successSnackbar';
 
 export default function LoginForm() {
   const router = useRouter();
   const [isError, setIsError] = React.useState(false);
   const [msgError, setMsgError] = React.useState(null);
-  const [showSnackbar, setShowSnackbar] = React.useState(false);
 
   const onSuccess = (successData) => {
     // console.log(successData.data);
@@ -122,10 +120,6 @@ export default function LoginForm() {
             {msgError}
           </Alert>
         )}
-        <SuccessSnackbar
-          successMessage='User logged In!'
-          showSnackbar={showSnackbar}
-        />
       </Box>
     </Container>
   );

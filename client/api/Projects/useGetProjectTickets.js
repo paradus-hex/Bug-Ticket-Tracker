@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const getProjectTickets = (projectID) => {
-  return axios.get(`http://localhost:8000/api/v1/projects/${projectID}`);
+  return axios.get(`https://api.bugtracker.click/api/v1/projects/${projectID}`);
 };
 
 export const useGetProjectTickets = (projectID) => {
